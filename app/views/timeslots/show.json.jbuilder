@@ -1,1 +1,1 @@
-json.partial! "timeslots/timeslot", user: @user
+json.partial! "timeslots/timeslot", timeslot: @timeslot
