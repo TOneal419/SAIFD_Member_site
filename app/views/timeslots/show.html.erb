@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Timeslot ID:</strong>
+  <%= @timeslot.timeslot_id %>
+</p>
+
+<p>
+  <strong>Attendance ID:</strong>
+  <%= @timeslot.attendance_id %>
+</p>
+
+<p>
+  <strong>Attend Time Start:</strong>
+  <%= @timeslot.attend_time_start %>
+</p>
+
+<p>
+  <strong>Attend Time End:</strong>
+  <%= @timeslot.attend_time_end %>
+</p>
+
+<p>
+  <strong>Event Time Start:</strong>
+  <%= @timeslot.event_time_start %>
+</p>
+
+<p>
+  <strong>Event Time End:</strong>
+  <%= @timeslot.event_time_end %>
+</p>
+
+<%= link_to 'Edit', edit_timeslot_path(@timeslot) %> |
+<%= link_to 'Back', timeslots_path %>
