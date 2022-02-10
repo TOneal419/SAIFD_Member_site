@@ -3,9 +3,19 @@ class Admins::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       admin = Admin.from_google(**from_google_params)
   
       if admin.present?
-        sign_out_all_scopes
-        flash[:success] = t 'devise.omniauth_callbacks.success', kind: 'Google'
-        sign_in_and_redirect admin, event: :authentication
+        userExists = !User.where(email: admin.email).blank?
+
+        # if user exists, log them into the dashboard
+        if userExists
+          sign_out_all_scopes
+          flash[:success] = t 'devise.omniauth_callbacks.success', kind: 'Google'
+          sign_in_and_redirect admin, event: :authentication
+        
+        # otherwise, have them fill out other required fields (ie: class year)
+        else
+          redirect_to new_user_path(:google_email => admin.email, :google_name => admin.full_name, :google_pfp => admin.avatar_url)
+        end
+        
       else
         flash[:alert] = t 'devise.omniauth_callbacks.failure', kind: 'Google', reason: "#{auth.info.email} is not authorized."
         redirect_to new_admin_session_path

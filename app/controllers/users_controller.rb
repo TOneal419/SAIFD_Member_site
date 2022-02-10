@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
+  
+  # allows /users#new (which has been routed to /auth/sign_up) to not require authentication
+  skip_before_action :authenticate_admin!, :only => [:new, :create, :show]
 
   # GET /users or /users.json
   def index
@@ -10,9 +13,28 @@ class UsersController < ApplicationController
   def show
   end
 
+  
+  @@_google_email = nil
   # GET /users/new
   def new
-    @user = User.new
+    # grab parameters that were passed from google_oauth2
+    @google_email = params['google_email']
+    @google_name = params['google_name']
+    @google_names = @google_name.split
+    @google_pfp = params['google_pfp']
+    @user = User.new(email: @google_email, first_name: @google_names[0], last_name: @google_names[1])
+
+    ### helps mitigate URL tampering
+    # class variable uninitialized, initialize it... no (detected) tampering
+    if @@_google_email.nil?
+      @@_google_email = @google_email
+    
+    # otherwise, @@_google_email is nil and user tried tampering, redirect back with correct parameters
+    else
+      if @@_google_email != @google_email
+        redirect_to new_user_path(:google_email => @@_google_email, :google_name => @google_name, :google_pfp => @google_pfp)
+      end
+    end
   end
 
   # GET /users/1/edit
@@ -21,6 +43,8 @@ class UsersController < ApplicationController
 
   # POST /users or /users.json
   def create
+    # TODO: figure out how to change param for role_id
+    # TODO: figure out how to only display notice information once
     @user = User.new(user_params)
 
     respond_to do |format|

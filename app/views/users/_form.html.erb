@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= form.label :email %>
-    <%= form.text_field :email %>
+    <%= form.text_field :email, :value => user.email, :readonly => true %>
   </div>
 
   <div class="field">
@@ -27,18 +27,8 @@
   </div>
 
   <div class="field">
-    <%= form.label :class_year %>
+    <%= form.label :class_year, :value => "Graduation Year" %>
     <%= form.number_field :class_year %>
-  </div>
-
-  <div class="field">
-    <%= form.label :role_id %>
-    <%= form.number_field :role_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.number_field :user_id %>
   </div>
 
   <div class="actions">
