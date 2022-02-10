@@ -43,9 +43,10 @@ class UsersController < ApplicationController
 
   # POST /users or /users.json
   def create
-    # TODO: figure out how to change param for role_id
     # TODO: figure out how to only display notice information once
+    # TODO: make sure everything routes to the proper places in User form
     @user = User.new(user_params)
+    @user.update(role_id: 0) # ENSURE that privilleges are 0 (aka normal user)
 
     respond_to do |format|
       if @user.save
