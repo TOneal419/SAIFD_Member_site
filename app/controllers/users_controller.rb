@@ -43,7 +43,7 @@ class UsersController < ApplicationController
 
   # POST /users or /users.json
   def create
-    # TODO: figure out how to only display notice information once
+    # TODO: make default admin acc... password can be changed
     # TODO: make sure everything routes to the proper places in User form
     @user = User.new(user_params)
     @user.update(role_id: 0) # ENSURE that privilleges are 0 (aka normal user)
