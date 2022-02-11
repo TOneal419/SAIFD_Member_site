@@ -23,18 +23,12 @@ class UsersController < ApplicationController
     # TODO: /user/new doesnt work
     # TODO: test putting malicious email params in URL initially
     # ie: without being logged in, going to /user/new?email='admin@tamu.edu'
-    # TODO: rescaffold entities
 
     @google_pfp = params['google_pfp']
     @google_name = params['google_name']
-    @google_names = nil
+    @google_names = @google_name.split
 
-    @user = nil
-
-    if !@google_name.nil?
-      @google_names = @google_name.split
-      @user = User.new(email: @google_email, first_name: @google_names[0], last_name: @google_names[1])
-    end
+    @user = User.new(email: @google_email, first_name: @google_names[0], last_name: @google_names[1])
 
     ### helps mitigate URL tampering
     # class variable uninitialized, initialize it... no (detected) tampering
