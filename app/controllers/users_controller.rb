@@ -20,19 +20,10 @@ class UsersController < ApplicationController
     # grab parameters that were passed from google_oauth2
     @google_email = params['google_email']
 
+    # TODO: /user/new doesnt work
     # TODO: test putting malicious email params in URL initially
-
-    # puts "::::HERE::::"
-    # puts @google_email
-    # puts !params.has_key?(:google_email)
-    # puts @google_email.nil?
-    # puts @google_email.strip.empty?
-    # puts !@google_email
-    # # implies that something went wrong with OAuth OR malicious
-    # if !params.has_key?(:google_email) || @google_email.nil? || @google_email.strip.empty? || !@google_email
-    #   puts "RENDER INDEX HERE"
-    #   render :index
-    # end
+    # ie: without being logged in, going to /user/new?email='admin@tamu.edu'
+    # TODO: rescaffold entities
 
     @google_pfp = params['google_pfp']
     @google_name = params['google_name']
@@ -67,6 +58,7 @@ class UsersController < ApplicationController
     # TODO: make sure everything routes to the proper places in User form
     @user = User.new(user_params)
     @user.update(role_id: 0) # ENSURE that privilleges are 0 (aka normal user)
+    @user.update(report_rate: 'Disabled') # by default, normal users shouldn't have reports
 
     respond_to do |format|
       if @user.save
@@ -110,6 +102,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:email, :first_name, :last_name, :class_year, :role_id, :user_id)
+      params.require(:user).permit(:email, :first_name, :last_name, :class_year, :role_id, :report_rate, :user_id)
     end
 end
