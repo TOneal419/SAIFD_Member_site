@@ -24,7 +24,6 @@ class UsersController < ApplicationController
       return redirect_to action: "index"
     end
 
-    # TODO: /user/new doesnt work
     # TODO: test putting malicious email params in URL initially
     # ie: without being logged in, going to /user/new?email='admin@tamu.edu'
 
