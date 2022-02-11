@@ -13,7 +13,7 @@ class UsersController < ApplicationController
   def show
   end
 
-  
+  @@_google_email = nil
   # GET /users/new
   def new
     # grab parameters that were passed from google_oauth2
