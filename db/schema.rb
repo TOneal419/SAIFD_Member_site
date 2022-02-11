@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_09_221538) do
+ActiveRecord::Schema.define(version: 2022_02_11_200536) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,16 @@ ActiveRecord::Schema.define(version: 2022_02_09_221538) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_admins_on_email", unique: true
+  end
+
+  create_table "announcements", force: :cascade do |t|
+    t.integer "announcement_id"
+    t.string "title"
+    t.string "description"
+    t.datetime "posted_on"
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "attendances", force: :cascade do |t|
@@ -51,23 +61,13 @@ ActiveRecord::Schema.define(version: 2022_02_09_221538) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "timeslots", force: :cascade do |t|
-    t.integer "timeslot_id"
-    t.integer "attendance_id"
-    t.time "attend_time_start"
-    t.time "attend_time_end"
-    t.time "event_time_start"
-    t.time "event_time_end"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "first_name"
     t.string "last_name"
     t.integer "class_year"
     t.integer "role_id"
+    t.string "report_rate"
     t.serial "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

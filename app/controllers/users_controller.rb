@@ -58,6 +58,7 @@ class UsersController < ApplicationController
     # TODO: make sure everything routes to the proper places in User form
     @user = User.new(user_params)
     @user.update(role_id: 0) # ENSURE that privilleges are 0 (aka normal user)
+    @user.update(report_rate: 'Disabled') # by default, normal users shouldn't have reports
 
     respond_to do |format|
       if @user.save
@@ -101,6 +102,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:email, :first_name, :last_name, :class_year, :role_id, :user_id)
+      params.require(:user).permit(:email, :first_name, :last_name, :class_year, :role_id, :report_rate, :user_id)
     end
 end

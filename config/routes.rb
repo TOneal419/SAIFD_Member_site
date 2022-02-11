@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :announcements
   root to: 'dashboards#show'
   devise_for :admins, controllers: { omniauth_callbacks: 'admins/omniauth_callbacks' }
   devise_scope :admin do
@@ -7,7 +8,6 @@ Rails.application.routes.draw do
     get 'auth/sign_up', to: 'users#new', as: :new_user
   end
   
-  resources :timeslots
   resources :events
   resources :attendances
   resources :roles

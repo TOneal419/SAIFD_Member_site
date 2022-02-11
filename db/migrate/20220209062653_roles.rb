@@ -20,6 +20,8 @@ class Roles < ActiveRecord::Migration[6.1]
   def self.down
     execute <<-SQL
       DELETE FROM roles WHERE role_id=0;
+      DELETE FROM roles WHERE role_id=1;
+      DELETE FROM roles WHERE role_id=2;
     SQL
   end
 end
