@@ -49,14 +49,13 @@ class UsersController < ApplicationController
 
   # POST /users or /users.json
   def create
-    # TODO: make sure everything routes to the proper places in User form
     @user = User.new(user_params)
     @user.update(role_id: 0) # ENSURE that privilleges are 0 (aka normal user)
     @user.update(report_rate: 'Disabled') # by default, normal users shouldn't have reports
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to user_url(@user), notice: "User was successfully created." }
+        format.html { redirect_to user_url(@user), notice: "User was successfully created. Please log in again to confirm." }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new, status: :unprocessable_entity }
