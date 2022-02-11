@@ -1,4 +1,4 @@
-class User < ApplicationRecord
+class User < ApplicationRecord  
     validates :email, presence: true
     validates :first_name, presence: true, format: { with: /\A[A-Za-z][A-Za-z\'\-]+([\ A-Za-z][A-Za-z\'\-]+)*\z/, message: "make sure you only entered letters and appropriate special characters" }
     validates :last_name, presence: true, format: { with: /\A[A-Za-z][A-Za-z\'\-]+([\ A-Za-z][A-Za-z\'\-]+)*\z/, message: "make sure you only entered letters and appropriate special characters" }
