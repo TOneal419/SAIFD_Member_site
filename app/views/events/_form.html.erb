@@ -31,6 +31,16 @@
     <%= form.date_field :date %>
   </div>
 
+  <div class="field">
+    <%= form.label :event_time_start %>
+    <%= form.time_field :event_time_start %>
+  </div>
+
+  <div class="field">
+    <%= form.label :event_time_end %>
+    <%= form.time_field :event_time_end %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>
