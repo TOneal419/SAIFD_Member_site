@@ -12,6 +12,8 @@ class Roles < ActiveRecord::Migration[6.1]
     # by default, user role will be 0
     execute <<-SQL
       INSERT INTO roles(role_id, is_officer, is_admin, title, created_at, updated_at) VALUES (0, false, false, 'User', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+      INSERT INTO roles(role_id, is_officer, is_admin, title, created_at, updated_at) VALUES (1, true, false, 'Officer', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+      INSERT INTO roles(role_id, is_officer, is_admin, title, created_at, updated_at) VALUES (2, false, true, 'Admin', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
     SQL
   end
 
