@@ -14,18 +14,18 @@ class UsersController < ApplicationController
   end
 
   
-  @@_google_email = nil
   # GET /users/new
   def new
     # grab parameters that were passed from google_oauth2
     @google_email = params['google_email']
 
-    if @google_email.nil? || @google_email.strip.empty?
-      return redirect_to action: "index"
-    end
+    # TODO: fix this
+    # if @google_email.nil? || @google_email.strip.empty?
+    #   return redirect_to action: "index"
+    # end
 
     # TODO: test putting malicious email params in URL initially
-    # ie: without being logged in, going to /user/new?email='admin@tamu.edu'
+    # ie: without being logged in, going to http://localhost:3000/auth/sign_up?google_email=isaacy13%40tamu.edu&google_name=Isaac+Yeang&google_pfp=https%3A%2F%2Flh3.googleusercontent.com%2Fa%2FAATXAJzAQUunvw41yV2DAKpcTTS_Q-N_LjvIkov7Yt43%3Ds96-c
 
     @google_pfp = params['google_pfp']
     @google_name = params['google_name']
