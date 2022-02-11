@@ -19,10 +19,31 @@ class UsersController < ApplicationController
   def new
     # grab parameters that were passed from google_oauth2
     @google_email = params['google_email']
-    @google_name = params['google_name']
-    @google_names = @google_name.split
+
+    # TODO: test putting malicious email params in URL initially
+
+    # puts "::::HERE::::"
+    # puts @google_email
+    # puts !params.has_key?(:google_email)
+    # puts @google_email.nil?
+    # puts @google_email.strip.empty?
+    # puts !@google_email
+    # # implies that something went wrong with OAuth OR malicious
+    # if !params.has_key?(:google_email) || @google_email.nil? || @google_email.strip.empty? || !@google_email
+    #   puts "RENDER INDEX HERE"
+    #   render :index
+    # end
+
     @google_pfp = params['google_pfp']
-    @user = User.new(email: @google_email, first_name: @google_names[0], last_name: @google_names[1])
+    @google_name = params['google_name']
+    @google_names = nil
+
+    @user = nil
+
+    if !@google_name.nil?
+      @google_names = @google_name.split
+      @user = User.new(email: @google_email, first_name: @google_names[0], last_name: @google_names[1])
+    end
 
     ### helps mitigate URL tampering
     # class variable uninitialized, initialize it... no (detected) tampering
@@ -43,7 +64,6 @@ class UsersController < ApplicationController
 
   # POST /users or /users.json
   def create
-    # TODO: make default admin acc... password can be changed
     # TODO: make sure everything routes to the proper places in User form
     @user = User.new(user_params)
     @user.update(role_id: 0) # ENSURE that privilleges are 0 (aka normal user)
