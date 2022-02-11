@@ -20,6 +20,10 @@ class UsersController < ApplicationController
     # grab parameters that were passed from google_oauth2
     @google_email = params['google_email']
 
+    if @google_email.nil? || @google_email.strip.empty?
+      return redirect_to action: "index"
+    end
+
     # TODO: /user/new doesnt work
     # TODO: test putting malicious email params in URL initially
     # ie: without being logged in, going to /user/new?email='admin@tamu.edu'
