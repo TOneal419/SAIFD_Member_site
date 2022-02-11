@@ -3,7 +3,8 @@ class Attendances < ActiveRecord::Migration[6.1]
     create_table :attendances do |t|
       t.integer :event_id
       t.integer :user_id
-      t.integer :attendance_id
+      t.time :attend_time_start
+      t.time :attend_time_end
 
       t.timestamps
     end
