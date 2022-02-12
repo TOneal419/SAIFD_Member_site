@@ -11,8 +11,13 @@
 </p>
 
 <p>
-  <strong>Attendance ID:</strong>
-  <%= @attendance.attendance_id %>
+  <strong>Attendance Time Start:</strong>
+  <%= @attendance.attend_time_start %>
+</p>
+
+<p>
+	<strong>Attendance Time End:</strong>
+	<%= @attendance.attend_time_end %>
 </p>
 
 <%= link_to 'Edit', edit_attendance_path(@attendance) %> |

@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 2022_02_11_200536) do
     t.integer "class_year"
     t.integer "role_id"
     t.string "report_rate"
-    t.serial "user_id"
+    t.serial "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
