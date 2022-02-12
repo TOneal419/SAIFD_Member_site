@@ -118,8 +118,6 @@ end
 
  RSpec.describe 'Create announcement', type: :feature do
   scenario 'valid inputs' do
-
-
     visit root_path
     mock_auth_hash
     click_link "Sign in with Google"
