@@ -1,7 +1,6 @@
 # location: spec/feature/integration_spec.rb
 require 'rails_helper'
-
-# OmniAuth.config.test_mode = true
+require 'rspec/rails'
 
 def mock_auth_hash
   OmniAuth.config.test_mode = true
@@ -19,8 +18,6 @@ def mock_auth_hash
     }
   )
 end
-#  OmniAuth.config.add_mock(:google, {:uid => '12345'})
-
 
 RSpec.describe 'Creating a User', type: :feature do
   scenario 'valid inputs' do
@@ -53,8 +50,6 @@ end
     visit root_path
     mock_auth_hash
     click_link "Sign in with Google"
-
-
     
     fill_in 'First name', with: 'Jake'
     fill_in 'Last name', with: 'Marston'
@@ -90,12 +85,9 @@ end
  RSpec.describe 'Log attendance', type: :feature do
   scenario 'valid inputs' do
 
-
     visit root_path
     mock_auth_hash
     click_link "Sign in with Google"
-
-
     
     fill_in 'First name', with: 'Jake'
     fill_in 'Last name', with: 'Marston'
@@ -107,33 +99,30 @@ end
     
     expect(page).to have_content("You're logged in! Welcome to the Admin Dashboard!")
     click_link 'Log Attendance Record'
-    
 
-     fill_in 'Event', with: '1'
-     fill_in 'User', with: "1"
-     fill_in 'Attend time start', with: '1:15'
-     fill_in 'Attend time end', with: '2:50'
-     click_on 'Create Attendance'
+    fill_in 'Event', with: '1'
+    fill_in 'User', with: "1"
+    fill_in 'Attend time start', with: '1:15'
+    fill_in 'Attend time end', with: '2:50'
+    click_on 'Create Attendance'
 
-     expect(page).to have_content("Event ID: 1")
-     expect(page).to have_content("Title: it's pretty crazy")
-     expect(page).to have_content("Description: some crazy event")
-     expect(page).to have_content("Date: 2020-11-15")
+    expect(page).to have_content("Event ID: 1")
+    expect(page).to have_content("Title: it's pretty crazy")
+    expect(page).to have_content("Description: some crazy event")
+    expect(page).to have_content("Date: 2020-11-15")
 
      
    end
  end
 
 
- RSpec.describe 'Log attendance', type: :feature do
+ RSpec.describe 'Create announcement', type: :feature do
   scenario 'valid inputs' do
 
 
     visit root_path
     mock_auth_hash
     click_link "Sign in with Google"
-
-
     
     fill_in 'First name', with: 'Jake'
     fill_in 'Last name', with: 'Marston'
@@ -152,11 +141,11 @@ end
      fill_in 'Description', with: 'the flowers have finally attacked'
 
      
-     select '2022', :from => 'annouoncement_posted_on_1i'
-     select 'February', :from => 'annouoncement_posted_on_2i'
-     select '12', :from => 'annouoncement_posted_on_3i'
-     select '11', :from => 'annouoncement_posted_on_4i'
-     select '45', :from => 'annouoncement_posted_on_5i'
+     select '2022', :from => 'announcement_posted_on_1i'
+     select 'February', :from => 'announcement_posted_on_2i'
+     select '12', :from => 'announcement_posted_on_3i'
+     select '11', :from => 'announcement_posted_on_4i'
+     select '45', :from => 'announcement_posted_on_5i'
 
      fill_in 'User', with: '1'
      click_on 'Make Announcement'
