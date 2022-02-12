@@ -2,35 +2,39 @@
 
 # AttendancesController
 class AttendancesController < ApplicationController
-  before_action :set_attendance, only: %i[show edit update destroy]
-
-  # GET /attendances or /attendances.json
-  def index
-    @attendances = Attendance.all
-  end
-
-  # GET /attendances/1 or /attendances/1.json
-  def show; end
-
-  # GET /attendances/new
-  def new
-    @attendance = Attendance.new
-  end
-
-  # GET /attendances/1/edit
-  def edit; end
-
-  # POST /attendances or /attendances.json
-  def create
-    @attendance = Attendance.new(attendance_params)
-
-    respond_to do |format|
-      if @attendance.save
-        format.html { redirect_to attendance_url(@attendance), notice: 'Attendance was successfully created.' }
-        format.json { render :show, status: :created, location: @attendance }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @attendance.errors, status: :unprocessable_entity }
+    before_action :set_attendance, only: %i[ show edit update destroy ]
+  
+    # GET /attendances or /attendances.json
+    def index
+      @attendances = Attendance.all
+    end
+  
+    # GET /attendances/1 or /attendances/1.json
+    def show
+    end
+  
+    # GET /attendances/new
+    def new
+      @attendance = Attendance.new
+    end
+  
+    # GET /attendances/1/edit
+    def edit
+    end
+  
+    # POST /attendances or /attendances.json
+    def create
+      @attendance = Attendance.new(attendance_params)
+      # @attendance.update(user_id: ) # TODO: automatically set user_id here...
+  
+      respond_to do |format|
+        if @attendance.save
+          format.html { redirect_to attendance_url(@attendance), notice: "Attendance was successfully created." }
+          format.json { render :show, status: :created, location: @attendance }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @attendance.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
