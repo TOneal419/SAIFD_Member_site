@@ -125,7 +125,7 @@ end
  end
 
 
- RSpec.describe 'Log attendance', type: :feature do
+ RSpec.describe 'creating an anouncement', type: :feature do
   scenario 'valid inputs' do
 
 
