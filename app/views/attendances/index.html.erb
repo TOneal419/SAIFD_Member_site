@@ -7,8 +7,9 @@
     <tr>
       <th>Event ID</th>
       <th>User ID</th>
-      <th>Attendance ID</th>
-      <th colspan="3"></th>
+      <th>Attendance Time Start</th>
+	  <th>Attendance Time End</th>
+      <th colspan="4"></th>
     </tr>
   </thead>
 
@@ -17,7 +18,8 @@
       <tr>
         <td><%= attendance.event_id %></td>
         <td><%= attendance.user_id %></td>
-        <td><%= attendance.attendance_id %></td>
+        <td><%= attendance.attend_time_start %></td>
+		<td><%= attendance.attend_time_end %></td>
         <td><%= link_to 'Show', attendance %></td>
         <td><%= link_to 'Edit', edit_attendance_path(attendance) %></td>
         <td><%= link_to 'Destroy', attendance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -29,3 +31,5 @@
 <br>
 
 <%= link_to 'New Attendance Record', new_attendance_path %>
+<br>
+<%= link_to 'Home', root_path %>
