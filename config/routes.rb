@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   resources :announcements
   root to: 'dashboards#show'
@@ -7,7 +9,7 @@ Rails.application.routes.draw do
     get 'auth/sign_out', to: 'admins/sessions#destroy', as: :destroy_admin_session
     get 'auth/sign_up', to: 'users#new', as: :new_user
   end
-  
+
   resources :events
   resources :attendances
   resources :roles

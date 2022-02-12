@@ -1,8 +1,11 @@
+# frozen_string_literal: true
+
+# UsersController
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show edit update destroy ]
-  
+  before_action :set_user, only: %i[show edit update destroy]
+
   # allows /users#new (which has been routed to /auth/sign_up) to not require authentication
-  skip_before_action :authenticate_admin!, :only => [:new, :create, :show]
+  skip_before_action :authenticate_admin!, only: %i[new create show]
 
   # GET /users or /users.json
   def index
@@ -10,8 +13,7 @@ class UsersController < ApplicationController
   end
 
   # GET /users/1 or /users/1.json
-  def show
-  end
+  def show; end
 
   @@_google_email = nil
   # GET /users/new
@@ -37,18 +39,16 @@ class UsersController < ApplicationController
     # class variable uninitialized, initialize it... no (detected) tampering
     if @@_google_email.nil?
       @@_google_email = @google_email
-    
+
     # otherwise, @@_google_email is nil and user tried tampering, redirect back with correct parameters
-    else
-      if @@_google_email != @google_email
-        redirect_to new_user_path(:google_email => @@_google_email, :google_name => @google_name, :google_pfp => @google_pfp)
-      end
+    elsif @@_google_email != @google_email
+      redirect_to new_user_path(google_email: @@_google_email, google_name: @google_name,
+                                google_pfp: @google_pfp)
     end
   end
 
   # GET /users/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /users or /users.json
   def create
@@ -58,7 +58,9 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to user_url(@user), notice: "User was successfully created. Please log in again to confirm." }
+        format.html do
+          redirect_to user_url(@user), notice: 'User was successfully created. Please log in again to confirm.'
+        end
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -71,7 +73,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to user_url(@user), notice: "User was successfully updated." }
+        format.html { redirect_to user_url(@user), notice: 'User was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -85,19 +87,20 @@ class UsersController < ApplicationController
     @user.destroy
 
     respond_to do |format|
-      format.html { redirect_to users_url, notice: "User was successfully destroyed." }
+      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def user_params
-      params.require(:user).permit(:email, :first_name, :last_name, :class_year, :role_id, :report_rate, :user_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def user_params
+    params.require(:user).permit(:email, :first_name, :last_name, :class_year, :role_id, :report_rate, :user_id)
+  end
 end
