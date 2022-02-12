@@ -22,7 +22,6 @@ class AttendancesController < ApplicationController
     # POST /attendances or /attendances.json
     def create
       @attendance = Attendance.new(attendance_params)
-      # TODO: map attendance's event_ids to event_names
       # @attendance.update(user_id: ) # TODO: automatically set user_id here...
   
       respond_to do |format|
