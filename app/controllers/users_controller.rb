@@ -15,7 +15,6 @@ class UsersController < ApplicationController
   # GET /users/1 or /users/1.json
   def show; end
 
-  @@_google_email = nil
   # GET /users/new
   def new
     # grab parameters that were passed from google_oauth2
@@ -34,17 +33,6 @@ class UsersController < ApplicationController
     @google_names = @google_name.split
 
     @user = User.new(email: @google_email, first_name: @google_names[0], last_name: @google_names[1])
-
-    ### helps mitigate URL tampering
-    # class variable uninitialized, initialize it... no (detected) tampering
-    if @@_google_email.nil?
-      @@_google_email = @google_email
-
-    # otherwise, @@_google_email is nil and user tried tampering, redirect back with correct parameters
-    elsif @@_google_email != @google_email
-      redirect_to new_user_path(google_email: @@_google_email, google_name: @google_name,
-                                google_pfp: @google_pfp)
-    end
   end
 
   # GET /users/1/edit
