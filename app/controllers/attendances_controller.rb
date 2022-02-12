@@ -37,7 +37,6 @@ class AttendancesController < ApplicationController
         end
       end
     end
-  end
 
   # PATCH/PUT /attendances/1 or /attendances/1.json
   def update

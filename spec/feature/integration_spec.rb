@@ -98,18 +98,33 @@ end
     click_link "Sign in with Google"
     
     expect(page).to have_content("You're logged in! Welcome to the Admin Dashboard!")
-    click_link 'Log Attendance Record'
+    
+    click_link 'Make Event'
+    
 
-    fill_in 'Event', with: '1'
+     fill_in 'Event', with: '1'
+     fill_in 'Title', with: "Test Event"
+     fill_in 'Description', with: 'some crazy event'
+
+
+     fill_in 'event_date', with: '2020/11/15'
+     fill_in 'Event time start', with: '2:30 PM'
+     fill_in 'Event time end', with: '5:50 PM'
+     click_on 'Create Event'
+     click_link 'Back'
+     click_link 'Home'
+    
+    click_link 'Log Attendance Record'
+    select 'Test Event', :from => 'Event'
     fill_in 'User', with: "1"
     fill_in 'Attend time start', with: '1:15'
     fill_in 'Attend time end', with: '2:50'
     click_on 'Create Attendance'
 
-    expect(page).to have_content("Event ID: 1")
-    expect(page).to have_content("Title: it's pretty crazy")
-    expect(page).to have_content("Description: some crazy event")
-    expect(page).to have_content("Date: 2020-11-15")
+    expect(page).to have_content("Event ID: 2")
+    expect(page).to have_content("User ID: 1")
+    expect(page).to have_content("Attendance Time Start: 2000-01-01 01:15:00 UTC")
+    expect(page).to have_content("Attendance Time End: 2000-01-01 02:50:00 UTC")
 
      
    end
@@ -131,28 +146,47 @@ end
     click_link "Sign in with Google"
     
     expect(page).to have_content("You're logged in! Welcome to the Admin Dashboard!")
-    click_link 'Log Attendance Record'
+    
+    click_link 'Make Event'
     
 
-     fill_in 'announcement_announcement_id', with: '1'
-     fill_in 'Title', with: "DANGER"
-     fill_in 'Description', with: 'the flowers have finally attacked'
+     fill_in 'Event', with: '1'
+     fill_in 'Title', with: "it's pretty crazy"
+     fill_in 'Description', with: 'some crazy event'
 
+
+     fill_in 'event_date', with: '2020/11/15'
+     fill_in 'Event time start', with: '2:30 PM'
+     fill_in 'Event time end', with: '5:50 PM'
+     click_on 'Create Event'
+     expect(page).to have_content("Event ID: 1")
+     expect(page).to have_content("Title: it's pretty crazy")
+     expect(page).to have_content("Description: some crazy event")
      
-     select '2022', :from => 'announcement_posted_on_1i'
-     select 'February', :from => 'announcement_posted_on_2i'
-     select '12', :from => 'announcement_posted_on_3i'
-     select '11', :from => 'announcement_posted_on_4i'
-     select '45', :from => 'announcement_posted_on_5i'
+     click_link 'Back'
+     click_link 'Home'
+    
+    click_link 'Make Announcement'
 
-     fill_in 'User', with: '1'
-     click_on 'Make Announcement'
+    fill_in 'announcement_announcement_id', with: '1'
+    fill_in 'Title', with: "DANGER"
+    fill_in 'Description', with: 'the flowers have finally attacked'
 
-     expect(page).to have_content("Announcement: 1 ")
-     expect(page).to have_content("Title: DANGER ")
-     expect(page).to have_content("Description: the flowers have finally attacked ")
-     expect(page).to have_content("Posted on: 2022-02-12 11:45:00 UTC ")
-     expect(page).to have_content("User: 1")
+    
+    select '2022', :from => 'announcement_posted_on_1i'
+    select 'February', :from => 'announcement_posted_on_2i'
+    select '12', :from => 'announcement_posted_on_3i'
+    select '11', :from => 'announcement_posted_on_4i'
+    select '45', :from => 'announcement_posted_on_5i'
+
+    fill_in 'User', with: 'test@tamu.edu'
+    click_on 'Create Announcement'
+
+    expect(page).to have_content("Announcement: 1")
+    expect(page).to have_content("Title: DANGER")
+    expect(page).to have_content("Description: the flowers have finally attacked")
+    expect(page).to have_content("Posted on: 2022-02-12 11:45:00 UTC")
+    expect(page).to have_content("User: 0") # TODO: this may be wrong
 
      
    end
