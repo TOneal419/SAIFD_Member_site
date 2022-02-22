@@ -23,12 +23,17 @@
 
   <div class="field">
     <%= form.label :attend_time_start %>
-    <%= form.number_field :attend_time_start %>
+    <%= form.time_field :attend_time_start %>
   </div>
 
   <div class="field">
     <%= form.label :attend_time_end %>
-    <%= form.number_field :attend_time_end %>
+    <%= form.time_field :attend_time_end %>
+  </div>
+
+  <div class="field">
+    <%= form.label "Do you plan to attend, but have not yet?" %>
+    <%= form.check_box :plans_to_attend %>
   </div>
 
   <div class="actions">

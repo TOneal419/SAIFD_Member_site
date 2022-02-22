@@ -9,7 +9,8 @@
       <th>User ID</th>
       <th>Attendance Time Start</th>
 	  <th>Attendance Time End</th>
-      <th colspan="4"></th>
+	  <th>Plans to Attend?</th>
+      <th colspan="5"></th>
     </tr>
   </thead>
 
@@ -20,6 +21,7 @@
         <td><%= attendance.user_id %></td>
         <td><%= attendance.attend_time_start %></td>
 		<td><%= attendance.attend_time_end %></td>
+		<td><%= attendance.plans_to_attend %></td>
         <td><%= link_to 'Show', attendance %></td>
         <td><%= link_to 'Edit', edit_attendance_path(attendance) %></td>
         <td><%= link_to 'Destroy', attendance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
