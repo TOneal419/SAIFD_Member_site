@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= form.label :announcement_id %>
-    <%= form.text_field :announcement_id %>
+    <%= form.number_field :announcement_id %>
   </div>
 
   <div class="field">
@@ -33,7 +33,12 @@
 
   <div class="field">
     <%= form.label :user_id %>
-    <%= form.text_field :user_id %>
+    <%= form.number_field :user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :event_id %>
+    <%= form.number_field :event_id %>
   </div>
 
   <div class="actions">
