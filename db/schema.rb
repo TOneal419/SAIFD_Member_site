@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_22_202044) do
+ActiveRecord::Schema.define(version: 2022_02_23_023029) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,17 @@ ActiveRecord::Schema.define(version: 2022_02_22_202044) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "permissions", force: :cascade do |t|
+    t.integer "permission_id"
+    t.string "title"
+    t.boolean "is_admin"
+    t.boolean "create_modify_events"
+    t.boolean "create_modify_announcements"
+    t.boolean "view_all_attendances"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "roles", force: :cascade do |t|
     t.integer "role_id"
     t.boolean "is_officer"
@@ -73,7 +84,7 @@ ActiveRecord::Schema.define(version: 2022_02_22_202044) do
     t.integer "class_year"
     t.integer "role_id"
     t.string "report_rate"
-    t.serial "user_id"
+    t.serial "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

@@ -18,7 +18,7 @@
 
   <div class="field">
     <%= form.label :user_id %>
-    <%= form.number_field :user_id %>
+    <%= form.select :user_id, User.order(:email).map{ |user| [user.email, user.id]}, include_blank: true, id: "id_of_the_user_id_select_box" %>
   </div>
 
   <div class="field">

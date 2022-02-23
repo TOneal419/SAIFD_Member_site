@@ -17,8 +17,8 @@
   <tbody>
     <% @attendances.each do |attendance| %>
       <tr>
-        <td><%= attendance.event_id %></td>
-        <td><%= attendance.user_id %></td>
+        <td><%= Event.where(id: attendance.event_id).last.title %></td>
+        <td><%= User.where(id: attendance.user_id).last.email %></td>
         <td><%= attendance.attend_time_start %></td>
 		<td><%= attendance.attend_time_end %></td>
 		<td><%= attendance.plans_to_attend %></td>
