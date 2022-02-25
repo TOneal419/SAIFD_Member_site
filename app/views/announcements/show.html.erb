@@ -22,8 +22,21 @@
 
 <p>
   <strong>User:</strong>
-  <%= @announcement.user_id %>
-</p>
+	<%= User.where(id: @announcement.user_id).last.email %>
+  </p>
+
+<p>
+  <strong>Event:</strong>
+	<% if @announcement.event_id.present? %>
+		<td>
+			<%= Event.where(id: @announcement.event_id).last.title %>
+		</td>
+	<% else %>
+		<td>
+			<%= @announcement.event_id %>
+		</td>
+	<% end %>
+  </p>
 
 <%= link_to 'Edit', edit_announcement_path(@announcement) %> |
 <%= link_to 'Back', announcements_path %>

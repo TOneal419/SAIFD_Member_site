@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= form.label :announcement_id %>
-    <%= form.text_field :announcement_id %>
+    <%= form.number_field :announcement_id %>
   </div>
 
   <div class="field">
@@ -33,7 +33,12 @@
 
   <div class="field">
     <%= form.label :user_id %>
-    <%= form.text_field :user_id %>
+    <%= form.select :user_id, User.order(:email).map{ |user| [user.email, user.id]}, include_blank: true, id: "id_of_the_user_id_select_box" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :event_id %>
+    <%= form.select :event_id, Event.order(:title).map{ |event| [event.title, event.id]}, include_blank: true, id: "id_of_the_event_id_select_box" %>
   </div>
 
   <div class="actions">
