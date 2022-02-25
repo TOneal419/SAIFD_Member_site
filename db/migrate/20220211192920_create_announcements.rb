@@ -8,7 +8,7 @@ class CreateAnnouncements < ActiveRecord::Migration[6.1]
       t.string :description
       t.datetime :posted_on
       t.integer :user_id
-      t.integer :event_id, :null = true
+      t.integer :event_id
 
       t.timestamps
     end

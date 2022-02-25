@@ -22,12 +22,20 @@
 
 <p>
   <strong>User:</strong>
-  <%= @announcement.user_id %>
+	<%= User.where(id: @announcement.user_id).last.email %>
   </p>
 
 <p>
   <strong>Event:</strong>
-  <%= @announcement.event_id %>
+	<% if @announcement.event_id.present? %>
+		<td>
+			<%= Event.where(id: @announcement.event_id).last.title %>
+		</td>
+	<% else %>
+		<td>
+			<%= @announcement.event_id %>
+		</td>
+	<% end %>
   </p>
 
 <%= link_to 'Edit', edit_announcement_path(@announcement) %> |

@@ -22,8 +22,15 @@
         <td><%= announcement.title %></td>
         <td><%= announcement.description %></td>
         <td><%= announcement.posted_on %></td>
-        <td><%= User.where(id: attendance.user_id).last.email %></td>
-		<td><%= Event.where(id: attendance.event_id).last.title %></td>
+
+		<td><%= User.where(id: announcement.user_id).last.email %></td>
+
+		<% if announcement.event_id.present? %>
+            <td><%= Event.where(id: announcement.event_id).last.title %></td>
+		<% else %>
+            <td><%= announcement.event_id %></td>
+		<% end %>
+			
         <td><%= link_to 'Show', announcement %></td>
         <td><%= link_to 'Edit', edit_announcement_path(announcement) %></td>
         <td><%= link_to 'Destroy', announcement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
