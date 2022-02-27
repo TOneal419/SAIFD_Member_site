@@ -5,7 +5,6 @@
 <table>
   <thead>
     <tr>
-      <th>Announcement</th>
       <th>Title</th>
       <th>Description</th>
       <th>Posted on</th>
@@ -18,7 +17,6 @@
   <tbody>
     <% @announcements.each do |announcement| %>
       <tr>
-        <td><%= announcement.announcement_id %></td>
         <td><%= announcement.title %></td>
         <td><%= announcement.description %></td>
         <td><%= announcement.posted_on %></td>

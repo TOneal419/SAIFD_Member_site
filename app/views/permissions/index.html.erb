@@ -5,7 +5,6 @@
 <table>
   <thead>
     <tr>
-      <th>Permission</th>
       <th>Title</th>
       <th>Is admin</th>
       <th>Create modify events</th>
@@ -18,7 +17,6 @@
   <tbody>
     <% @permissions.each do |permission| %>
       <tr>
-        <td><%= permission.permission_id %></td>
         <td><%= permission.title %></td>
         <td><%= permission.is_admin %></td>
         <td><%= permission.create_modify_events %></td>
