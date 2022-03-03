@@ -17,22 +17,8 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
-    # grab parameters that were passed from google_oauth2
-    @google_email = params['google_email']
-
-    # TODO: fix this
-    # if @google_email.nil? || @google_email.strip.empty?
-    #   return redirect_to action: "index"
-    # end
-
-    # TODO: test putting malicious email params in URL initially
-    # ie: without being logged in, going to http://localhost:3000/auth/sign_up?google_email=isaacy13%40tamu.edu&google_name=Isaac+Yeang&google_pfp=https%3A%2F%2Flh3.googleusercontent.com%2Fa%2FAATXAJzAQUunvw41yV2DAKpcTTS_Q-N_LjvIkov7Yt43%3Ds96-c
-
-    @google_pfp = params['google_pfp']
-    @google_name = params['google_name']
-    @google_names = @google_name.split
-
-    @user = User.new(email: @google_email, first_name: @google_names[0], last_name: @google_names[1])
+    @user_info = session[:current_user]
+    @user = User.new(email: @user_info["email"], first_name: @user_info["first_name"], last_name: @user_info["last_name"])
   end
 
   # GET /users/1/edit
@@ -41,7 +27,7 @@ class UsersController < ApplicationController
   # POST /users or /users.json
   def create
     @user = User.new(user_params)
-    @user.update(role_id: 0) # ENSURE that privilleges are 0 (aka normal user)
+    @user.update(permission_id: 0) # ENSURE that privilleges are 0 (aka normal user)
     @user.update(report_rate: 'Disabled') # by default, normal users shouldn't have reports
 
     respond_to do |format|

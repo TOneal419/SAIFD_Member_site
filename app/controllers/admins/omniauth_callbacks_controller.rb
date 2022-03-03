@@ -17,8 +17,9 @@ module Admins
 
         # otherwise, have them fill out other required fields (ie: class year)
         else
-          redirect_to new_user_path(google_email: admin.email, google_name: admin.full_name,
-                                    google_pfp: admin.avatar_url)
+          @names = admin.full_name.split
+          session[:current_user] = User.new(email: admin.email, first_name: @names[0], last_name: @names[1])
+          redirect_to new_user_path
         end
 
       else
