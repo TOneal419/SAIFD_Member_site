@@ -20,7 +20,7 @@
 
   <tbody>
     <% @users.each do |user| %>
-      <% @user_perm = Permission.where(id: user.permission_id).first %>
+      <% @user_perm = Permission.where(user_id: user.id).first %>
       <tr>
         <td><%= user.email %></td>
         <td><%= user.first_name %></td>
@@ -31,6 +31,7 @@
         <td><%= @user_perm.create_modify_events %></td>
         <td><%= @user_perm.create_modify_announcements %></td>
         <td><%= @user_perm.view_all_attendances %></td>
+        <td><%= link_to 'Edit', edit_user_path(user) %></td>
       </tr>
     <% end %>
   </tbody>

@@ -22,16 +22,20 @@ class UsersController < ApplicationController
   end
 
   # GET /users/1/edit
-  def edit; end
+  def edit
+    @id_token = cookies[:current_user_session]
+    @email = Admin.where(uid: @id_token).first.email
+    
+    @user = User.where(email: @email).first
+  end
 
   # POST /users or /users.json
   def create
     session[:new_user_session] = nil
 
     @user = User.new(user_params)
-    @user_permission = Permission.new(is_admin: false, create_modify_events: false, create_modify_announcements: false, view_all_attendances: false)
-    @user_permission.save
-    @user.update(permission_id: @user_permission.id)
+    @user.permission.save ## TODO: save vs update
+    @user.update(permission_id: @user.permission.id)
     @user.update(report_rate: 'Disabled') # by default, normal users shouldn't have reports
 
     respond_to do |format|
@@ -79,6 +83,6 @@ class UsersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def user_params
-    params.require(:user).permit(:email, :first_name, :last_name, :class_year, :report_rate, :permission_id)
+    params.require(:user).permit(:email, :first_name, :last_name, :class_year, :report_rate, :permission_id, permission_attributes: [:is_admin, :create_modify_events, :create_modify_announcements, :view_all_attendances])
   end
 end
