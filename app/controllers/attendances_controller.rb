@@ -27,7 +27,12 @@ class AttendancesController < ApplicationController
     # POST /attendances or /attendances.json
     def create
       @attendance = Attendance.new(attendance_params)
-      # @attendance.update(user_id: ) # TODO: automatically set user_id here...
+      @id_token = cookies[:current_user_session]
+      
+      @email = Admin.where(uid: @id_token).first.email
+      @user = User.where(email: @email).first
+
+      @attendance.update(user_id: @user.id)
 
       respond_to do |format|
         if @attendance.save
@@ -38,6 +43,7 @@ class AttendancesController < ApplicationController
           format.json { render json: @attendance.errors, status: :unprocessable_entity }
         end
       end
+
     end
   
 

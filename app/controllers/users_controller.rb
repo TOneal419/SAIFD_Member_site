@@ -17,8 +17,8 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
-    @user_info = session[:current_user]
-    @user = User.new(email: @user_info["email"], first_name: @user_info["first_name"], last_name: @user_info["last_name"])
+    @session = session[:new_user_session]
+    @user = User.new(email: @session["email"], first_name: @session["full_name"].split[0], last_name: @session["full_name"].split[1])
   end
 
   # GET /users/1/edit
@@ -26,6 +26,8 @@ class UsersController < ApplicationController
 
   # POST /users or /users.json
   def create
+    session[:new_user_session] = nil
+
     @user = User.new(user_params)
     @user.update(permission_id: 0) # ENSURE that privilleges are 0 (aka normal user)
     @user.update(report_rate: 'Disabled') # by default, normal users shouldn't have reports
