@@ -5,12 +5,12 @@
 <table>
   <thead>
     <tr>
+      <th>Permission ID</th>
       <th>Email</th>
       <th>First name</th>
       <th>Last name</th>
+      <th>Report Rate</th>
       <th>Class year</th>
-      <th>Role</th>
-      <th>User</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -18,12 +18,12 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
+        <td><%= user.permission_id %></td>
         <td><%= user.email %></td>
         <td><%= user.first_name %></td>
         <td><%= user.last_name %></td>
+        <td><%= user.report_rate %></td>
         <td><%= user.class_year %></td>
-        <td><%= user.role_id %></td>
-        <td><%= user.user_id %></td>
       </tr>
     <% end %>
   </tbody>

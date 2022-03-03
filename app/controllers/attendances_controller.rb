@@ -27,8 +27,8 @@ class AttendancesController < ApplicationController
     # POST /attendances or /attendances.json
     def create
       @attendance = Attendance.new(attendance_params)
-      @id_token = cookies[:current_user_session]
       
+      @id_token = cookies[:current_user_session]
       @email = Admin.where(uid: @id_token).first.email
       @user = User.where(email: @email).first
 

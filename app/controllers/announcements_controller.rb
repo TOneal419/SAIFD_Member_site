@@ -26,6 +26,12 @@ class AnnouncementsController < ApplicationController
   def create
     @announcement = Announcement.new(announcement_params)
 
+    @id_token = cookies[:current_user_session]
+    @email = Admin.where(uid: @id_token).first.email
+    @user = User.where(email: @email).first
+
+    @announcement.update(user_id: @user.id)
+
     respond_to do |format|
       if @announcement.save
         format.html { redirect_to announcement_url(@announcement), notice: 'Announcement was successfully created.' }
