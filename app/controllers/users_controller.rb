@@ -25,7 +25,6 @@ class UsersController < ApplicationController
   def edit
     @id_token = cookies[:current_user_session]
     @email = Admin.where(uid: @id_token).first.email
-    
     @user = User.where(email: @email).first
   end
 
@@ -34,14 +33,14 @@ class UsersController < ApplicationController
     session[:new_user_session] = nil
 
     @user = User.new(user_params)
-    @user.permission.save ## TODO: save vs update
+    @user.permission.save
     @user.update(permission_id: @user.permission.id)
     @user.update(report_rate: 'Disabled') # by default, normal users shouldn't have reports
 
     respond_to do |format|
       if @user.save
         format.html do
-          redirect_to user_url(@user), notice: 'User was successfully created. Please log in again to confirm.'
+          redirect_to new_admin_session_path, notice: 'User was successfully created. Please log in again to confirm.'
         end
         format.json { render :show, status: :created, location: @user }
       else
@@ -55,8 +54,8 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to user_url(@user), notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
+        format.html { redirect_to users_path, notice: 'User was successfully updated.' }
+        format.json { render :index, status: :ok, location: @user }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @user.errors, status: :unprocessable_entity }

@@ -36,8 +36,8 @@ class AttendancesController < ApplicationController
 
       respond_to do |format|
         if @attendance.save
-          format.html { redirect_to attendance_url(@attendance), notice: "Attendance was successfully created." }
-          format.json { render :show, status: :created, location: @attendance }
+          format.html { redirect_to attendances_path, notice: "Attendance was successfully created." }
+          format.json { render :index, status: :created, location: @attendance }
         else
           format.html { render :new, status: :unprocessable_entity }
           format.json { render json: @attendance.errors, status: :unprocessable_entity }
@@ -51,8 +51,8 @@ class AttendancesController < ApplicationController
     def update
         respond_to do |format|
           if @attendance.update(attendance_params)
-            format.html { redirect_to attendance_url(@attendance), notice: 'Attendance was successfully updated.' }
-            format.json { render :show, status: :ok, location: @attendance }
+            format.html { redirect_to attendances_path, notice: 'Attendance was successfully updated.' }
+            format.json { render :index, status: :ok, location: @attendance }
           else
             format.html { render :edit, status: :unprocessable_entity }
             format.json { render json: @attendance.errors, status: :unprocessable_entity }
