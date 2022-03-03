@@ -7,6 +7,8 @@ class AnnouncementsController < ApplicationController
   # GET /announcements or /announcements.json
   def index
     @announcements = Announcement.all
+    @events = Event.all
+    @users = User.all
   end
 
   # GET /announcements/1 or /announcements/1.json
@@ -67,6 +69,6 @@ class AnnouncementsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def announcement_params
-    params.require(:announcement).permit(:announcement_id, :title, :description, :posted_on, :user_id)
+    params.require(:announcement).permit(:title, :description, :posted_on, :user_id, :event_id)
   end
 end

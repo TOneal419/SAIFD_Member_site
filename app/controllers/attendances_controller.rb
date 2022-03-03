@@ -7,6 +7,8 @@ class AttendancesController < ApplicationController
     # GET /attendances or /attendances.json
     def index
       @attendances = Attendance.all
+      @users = User.all
+      @events = Event.all
     end
 
     # GET /attendances/1 or /attendances/1.json
@@ -71,6 +73,6 @@ class AttendancesController < ApplicationController
 
         # Only allow a list of trusted parameters through.
         def attendance_params
-            params.require(:attendance).permit(:event_id, :user_id, :attend_time_start, :attend_time_end)
+            params.require(:attendance).permit(:event_id, :user_id, :attend_time_start, :attend_time_end, :plans_to_attend)
         end
     end

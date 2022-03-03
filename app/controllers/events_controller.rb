@@ -7,6 +7,7 @@ class EventsController < ApplicationController
   # GET /events or /events.json
   def index
     @events = Event.all
+    @announcements = Announcement.all
   end
 
   # GET /events/1 or /events/1.json
@@ -67,6 +68,6 @@ class EventsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def event_params
-    params.require(:event).permit(:event_id, :title, :description, :date, :event_time_start, :event_time_end)
+    params.require(:event).permit(:title, :description, :date, :event_time_start, :event_time_end)
   end
 end

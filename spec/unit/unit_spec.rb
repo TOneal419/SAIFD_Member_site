@@ -3,7 +3,7 @@ require 'rails_helper'
 
 RSpec.describe Announcement, type: :model do
 	subject do
-		described_class.new(title: 'plant attack', description: 'plants are attacking', posted_on: '3rd Feb 2021 04:05:06+03:30', user_id: 1, announcement_id: 1)
+		described_class.new(title: 'plant attack', description: 'plants are attacking', posted_on: '3rd Feb 2021 04:05:06+03:30', user_id: 1, event_id: 1)
 	end
 
 	it 'is valid with valid attributes' do
@@ -25,20 +25,20 @@ RSpec.describe Announcement, type: :model do
 		expect(subject).not_to be_valid
 	end
 
-	it 'is not valid without an announcement id' do
-		subject.announcement_id = nil
-		expect(subject).not_to be_valid
-	end
-
 	it 'is not valid without a user_id' do
 		subject.user_id = nil
 		expect(subject).not_to be_valid
+	end
+
+	it 'is valid without a event_id' do
+		subject.event_id = nil
+		expect(subject).to be_valid
 	end
 end
 
 RSpec.describe Attendance, type: :model do
 	subject do
-		described_class.new(event_id: 1, user_id: 1, attend_time_start: 1, attend_time_end: 1)
+		described_class.new(event_id: 1, user_id: 1, attend_time_start: '1:00', attend_time_end: '2:00')
 	end
 
 	it 'is valid with valid attributes' do
@@ -68,16 +68,11 @@ end
 
 RSpec.describe Event, type: :model do
 	subject do
-		described_class.new(event_id: 1, title: 'joe dev world', description: 'welcome to joe dev world!', date: '2021-01-01')
+		described_class.new(title: 'joe dev world', description: 'welcome to joe dev world!', date: '2021-01-01', event_time_start: '12:00', event_time_end: '13:00')
 	end
 
 	it 'is valid with valid attributes' do
 		expect(subject).to be_valid
-	end
-
-	it 'is not valid without an id' do
-		subject.event_id = nil
-		expect(subject).not_to be_valid
 	end
 
 	it 'is not valid without a title' do
@@ -94,35 +89,15 @@ RSpec.describe Event, type: :model do
 		subject.date = nil
 		expect(subject).not_to be_valid
 	end
-end
 
-RSpec.describe Role, type: :model do
-	subject do
-		described_class.new(role_id: 1, is_officer: 1, is_admin: 1, title: 'la planta')
-	end
-
-	it 'is valid with valid attributes' do
-		expect(subject).to be_valid
-	end
-
-	it 'is not valid without a role_id' do
-		subject.role_id = nil
+	it 'is not valid without an event_time_start' do
+		subject.event_time_start = nil
 		expect(subject).not_to be_valid
 	end
 
-	it 'is valid without an is_officer' do
-		subject.is_officer = nil
-		expect(subject).to be_valid
-	end
-
-	it 'is valid without an is_admin' do
-		subject.is_admin = nil
-		expect(subject).to be_valid
-	end
-
-	it 'is valid without a title' do
-		subject.title = nil
-		expect(subject).to be_valid
+	it 'is not valid without an event_time_end' do
+		subject.event_time_end = nil
+		expect(subject).not_to be_valid
 	end
 end
 
@@ -168,5 +143,40 @@ RSpec.describe User, type: :model do
 	it 'is not valid with class year less than 1876' do
 		subject.class_year = 400
 		expect(subject).not_to be_valid
+	end
+end
+
+RSpec.describe Permission, type: :model do
+	subject do
+		described_class.new(title: "plant appraiser", is_admin: true, create_modify_events: true, create_modify_announcements: true, view_all_attendances: true)
+	end
+
+	it 'is valid with valid attributes' do
+		expect(subject).to be_valid
+	end
+
+	it 'is not valid without a name' do
+		subject.title = nil
+		expect(subject).not_to be_valid
+	end
+
+	it 'is valid without an is_admin' do
+		subject.is_admin = nil
+		expect(subject).to be_valid
+	end
+
+	it 'is valid without a create_modify_events' do
+		subject.create_modify_events = nil
+		expect(subject).to be_valid
+	end
+
+	it 'is valid without a create_modify_announcements' do
+		subject.create_modify_announcements = nil
+		expect(subject).to be_valid
+	end
+
+	it 'is valid without a view_all_attendances' do
+		subject.view_all_attendances = nil
+		expect(subject).to be_valid
 	end
 end

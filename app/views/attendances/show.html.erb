@@ -20,5 +20,10 @@
 	<%= @attendance.attend_time_end %>
 </p>
 
+<p>
+	<strong>Plans to Attend?</strong>
+	<%= @attendance.plans_to_attend %>
+</p>
+
 <%= link_to 'Edit', edit_attendance_path(@attendance) %> |
-<%= link_to 'Back', attendances_path %>
+<%= link_to 'View Attendances', attendances_path %>
