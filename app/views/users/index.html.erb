@@ -5,25 +5,32 @@
 <table>
   <thead>
     <tr>
-      <th>Permission ID</th>
       <th>Email</th>
       <th>First name</th>
       <th>Last name</th>
       <th>Report Rate</th>
       <th>Class year</th>
+      <th>Is Admin</th>
+      <th>Create/Modify Events</th>
+      <th>Create/Modify Announcements</th>
+      <th>View All Attendances</th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @users.each do |user| %>
+      <% @user_perm = Permission.where(id: user.permission_id).first %>
       <tr>
-        <td><%= user.permission_id %></td>
         <td><%= user.email %></td>
         <td><%= user.first_name %></td>
         <td><%= user.last_name %></td>
         <td><%= user.report_rate %></td>
         <td><%= user.class_year %></td>
+        <td><%= @user_perm.is_admin %></td>
+        <td><%= @user_perm.create_modify_events %></td>
+        <td><%= @user_perm.create_modify_announcements %></td>
+        <td><%= @user_perm.view_all_attendances %></td>
       </tr>
     <% end %>
   </tbody>

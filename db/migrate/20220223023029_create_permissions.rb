@@ -1,7 +1,6 @@
 class CreatePermissions < ActiveRecord::Migration[6.1]
   def change
     create_table :permissions do |t|
-      t.string :title
       t.boolean :is_admin
       t.boolean :create_modify_events
       t.boolean :create_modify_announcements

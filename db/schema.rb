@@ -56,7 +56,6 @@ ActiveRecord::Schema.define(version: 2022_02_23_023029) do
   end
 
   create_table "permissions", force: :cascade do |t|
-    t.string "title"
     t.boolean "is_admin"
     t.boolean "create_modify_events"
     t.boolean "create_modify_announcements"

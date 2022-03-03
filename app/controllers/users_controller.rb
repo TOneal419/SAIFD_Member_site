@@ -29,7 +29,9 @@ class UsersController < ApplicationController
     session[:new_user_session] = nil
 
     @user = User.new(user_params)
-    @user.update(permission_id: 0) # ENSURE that privilleges are 0 (aka normal user)
+    @user_permission = Permission.new(is_admin: false, create_modify_events: false, create_modify_announcements: false, view_all_attendances: false)
+    @user_permission.save
+    @user.update(permission_id: @user_permission.id)
     @user.update(report_rate: 'Disabled') # by default, normal users shouldn't have reports
 
     respond_to do |format|

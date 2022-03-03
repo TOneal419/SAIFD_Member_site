@@ -65,6 +65,6 @@ class PermissionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def permission_params
-      params.require(:permission).permit(:title, :is_admin, :create_modify_events, :create_modify_announcements, :view_all_attendances)
+      params.require(:permission).permit(:is_admin, :create_modify_events, :create_modify_announcements, :view_all_attendances)
     end
 end

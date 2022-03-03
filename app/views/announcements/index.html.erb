@@ -24,9 +24,9 @@
         <td><%= User.where(id: announcement.user_id).last.email %></td>
 
         <% if announcement.event_id.present? %>
-                <td><%= Event.where(id: announcement.event_id).last.title %></td>
+          <td><%= Event.where(id: announcement.event_id).last.title %></td>
         <% else %>
-                <td>ALL</td>
+          <td>ALL</td>
         <% end %>
 			
         <td><%= link_to 'Show', announcement %></td>
