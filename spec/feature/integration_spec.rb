@@ -168,7 +168,6 @@ end
     
     click_link 'Make Announcement'
 
-    fill_in 'announcement_announcement_id', with: '1'
     fill_in 'Title', with: "DANGER"
     fill_in 'Description', with: 'the flowers have finally attacked'
 
