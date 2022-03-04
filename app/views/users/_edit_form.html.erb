@@ -32,6 +32,27 @@
   </div>
 
   <% @user.build_permission if @user.permission.nil? %>
+  <%= form.fields_for :permission do |p| %>
+    <div class="field">
+      <%= p.label :is_admin %>
+      <%= p.check_box :is_admin %>
+    </div>
+
+    <div class="field">
+      <%= p.label :create_modify_events %>
+      <%= p.check_box :create_modify_events %>
+    </div>
+
+    <div class="field">
+      <%= p.label :create_modify_announcements %>
+      <%= p.check_box :create_modify_announcements %>
+    </div>
+
+    <div class="field">
+      <%= p.label :view_all_attendances %>
+      <%= p.check_box :view_all_attendances %>
+    </div>
+  <% end %>
 
   <div class="actions">
     <%= form.submit %>

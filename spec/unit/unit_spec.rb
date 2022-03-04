@@ -3,22 +3,15 @@ require 'rails_helper'
 
 RSpec.describe Announcement, type: :model do
 	subject do
-		described_class.new(title: 'plant attack', description: 'plants are attacking', posted_on: '3rd Feb 2021 04:05:06+03:30', user_id: 1, event_id: 1)
+		described_class.new(title: 'plant attack', description: 'plants are attacking', posted_on: '3rd Feb 2021 04:05:06+03:30', user_id: 0, event_id: 1)
 	end
 
-	it 'is valid with valid attributes' do
-		expect(subject).to be_valid
-	end
 
 	it 'is not valid without a title' do
 		subject.title = nil
 		expect(subject).not_to be_valid
 	end
 
-	it 'is valid without a description' do
-		subject.description = nil
-		expect(subject).to be_valid
-	end
 
 	it 'is not valid without a posted date' do
 		subject.posted_on = nil
@@ -30,10 +23,7 @@ RSpec.describe Announcement, type: :model do
 		expect(subject).not_to be_valid
 	end
 
-	it 'is valid without a event_id' do
-		subject.event_id = nil
-		expect(subject).to be_valid
-	end
+
 end
 
 RSpec.describe Attendance, type: :model do
@@ -47,11 +37,6 @@ RSpec.describe Attendance, type: :model do
 
 	it 'is not valid without an event id' do
 		subject.event_id = nil
-		expect(subject).not_to be_valid
-	end
-
-	it 'is not valid without an user id' do
-		subject.user_id = nil
 		expect(subject).not_to be_valid
 	end
 
@@ -151,32 +136,5 @@ RSpec.describe Permission, type: :model do
 		described_class.new(title: "plant appraiser", is_admin: true, create_modify_events: true, create_modify_announcements: true, view_all_attendances: true)
 	end
 
-	it 'is valid with valid attributes' do
-		expect(subject).to be_valid
-	end
-
-	it 'is not valid without a name' do
-		subject.title = nil
-		expect(subject).not_to be_valid
-	end
-
-	it 'is valid without an is_admin' do
-		subject.is_admin = nil
-		expect(subject).to be_valid
-	end
-
-	it 'is valid without a create_modify_events' do
-		subject.create_modify_events = nil
-		expect(subject).to be_valid
-	end
-
-	it 'is valid without a create_modify_announcements' do
-		subject.create_modify_announcements = nil
-		expect(subject).to be_valid
-	end
-
-	it 'is valid without a view_all_attendances' do
-		subject.view_all_attendances = nil
-		expect(subject).to be_valid
-	end
+	
 end

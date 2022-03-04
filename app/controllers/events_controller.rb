@@ -7,28 +7,41 @@ class EventsController < ApplicationController
   # GET /events or /events.json
   def index
     @events = Event.all
-    @announcements = Announcement.all
+    @perms = get_permissions
   end
 
   # GET /events/1 or /events/1.json
-  def show; end
+  def show
+    redirect_to '/', notice: "Attempted to access disabled route."
+  end
 
   # GET /events/new
   def new
+    if !get_permissions[:create_modify_events]
+      redirect_to '/', notice: "Insufficient permissions."
+    end
     @event = Event.new
   end
 
   # GET /events/1/edit
-  def edit; end
+  def edit
+    if !get_permissions[:create_modify_events]
+      redirect_to '/', notice: "Insufficient permissions."
+    end
+  end
 
   # POST /events or /events.json
   def create
+    if !get_permissions[:create_modify_events]
+      redirect_to '/', notice: "Insufficient permissions."
+    end
+
     @event = Event.new(event_params)
 
     respond_to do |format|
       if @event.save
-        format.html { redirect_to event_url(@event), notice: 'Event was successfully created.' }
-        format.json { render :show, status: :created, location: @event }
+        format.html { redirect_to events_path, notice: 'Event was successfully created.' }
+        format.json { render :index, status: :created, location: @event }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @event.errors, status: :unprocessable_entity }
@@ -38,10 +51,14 @@ class EventsController < ApplicationController
 
   # PATCH/PUT /events/1 or /events/1.json
   def update
+    if !get_permissions[:create_modify_events]
+      redirect_to '/', notice: "Insufficient permissions."
+    end
+
     respond_to do |format|
       if @event.update(event_params)
-        format.html { redirect_to event_url(@event), notice: 'Event was successfully updated.' }
-        format.json { render :show, status: :ok, location: @event }
+        format.html { redirect_to events_path, notice: 'Event was successfully updated.' }
+        format.json { render :index, status: :ok, location: @event }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @event.errors, status: :unprocessable_entity }
@@ -51,6 +68,10 @@ class EventsController < ApplicationController
 
   # DELETE /events/1 or /events/1.json
   def destroy
+    if !get_permissions[:create_modify_events]
+      redirect_to '/', notice: "Insufficient permissions."
+    end
+    
     @event.destroy
 
     respond_to do |format|
@@ -68,6 +89,6 @@ class EventsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def event_params
-    params.require(:event).permit(:title, :description, :date, :event_time_start, :event_time_end)
+    params.require(:event).permit(:user_id, :title, :description, :date, :event_time_start, :event_time_end)
   end
 end

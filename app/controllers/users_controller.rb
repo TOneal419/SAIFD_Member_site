@@ -9,45 +9,54 @@ class UsersController < ApplicationController
 
   # GET /users or /users.json
   def index
-    @users = User.all
+    # get permissions
+    @user = get_user
+
+    # default to only seeing self
+    @users = User.where(id: @user.id)
+
+    if get_permissions[:view_all_attendances]
+      @users = User.all
+    end
   end
 
   # GET /users/1 or /users/1.json
-  def show; end
+  def show
+    redirect_to '/', notice: "Attempted to access disabled route."
+  end
 
   # GET /users/new
   def new
-    # grab parameters that were passed from google_oauth2
-    @google_email = params['google_email']
-
-    # TODO: fix this
-    # if @google_email.nil? || @google_email.strip.empty?
-    #   return redirect_to action: "index"
-    # end
-
-    # TODO: test putting malicious email params in URL initially
-    # ie: without being logged in, going to http://localhost:3000/auth/sign_up?google_email=isaacy13%40tamu.edu&google_name=Isaac+Yeang&google_pfp=https%3A%2F%2Flh3.googleusercontent.com%2Fa%2FAATXAJzAQUunvw41yV2DAKpcTTS_Q-N_LjvIkov7Yt43%3Ds96-c
-
-    @google_pfp = params['google_pfp']
-    @google_name = params['google_name']
-    @google_names = @google_name.split
-
-    @user = User.new(email: @google_email, first_name: @google_names[0], last_name: @google_names[1])
+    @session = session[:new_user_session]
+    @user = User.new(email: @session["email"], first_name: @session["full_name"].split[0], last_name: @session["full_name"].split[1])
   end
 
   # GET /users/1/edit
-  def edit; end
+  def edit
+    if !get_permissions[:is_admin]
+      redirect_to '/', notice: "Insufficient permissions."
+    end
+
+    # grab params from URL
+    @user = User.find_by(email: params[:email])
+  end
 
   # POST /users or /users.json
   def create
+    session[:new_user_session] = nil
+
     @user = User.new(user_params)
-    @user.update(role_id: 0) # ENSURE that privilleges are 0 (aka normal user)
+    @user.build_permission if @user.permission == nil
+    @user.permission = Permission.new(is_admin: true, create_modify_events: true, create_modify_announcements: true, view_all_attendances: true)
+    @user.permission.save
+    @user.update(permission_id: @user.permission.id)
     @user.update(report_rate: 'Disabled') # by default, normal users shouldn't have reports
 
     respond_to do |format|
       if @user.save
+        @user.permission.update(user_id: @user.id)
         format.html do
-          redirect_to user_url(@user), notice: 'User was successfully created. Please log in again to confirm.'
+          redirect_to new_admin_session_path, notice: 'User was successfully created. Please log in again to confirm.'
         end
         format.json { render :show, status: :created, location: @user }
       else
@@ -59,10 +68,15 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1 or /users/1.json
   def update
+    if !get_permissions[:is_admin]
+      redirect_to '/', notice: "Insufficient permissions."
+    end
+
+    @user = User.find_by(email: user_params["email"])
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to user_url(@user), notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
+        format.html { redirect_to users_path, notice: 'User was successfully updated.' }
+        format.json { render :index, status: :ok, location: @user }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -72,8 +86,12 @@ class UsersController < ApplicationController
 
   # DELETE /users/1 or /users/1.json
   def destroy
+    if !get_permissions[:is_admin]
+      redirect_to '/', notice: "Insufficient permissions."
+    end
+    
+    @user = User.find_by(email: params["email"])
     @user.destroy
-
     respond_to do |format|
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
@@ -84,11 +102,11 @@ class UsersController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_user
-    @user = User.find(params[:id])
+    @user = User.find_by(email: params[:email])
   end
 
   # Only allow a list of trusted parameters through.
   def user_params
-    params.require(:user).permit(:email, :first_name, :last_name, :class_year, :role_id, :report_rate, :user_id)
+    params.require(:user).permit(:email, :first_name, :last_name, :class_year, :report_rate, :permission_id, permission_attributes: [:is_admin, :create_modify_events, :create_modify_announcements, :view_all_attendances])
   end
 end
