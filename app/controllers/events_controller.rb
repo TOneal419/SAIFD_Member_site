@@ -7,7 +7,7 @@ class EventsController < ApplicationController
   # GET /events or /events.json
   def index
     @events = Event.all
-    @announcements = Announcement.all
+    @perms = get_permissions
   end
 
   # GET /events/1 or /events/1.json
@@ -17,15 +17,25 @@ class EventsController < ApplicationController
 
   # GET /events/new
   def new
+    if !get_permissions[:create_modify_events]
+      redirect_to '/', notice: "Insufficient permissions."
+    end
     @event = Event.new
   end
 
   # GET /events/1/edit
   def edit
+    if !get_permissions[:create_modify_events]
+      redirect_to '/', notice: "Insufficient permissions."
+    end
   end
 
   # POST /events or /events.json
   def create
+    if !get_permissions[:create_modify_events]
+      redirect_to '/', notice: "Insufficient permissions."
+    end
+
     @event = Event.new(event_params)
 
     respond_to do |format|
@@ -41,6 +51,10 @@ class EventsController < ApplicationController
 
   # PATCH/PUT /events/1 or /events/1.json
   def update
+    if !get_permissions[:create_modify_events]
+      redirect_to '/', notice: "Insufficient permissions."
+    end
+
     respond_to do |format|
       if @event.update(event_params)
         format.html { redirect_to events_path, notice: 'Event was successfully updated.' }
@@ -54,6 +68,10 @@ class EventsController < ApplicationController
 
   # DELETE /events/1 or /events/1.json
   def destroy
+    if !get_permissions[:create_modify_events]
+      redirect_to '/', notice: "Insufficient permissions."
+    end
+    
     @event.destroy
 
     respond_to do |format|

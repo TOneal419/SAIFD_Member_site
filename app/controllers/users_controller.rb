@@ -10,15 +10,12 @@ class UsersController < ApplicationController
   # GET /users or /users.json
   def index
     # get permissions
-    @id_token = cookies[:current_user_session]
-    @email = Admin.where(uid: @id_token).first.email
-    @user = User.where(email: @email)
-    @see_all_users = Permission.where(user_id: @user.first.id).first.is_admin
+    @user = get_user
 
     # default to only seeing self
-    @users = @user
+    @users = User.where(id: @user.id)
 
-    if @see_all_users
+    if get_permissions[:view_all_attendances]
       @users = User.all
     end
   end
@@ -36,14 +33,8 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    # ensure correct privilleges
-    @id_token = cookies[:current_user_session]
-    @email = Admin.where(uid: @id_token).first.email
-    @user = User.where(email: @email).first
-    @can_edit = Permission.where(user_id: @user.id).first.is_admin
-
-    if !@can_edit
-      redirect_to '/users#index', notice: 'Insufficient privilleges'
+    if !get_permissions[:is_admin]
+      redirect_to '/', notice: "Insufficient permissions."
     end
 
     # grab params from URL
@@ -77,6 +68,10 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1 or /users/1.json
   def update
+    if !get_permissions[:is_admin]
+      redirect_to '/', notice: "Insufficient permissions."
+    end
+
     @user = User.find_by(email: user_params["email"])
     respond_to do |format|
       if @user.update(user_params)
@@ -91,6 +86,10 @@ class UsersController < ApplicationController
 
   # DELETE /users/1 or /users/1.json
   def destroy
+    if !get_permissions[:is_admin]
+      redirect_to '/', notice: "Insufficient permissions."
+    end
+    
     @user = User.find_by(email: params["email"])
     @user.destroy
     respond_to do |format|

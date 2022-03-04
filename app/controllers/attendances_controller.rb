@@ -6,9 +6,15 @@ class AttendancesController < ApplicationController
 
     # GET /attendances or /attendances.json
     def index
-      @attendances = Attendance.all
-      @users = User.all
-      @events = Event.all
+      # by default, only grab current user's attendance
+      @user = get_user
+      @attendances = Attendance.where(user_id: @user.id)
+
+      if get_permissions[:view_all_attendances]
+        @attendances = Attendance.all
+      end
+
+      @perms = get_permissions
     end
 
     # GET /attendances/1 or /attendances/1.json
@@ -27,10 +33,7 @@ class AttendancesController < ApplicationController
     # POST /attendances or /attendances.json
     def create
       @attendance = Attendance.new(attendance_params)
-      
-      @id_token = cookies[:current_user_session]
-      @email = Admin.where(uid: @id_token).first.email
-      @user = User.where(email: @email).first
+      @user = get_user
 
       @attendance.update(user_id: @user.id)
 

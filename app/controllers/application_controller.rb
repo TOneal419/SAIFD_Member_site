@@ -5,18 +5,22 @@ class ApplicationController < ActionController::Base
   # make sure user is authenticated EXCEPT when creating a new user (/user#new/ which has been routed to /auth/sign_up)
   before_action :authenticate_admin!, except: [:users] 
 
-  def get_permissions
-    @id_token = cookies[:current_user_session]
+  # gets info of user currently logged in
+  def get_user
+      @id_token = cookies[:current_user_session]
+      @email = Admin.where(uid: @id_token).first.email
+      @user = User.where(email: @email).first
+  end
 
+  def get_permissions
     # if no current session, then no permissions
     @is_admin = false
     @create_modify_events = false
     @create_modify_announcements = false
     @view_all_attendances = false
 
-    unless @id_token.nil?
-      @email = Admin.where(uid: @id_token).first.email
-      @user = User.where(email: @email).first
+    unless cookies[:current_user_session].nil?
+      @user = get_user
       @perms = Permission.where(user_id: @user.id).first
 
       @is_admin = @perms.is_admin
