@@ -2,7 +2,7 @@
 
 <h1>Announcements</h1>
 
-<table>
+<table cellpadding="10">
   <thead>
     <tr>
       <th>Title</th>
@@ -17,11 +17,11 @@
   <tbody>
     <% @announcements.each do |announcement| %>
       <tr>
-        <td><%= announcement.title %></td>
-        <td><%= announcement.description %></td>
-        <td><%= announcement.posted_on %></td>
+        <td style="text-align:center"><%= announcement.title %></td>
+        <td style="text-align:center"><%= announcement.description %></td>
+        <td style="text-align:center"><%= announcement.posted_on.strftime('%d/%m/%Y, %I:%M %P') %></td>
 
-        <td><%= User.where(id: announcement.user_id).last.email %></td>
+        <td style="text-align:center"><%= User.where(id: announcement.user_id).last.first_name %></td>
 
         <% if announcement.event_id.present? %>
           <td><%= Event.where(id: announcement.event_id).last.title %></td>

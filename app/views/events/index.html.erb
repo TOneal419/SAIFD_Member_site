@@ -2,7 +2,7 @@
 
 <h1>Events</h1>
 
-<table>
+<table cellpadding="10">
   <thead>
     <tr>
       <th>Title</th>
@@ -17,11 +17,11 @@
   <tbody>
     <% @events.each do |event| %>
       <tr>
-        <td><%= event.title %></td>
-        <td><%= event.description %></td>
-        <td><%= event.date %></td>
-        <td><%= event.event_time_start %></td>
-        <td><%= event.event_time_end %></td>
+        <td style="text-align:center"><%= event.title %></td>
+        <td style="text-align:center"><%= event.description %></td>
+        <td style="text-align:center"><%= event.date %></td>
+        <td style="text-align:center"><%= event.event_time_start.strftime('%H:%M %P') %></td>
+        <td style="text-align:center"><%= event.event_time_end.strftime('%H:%M %P') %></td>
         <% if @perms[:create_modify_events] %>
           <td><%= link_to 'Edit', edit_event_path(event) %></td>
           <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
