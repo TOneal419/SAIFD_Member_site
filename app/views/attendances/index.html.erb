@@ -21,8 +21,8 @@
         <td style="text-align:center"><%= Event.where(id: attendance.event_id).last.title %></td>
         <td style="text-align:center"><%= User.where(id: attendance.user_id).last.first_name %> </td>
         <td style="text-align:center"><%= User.where(id: attendance.user_id).last.last_name %> </td>
-        <td style="text-align:center"><%= attendance.attend_time_start.strftime('%H:%M %P')  %></td>
-        <td style="text-align:center"><%= attendance.attend_time_end.strftime('%H:%M %P') %></td>
+        <td style="text-align:center"><%= attendance.attend_time_start.strftime('%I:%M %P')  %></td>
+        <td style="text-align:center"><%= attendance.attend_time_end.strftime('%I:%M %P') %></td>
         <td style="text-align:center"><%= attendance.plans_to_attend %></td>
 
         <% if @perms[:view_all_attendances] %>
