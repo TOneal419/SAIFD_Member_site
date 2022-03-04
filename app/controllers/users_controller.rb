@@ -9,7 +9,18 @@ class UsersController < ApplicationController
 
   # GET /users or /users.json
   def index
-    @users = User.all
+    # get permissions
+    @id_token = cookies[:current_user_session]
+    @email = Admin.where(uid: @id_token).first.email
+    @user = User.where(email: @email)
+    @see_all_users = Permission.where(user_id: @user.first.id).first.is_admin
+
+    # default to only seeing self
+    @users = @user
+
+    if @see_all_users
+      @users = User.all
+    end
   end
 
   # GET /users/1 or /users/1.json
@@ -28,6 +39,11 @@ class UsersController < ApplicationController
     @id_token = cookies[:current_user_session]
     @email = Admin.where(uid: @id_token).first.email
     @user = User.where(email: @email).first
+    @can_edit = Permission.where(user_id: @user.id).first.is_admin
+
+    if !@can_edit
+      redirect_to '/users#edit', notice: 'Insufficient privilleges'
+    end
   end
 
   # POST /users or /users.json
