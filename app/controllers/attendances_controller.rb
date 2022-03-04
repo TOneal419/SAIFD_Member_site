@@ -28,25 +28,36 @@ class AttendancesController < ApplicationController
     end
 
     # GET /attendances/1/edit
-    def edit; end
+    def edit
+      if attendance_params["attend_time_start"] > attendance_params["attend_time_end"]
+        redirect_to '/attendances/new', notice: "Attendance must begin before it ends"
+      end
+    end
 
     # POST /attendances or /attendances.json
     def create
-      @attendance = Attendance.new(attendance_params)
-      @user = get_user
-
-      @attendance.update(user_id: @user.id)
-
-      respond_to do |format|
-        if @attendance.save
-          format.html { redirect_to attendances_path, notice: "Attendance was successfully created." }
-          format.json { render :index, status: :created, location: @attendance }
-        else
-          format.html { render :new, status: :unprocessable_entity }
-          format.json { render json: @attendance.errors, status: :unprocessable_entity }
-        end
+      @redirected = false
+      if attendance_params["attend_time_start"] > attendance_params["attend_time_end"]
+        @redirected = true
+        redirect_to '/attendances/new', notice: "Attendance must begin before it ends"
       end
 
+      if !@redirected
+        @attendance = Attendance.new(attendance_params)
+        @user = get_user
+
+        @attendance.update(user_id: @user.id)
+
+        respond_to do |format|
+          if @attendance.save
+            format.html { redirect_to attendances_path, notice: "Attendance was successfully created." }
+            format.json { render :index, status: :created, location: @attendance }
+          else
+            format.html { render :new, status: :unprocessable_entity }
+            format.json { render json: @attendance.errors, status: :unprocessable_entity }
+          end
+        end
+      end
     end
   
 

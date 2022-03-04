@@ -38,6 +38,7 @@ class AnnouncementsController < ApplicationController
     end
 
     @announcement = Announcement.new(announcement_params)
+    @announcement.update(posted_on: DateTime.now)
     @user = get_user
 
     @announcement.update(user_id: @user.id)

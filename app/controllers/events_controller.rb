@@ -28,23 +28,37 @@ class EventsController < ApplicationController
     if !get_permissions[:create_modify_events]
       redirect_to '/', notice: "Insufficient permissions."
     end
+    
+    if event_params["event_time_start"] > event_params["event_time_end"]
+      redirect_to '/events/new', notice: "Event must begin before it ends"
+    end
   end
 
   # POST /events or /events.json
   def create
+    @redirected = false
+
     if !get_permissions[:create_modify_events]
+      @redirected = true
       redirect_to '/', notice: "Insufficient permissions."
     end
 
-    @event = Event.new(event_params)
+    if event_params["event_time_start"] > event_params["event_time_end"]
+      @redirected = true
+      redirect_to '/events/new', notice: "Event must begin before it ends"
+    end
 
-    respond_to do |format|
-      if @event.save
-        format.html { redirect_to events_path, notice: 'Event was successfully created.' }
-        format.json { render :index, status: :created, location: @event }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @event.errors, status: :unprocessable_entity }
+    if !@redirected
+      @event = Event.new(event_params)
+
+      respond_to do |format|
+        if @event.save
+          format.html { redirect_to events_path, notice: 'Event was successfully created.' }
+          format.json { render :index, status: :created, location: @event }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @event.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
