@@ -11,7 +11,9 @@ class EventsController < ApplicationController
   end
 
   # GET /events/1 or /events/1.json
-  def show; end
+  def show
+    redirect_to '/', notice: "Attempted to access disabled route."
+  end
 
   # GET /events/new
   def new
@@ -19,7 +21,8 @@ class EventsController < ApplicationController
   end
 
   # GET /events/1/edit
-  def edit; end
+  def edit
+  end
 
   # POST /events or /events.json
   def create

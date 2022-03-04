@@ -20,9 +20,8 @@
         <td><%= Event.where(id: attendance.event_id).last.title %></td>
         <td><%= User.where(id: attendance.user_id).last.email %></td>
         <td><%= attendance.attend_time_start %></td>
-		<td><%= attendance.attend_time_end %></td>
-		<td><%= attendance.plans_to_attend %></td>
-        <td><%= link_to 'Show', attendance %></td>
+        <td><%= attendance.attend_time_end %></td>
+        <td><%= attendance.plans_to_attend %></td>
         <td><%= link_to 'Edit', edit_attendance_path(attendance) %></td>
         <td><%= link_to 'Destroy', attendance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

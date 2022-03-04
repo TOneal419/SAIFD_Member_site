@@ -13,6 +13,7 @@ class AttendancesController < ApplicationController
 
     # GET /attendances/1 or /attendances/1.json
     def show
+      redirect_to '/', notice: "Attempted to access disabled route."
     end
 
     # GET /attendances/new
@@ -21,8 +22,7 @@ class AttendancesController < ApplicationController
     end
 
     # GET /attendances/1/edit
-    def edit
-    end
+    def edit; end
 
     # POST /attendances or /attendances.json
     def create

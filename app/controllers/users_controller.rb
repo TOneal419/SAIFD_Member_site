@@ -13,7 +13,9 @@ class UsersController < ApplicationController
   end
 
   # GET /users/1 or /users/1.json
-  def show; end
+  def show
+    redirect_to '/', notice: "Attempted to access disabled route."
+  end
 
   # GET /users/new
   def new
@@ -33,12 +35,15 @@ class UsersController < ApplicationController
     session[:new_user_session] = nil
 
     @user = User.new(user_params)
+    @user.build_permission if @user.permission == nil
+    @user.permission = Permission.new(is_admin: false, create_modify_events: false, create_modify_announcements: false, view_all_attendances: false)
     @user.permission.save
     @user.update(permission_id: @user.permission.id)
     @user.update(report_rate: 'Disabled') # by default, normal users shouldn't have reports
 
     respond_to do |format|
       if @user.save
+        @user.permission.update(user_id: @user.id)
         format.html do
           redirect_to new_admin_session_path, notice: 'User was successfully created. Please log in again to confirm.'
         end
