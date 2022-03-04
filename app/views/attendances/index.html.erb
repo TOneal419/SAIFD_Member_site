@@ -2,26 +2,28 @@
 
 <h1>Attendance Records</h1>
 
-<table>
+<table cellpadding="10">
   <thead>
     <tr>
       <th>Event</th>
-      <th>Email</th>
+      <th>First</th>
+      <th>Last</th>
       <th>Attendance Time Start</th>
       <th>Attendance Time End</th>
       <th>Plans to Attend?</th>
-      <th colspan="5"></th>
+      <th colspan="6"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @attendances.each do |attendance| %>
       <tr>
-        <td><%= Event.where(id: attendance.event_id).last.title %></td>
-        <td><%= User.where(id: attendance.user_id).last.email %></td>
-        <td><%= attendance.attend_time_start %></td>
-        <td><%= attendance.attend_time_end %></td>
-        <td><%= attendance.plans_to_attend %></td>
+        <td style="text-align:center"><%= Event.where(id: attendance.event_id).last.title %></td>
+        <td style="text-align:center"><%= User.where(id: attendance.user_id).last.first_name %> </td>
+        <td style="text-align:center"><%= User.where(id: attendance.user_id).last.last_name %> </td>
+        <td style="text-align:center"><%= attendance.attend_time_start.strftime('%I:%M %P')  %></td>
+        <td style="text-align:center"><%= attendance.attend_time_end.strftime('%I:%M %P') %></td>
+        <td style="text-align:center"><%= attendance.plans_to_attend %></td>
 
         <% if @perms[:view_all_attendances] %>
           <td><%= link_to 'Edit', edit_attendance_path(attendance) %></td>

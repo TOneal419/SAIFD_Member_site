@@ -7,5 +7,6 @@ class DashboardsController < ApplicationController
     @is_admin = @perms[:is_admin]
     @create_modify_events = @perms[:create_modify_events]
     @create_modify_announcements = @perms[:create_modify_announcements]
+    @user = get_user
   end
 end

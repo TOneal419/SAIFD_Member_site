@@ -1,5 +1,5 @@
 <p id="notice"><%= notice %></p>
-<h1>You're logged in! Welcome to the Admin Dashboard!</h1>
+<h1>Welcome, <%= @user.first_name %>!</h1>
 
 <% if @create_modify_events %>
     <%= link_to "Make Event", new_event_path %>

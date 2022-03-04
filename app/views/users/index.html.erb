@@ -2,7 +2,7 @@
 
 <h1>Users</h1>
 
-<table>
+<table cellpadding="10">
   <thead>
     <tr>
       <th>Email</th>
@@ -25,18 +25,18 @@
     <% @users.each do |user| %>
       <% @user_perm = Permission.where(user_id: user.id).first %>
       <tr>
-        <td><%= user.email %></td>
-        <td><%= user.first_name %></td>
-        <td><%= user.last_name %></td>
-        <td><%= user.class_year %></td>
+        <td style="text-align:center"><%= user.email %></td>
+        <td style="text-align:center"><%= user.first_name %></td>
+        <td style="text-align:center"><%= user.last_name %></td>
+        <td style="text-align:center"><%= user.class_year %></td>
         <% if @perms[:is_admin] %>
-          <td><%= user.report_rate %></td>
-          <td><%= @user_perm.is_admin %></td>
-          <td><%= @user_perm.create_modify_events %></td>
-          <td><%= @user_perm.create_modify_announcements %></td>
-          <td><%= @user_perm.view_all_attendances %></td>
-          <td><%= link_to 'Edit', edit_user_path(user.email) %></td>
-          <td><%= link_to 'Destroy', 'users/' + user.email + '/destroy', data: { confirm: 'Are you sure? This action cannot be undone.' } %></td>
+          <td style="text-align:center"><%= user.report_rate %></td>
+          <td style="text-align:center"><%= @user_perm.is_admin %></td>
+          <td style="text-align:center"><%= @user_perm.create_modify_events %></td>
+          <td style="text-align:center"><%= @user_perm.create_modify_announcements %></td>
+          <td style="text-align:center"><%= @user_perm.view_all_attendances %></td>
+          <td style="text-align:center"><%= link_to 'Edit', edit_user_path(user.email) %></td>
+          <td style="text-align:center"><%= link_to 'Destroy', 'users/' + user.email + '/destroy', data: { confirm: 'Are you sure? This action cannot be undone.' } %></td>
         <% end %>
       </tr>
     <% end %>
