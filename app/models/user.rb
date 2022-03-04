@@ -11,4 +11,8 @@ class User < ApplicationRecord
   
   has_one :permission, dependent: :destroy
   accepts_nested_attributes_for :permission
+
+  def to_param
+    :email
+  end
 end

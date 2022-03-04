@@ -31,7 +31,8 @@
         <td><%= @user_perm.create_modify_events %></td>
         <td><%= @user_perm.create_modify_announcements %></td>
         <td><%= @user_perm.view_all_attendances %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
+        <td><%= link_to 'Edit', edit_user_path(user.email) %></td>
+        <td><%= link_to 'Destroy', 'users/' + user.email + '/destroy', data: { confirm: 'Are you sure? This action cannot be undone.' } %></td>
       </tr>
     <% end %>
   </tbody>

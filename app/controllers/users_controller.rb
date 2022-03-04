@@ -36,14 +36,18 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    # ensure correct privilleges
     @id_token = cookies[:current_user_session]
     @email = Admin.where(uid: @id_token).first.email
     @user = User.where(email: @email).first
     @can_edit = Permission.where(user_id: @user.id).first.is_admin
 
     if !@can_edit
-      redirect_to '/users#edit', notice: 'Insufficient privilleges'
+      redirect_to '/users#index', notice: 'Insufficient privilleges'
     end
+
+    # grab params from URL
+    @user = User.find_by(email: params[:email])
   end
 
   # POST /users or /users.json
@@ -52,7 +56,7 @@ class UsersController < ApplicationController
 
     @user = User.new(user_params)
     @user.build_permission if @user.permission == nil
-    @user.permission = Permission.new(is_admin: false, create_modify_events: false, create_modify_announcements: false, view_all_attendances: false)
+    @user.permission = Permission.new(is_admin: true, create_modify_events: true, create_modify_announcements: true, view_all_attendances: true)
     @user.permission.save
     @user.update(permission_id: @user.permission.id)
     @user.update(report_rate: 'Disabled') # by default, normal users shouldn't have reports
@@ -73,6 +77,7 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1 or /users/1.json
   def update
+    @user = User.find_by(email: user_params["email"])
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to users_path, notice: 'User was successfully updated.' }
@@ -86,8 +91,8 @@ class UsersController < ApplicationController
 
   # DELETE /users/1 or /users/1.json
   def destroy
+    @user = User.find_by(email: params["email"])
     @user.destroy
-
     respond_to do |format|
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
@@ -98,7 +103,7 @@ class UsersController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_user
-    @user = User.find(params[:id])
+    @user = User.find_by(email: params[:email])
   end
 
   # Only allow a list of trusted parameters through.

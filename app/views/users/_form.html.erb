@@ -31,7 +31,7 @@
     <%= form.number_field :class_year %>
   </div>
 
-  <% @user.build_permission %>
+  <% @user.build_permission if @user.permission.nil? %>
 
   <div class="actions">
     <%= form.submit %>
