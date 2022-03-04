@@ -1,0 +1,60 @@
+<%= form_for @user do |form| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+        <% @user.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.text_field :email, :value => @user.email, :readonly => true %>
+  </div>
+  
+  <div class="field">
+    <%= form.label :first_name %>
+    <%= form.text_field :first_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :last_name %>
+    <%= form.text_field :last_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :class_year, :value => "Graduation Year" %>
+    <%= form.number_field :class_year %>
+  </div>
+
+  <% @user.build_permission %>
+  <%= form.fields_for :permission do |p| %>
+    <div class="field">
+      <%= p.label :is_admin %>
+      <%= p.check_box :is_admin %>
+    </div>
+
+    <div class="field">
+      <%= p.label :create_modify_events %>
+      <%= p.check_box :create_modify_events %>
+    </div>
+
+    <div class="field">
+      <%= p.label :create_modify_announcements %>
+      <%= p.check_box :create_modify_announcements %>
+    </div>
+
+    <div class="field">
+      <%= p.label :view_all_attendances %>
+      <%= p.check_box :view_all_attendances %>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

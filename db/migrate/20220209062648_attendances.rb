@@ -7,6 +7,7 @@ class Attendances < ActiveRecord::Migration[6.1]
       t.integer :user_id
       t.time :attend_time_start
       t.time :attend_time_end
+      t.boolean :plans_to_attend
 
       t.timestamps
     end

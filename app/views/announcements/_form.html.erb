@@ -12,11 +12,6 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :announcement_id %>
-    <%= form.number_field :announcement_id %>
-  </div>
-
-  <div class="field">
     <%= form.label :title %>
     <%= form.text_field :title %>
   </div>
@@ -29,11 +24,6 @@
   <div class="field">
     <%= form.label :posted_on %>
     <%= form.datetime_select :posted_on %>
-  </div>
-
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.select :user_id, User.order(:email).map{ |user| [user.email, user.id]}, include_blank: true, id: "id_of_the_user_id_select_box" %>
   </div>
 
   <div class="field">

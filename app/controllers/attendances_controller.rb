@@ -27,17 +27,23 @@ class AttendancesController < ApplicationController
     # POST /attendances or /attendances.json
     def create
       @attendance = Attendance.new(attendance_params)
-      # @attendance.update(user_id: ) # TODO: automatically set user_id here...
+      
+      @id_token = cookies[:current_user_session]
+      @email = Admin.where(uid: @id_token).first.email
+      @user = User.where(email: @email).first
+
+      @attendance.update(user_id: @user.id)
 
       respond_to do |format|
         if @attendance.save
-          format.html { redirect_to attendance_url(@attendance), notice: "Attendance was successfully created." }
-          format.json { render :show, status: :created, location: @attendance }
+          format.html { redirect_to attendances_path, notice: "Attendance was successfully created." }
+          format.json { render :index, status: :created, location: @attendance }
         else
           format.html { render :new, status: :unprocessable_entity }
           format.json { render json: @attendance.errors, status: :unprocessable_entity }
         end
       end
+
     end
   
 
@@ -45,8 +51,8 @@ class AttendancesController < ApplicationController
     def update
         respond_to do |format|
           if @attendance.update(attendance_params)
-            format.html { redirect_to attendance_url(@attendance), notice: 'Attendance was successfully updated.' }
-            format.json { render :show, status: :ok, location: @attendance }
+            format.html { redirect_to attendances_path, notice: 'Attendance was successfully updated.' }
+            format.json { render :index, status: :ok, location: @attendance }
           else
             format.html { render :edit, status: :unprocessable_entity }
             format.json { render json: @attendance.errors, status: :unprocessable_entity }

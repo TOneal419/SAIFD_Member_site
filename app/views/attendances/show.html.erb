@@ -1,13 +1,13 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Event ID:</strong>
-  <%= @attendance.event_id %>
+  <strong>Event:</strong>
+  <%= Event.where(id: @attendance.event_id).first.title %>
 </p>
 
 <p>
-  <strong>User ID:</strong>
-  <%= @attendance.user_id %>
+  <strong>Created By:</strong>
+  <%= User.where(id: @attendance.user_id).first.email %>
 </p>
 
 <p>
@@ -26,4 +26,4 @@
 </p>
 
 <%= link_to 'Edit', edit_attendance_path(@attendance) %> |
-<%= link_to 'Home', attendances_path %>
+<%= link_to 'View Attendances', attendances_path %>

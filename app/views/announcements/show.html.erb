@@ -1,11 +1,6 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Announcement:</strong>
-  <%= @announcement.announcement_id %>
-</p>
-
-<p>
   <strong>Title:</strong>
   <%= @announcement.title %>
 </p>
@@ -21,7 +16,7 @@
 </p>
 
 <p>
-  <strong>User:</strong>
+  <strong>Created By:</strong>
 	<%= User.where(id: @announcement.user_id).last.email %>
   </p>
 
@@ -39,4 +34,4 @@
   </p>
 
 <%= link_to 'Edit', edit_announcement_path(@announcement) %> |
-<%= link_to 'Home', announcements_path %>
+<%= link_to 'View Announcements', announcements_path %>

@@ -5,12 +5,11 @@
 <table>
   <thead>
     <tr>
-      <th>Announcement</th>
       <th>Title</th>
       <th>Description</th>
       <th>Posted on</th>
-      <th>User</th>
-	  <th>Event</th>
+      <th>Created By</th>
+	    <th>Event</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -18,18 +17,17 @@
   <tbody>
     <% @announcements.each do |announcement| %>
       <tr>
-        <td><%= announcement.announcement_id %></td>
         <td><%= announcement.title %></td>
         <td><%= announcement.description %></td>
         <td><%= announcement.posted_on %></td>
 
-		<td><%= User.where(id: announcement.user_id).last.email %></td>
+        <td><%= User.where(id: announcement.user_id).last.email %></td>
 
-		<% if announcement.event_id.present? %>
-            <td><%= Event.where(id: announcement.event_id).last.title %></td>
-		<% else %>
-            <td><%= announcement.event_id %></td>
-		<% end %>
+        <% if announcement.event_id.present? %>
+          <td><%= Event.where(id: announcement.event_id).last.title %></td>
+        <% else %>
+          <td>ALL</td>
+        <% end %>
 			
         <td><%= link_to 'Show', announcement %></td>
         <td><%= link_to 'Edit', edit_announcement_path(announcement) %></td>

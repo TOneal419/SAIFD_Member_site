@@ -26,28 +26,26 @@ ActiveRecord::Schema.define(version: 2022_02_23_023029) do
   end
 
   create_table "announcements", force: :cascade do |t|
-    t.integer "announcement_id"
     t.string "title"
     t.string "description"
     t.datetime "posted_on"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id"
     t.integer "event_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "attendances", force: :cascade do |t|
     t.integer "event_id"
     t.integer "user_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.time "attend_time_start"
     t.time "attend_time_end"
     t.boolean "plans_to_attend"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "events", force: :cascade do |t|
-    t.integer "event_id"
     t.string "title"
     t.string "description"
     t.date "date"
@@ -58,8 +56,7 @@ ActiveRecord::Schema.define(version: 2022_02_23_023029) do
   end
 
   create_table "permissions", force: :cascade do |t|
-    t.integer "permission_id"
-    t.string "title"
+    t.integer "user_id"
     t.boolean "is_admin"
     t.boolean "create_modify_events"
     t.boolean "create_modify_announcements"
@@ -68,23 +65,13 @@ ActiveRecord::Schema.define(version: 2022_02_23_023029) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "roles", force: :cascade do |t|
-    t.integer "role_id"
-    t.boolean "is_officer"
-    t.boolean "is_admin"
-    t.string "title"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "first_name"
     t.string "last_name"
-    t.integer "class_year"
-    t.integer "role_id"
     t.string "report_rate"
-    t.serial "user_id", null: false
+    t.integer "class_year"
+    t.integer "permission_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

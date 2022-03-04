@@ -26,10 +26,16 @@ class AnnouncementsController < ApplicationController
   def create
     @announcement = Announcement.new(announcement_params)
 
+    @id_token = cookies[:current_user_session]
+    @email = Admin.where(uid: @id_token).first.email
+    @user = User.where(email: @email).first
+
+    @announcement.update(user_id: @user.id)
+
     respond_to do |format|
       if @announcement.save
-        format.html { redirect_to announcement_url(@announcement), notice: 'Announcement was successfully created.' }
-        format.json { render :show, status: :created, location: @announcement }
+        format.html { redirect_to announcements_path, notice: 'Announcement was successfully created.' }
+        format.json { render :index, status: :created, location: @announcement }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @announcement.errors, status: :unprocessable_entity }
@@ -41,8 +47,8 @@ class AnnouncementsController < ApplicationController
   def update
     respond_to do |format|
       if @announcement.update(announcement_params)
-        format.html { redirect_to announcement_url(@announcement), notice: 'Announcement was successfully updated.' }
-        format.json { render :show, status: :ok, location: @announcement }
+        format.html { redirect_to announcements_path, notice: 'Announcement was successfully updated.' }
+        format.json { render :index, status: :ok, location: @announcement }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @announcement.errors, status: :unprocessable_entity }
@@ -69,6 +75,6 @@ class AnnouncementsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def announcement_params
-    params.require(:announcement).permit(:announcement_id, :title, :description, :posted_on, :user_id, :event_id)
+    params.require(:announcement).permit(:title, :description, :posted_on, :user_id, :event_id)
   end
 end

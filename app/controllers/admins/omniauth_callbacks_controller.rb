@@ -8,17 +8,20 @@ module Admins
 
       if admin.present?
         user_exists = !User.where(email: admin.email).blank?
+        cookies[:current_user_session] = auth.uid
 
         # if user exists, log them into the dashboard
         if user_exists
+          session[:new_user_session] = nil
           sign_out_all_scopes
           flash[:success] = t 'devise.omniauth_callbacks.success', kind: 'Google'
           sign_in_and_redirect admin, event: :authentication
 
         # otherwise, have them fill out other required fields (ie: class year)
         else
-          redirect_to new_user_path(google_email: admin.email, google_name: admin.full_name,
-                                    google_pfp: admin.avatar_url)
+          session[:new_user_session] = admin
+          @names = admin.full_name.split
+          redirect_to new_user_path
         end
 
       else
@@ -41,11 +44,12 @@ module Admins
     private
 
     def from_google_params
+      @auth = auth
       @from_google_params ||= {
-        uid: auth.uid,
-        email: auth.info.email,
-        full_name: auth.info.name,
-        avatar_url: auth.info.image
+        uid: @auth.uid,
+        email: @auth.info.email,
+        full_name: @auth.info.name,
+        avatar_url: @auth.info.image
       }
     end
 

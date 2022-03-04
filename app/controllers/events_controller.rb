@@ -27,8 +27,8 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
-        format.html { redirect_to event_url(@event), notice: 'Event was successfully created.' }
-        format.json { render :show, status: :created, location: @event }
+        format.html { redirect_to events_path, notice: 'Event was successfully created.' }
+        format.json { render :index, status: :created, location: @event }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @event.errors, status: :unprocessable_entity }
@@ -40,8 +40,8 @@ class EventsController < ApplicationController
   def update
     respond_to do |format|
       if @event.update(event_params)
-        format.html { redirect_to event_url(@event), notice: 'Event was successfully updated.' }
-        format.json { render :show, status: :ok, location: @event }
+        format.html { redirect_to events_path, notice: 'Event was successfully updated.' }
+        format.json { render :index, status: :ok, location: @event }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @event.errors, status: :unprocessable_entity }
@@ -68,6 +68,6 @@ class EventsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def event_params
-    params.require(:event).permit(:event_id, :title, :description, :date, :event_time_start, :event_time_end)
+    params.require(:event).permit(:user_id, :title, :description, :date, :event_time_start, :event_time_end)
   end
 end
