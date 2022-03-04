@@ -9,11 +9,21 @@ class UsersController < ApplicationController
 
   # GET /users or /users.json
   def index
-    @users = User.all
+    # get permissions
+    @user = get_user
+
+    # default to only seeing self
+    @users = User.where(id: @user.id)
+
+    if get_permissions[:view_all_attendances]
+      @users = User.all
+    end
   end
 
   # GET /users/1 or /users/1.json
-  def show; end
+  def show
+    redirect_to '/', notice: "Attempted to access disabled route."
+  end
 
   # GET /users/new
   def new
@@ -23,9 +33,12 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    @id_token = cookies[:current_user_session]
-    @email = Admin.where(uid: @id_token).first.email
-    @user = User.where(email: @email).first
+    if !get_permissions[:is_admin]
+      redirect_to '/', notice: "Insufficient permissions."
+    end
+
+    # grab params from URL
+    @user = User.find_by(email: params[:email])
   end
 
   # POST /users or /users.json
@@ -33,12 +46,15 @@ class UsersController < ApplicationController
     session[:new_user_session] = nil
 
     @user = User.new(user_params)
+    @user.build_permission if @user.permission == nil
+    @user.permission = Permission.new(is_admin: true, create_modify_events: true, create_modify_announcements: true, view_all_attendances: true)
     @user.permission.save
     @user.update(permission_id: @user.permission.id)
     @user.update(report_rate: 'Disabled') # by default, normal users shouldn't have reports
 
     respond_to do |format|
       if @user.save
+        @user.permission.update(user_id: @user.id)
         format.html do
           redirect_to new_admin_session_path, notice: 'User was successfully created. Please log in again to confirm.'
         end
@@ -52,6 +68,11 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1 or /users/1.json
   def update
+    if !get_permissions[:is_admin]
+      redirect_to '/', notice: "Insufficient permissions."
+    end
+
+    @user = User.find_by(email: user_params["email"])
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to users_path, notice: 'User was successfully updated.' }
@@ -65,8 +86,12 @@ class UsersController < ApplicationController
 
   # DELETE /users/1 or /users/1.json
   def destroy
+    if !get_permissions[:is_admin]
+      redirect_to '/', notice: "Insufficient permissions."
+    end
+    
+    @user = User.find_by(email: params["email"])
     @user.destroy
-
     respond_to do |format|
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
@@ -77,7 +102,7 @@ class UsersController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_user
-    @user = User.find(params[:id])
+    @user = User.find_by(email: params[:email])
   end
 
   # Only allow a list of trusted parameters through.

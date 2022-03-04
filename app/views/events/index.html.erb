@@ -8,8 +8,8 @@
       <th>Title</th>
       <th>Description</th>
       <th>Date</th>
-	  <th>Start Time</th>
-	  <th>End Time</th>
+      <th>Start Time</th>
+      <th>End Time</th>
       <th colspan="6"></th>
     </tr>
   </thead>
@@ -20,11 +20,12 @@
         <td><%= event.title %></td>
         <td><%= event.description %></td>
         <td><%= event.date %></td>
-		<td><%= event.event_time_start %></td>
-		<td><%= event.event_time_end %></td>
-        <td><%= link_to 'Show', event %></td>
-        <td><%= link_to 'Edit', edit_event_path(event) %></td>
-        <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= event.event_time_start %></td>
+        <td><%= event.event_time_end %></td>
+        <% if @perms[:create_modify_events] %>
+          <td><%= link_to 'Edit', edit_event_path(event) %></td>
+          <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -32,6 +33,9 @@
 
 <br>
 
-<%= link_to 'New Event', new_event_path %>
-<br>
-<%= link_to 'Home', root_path %>
+<% if @perms[:create_modify_events] %>
+  <%= link_to 'New Event', new_event_path %>
+  <br>
+<% end %>
+
+<%= link_to 'Back', root_path %>

@@ -7,28 +7,38 @@ class AnnouncementsController < ApplicationController
   # GET /announcements or /announcements.json
   def index
     @announcements = Announcement.all
-    @events = Event.all
-    @users = User.all
+    @perms = get_permissions
   end
 
   # GET /announcements/1 or /announcements/1.json
-  def show; end
+  def show
+    redirect_to '/', notice: "Attempted to access disabled route."
+  end
 
   # GET /announcements/new
   def new
+    if !get_permissions[:create_modify_announcements]
+      redirect_to '/', notice: "Insufficient permissions."
+    end
+
     @announcement = Announcement.new
   end
 
   # GET /announcements/1/edit
-  def edit; end
+  def edit
+    if !get_permissions[:create_modify_announcements]
+      redirect_to '/', notice: "Insufficient permissions."
+    end
+  end
 
   # POST /announcements or /announcements.json
   def create
-    @announcement = Announcement.new(announcement_params)
+    if !get_permissions[:create_modify_announcements]
+      redirect_to '/', notice: "Insufficient permissions."
+    end
 
-    @id_token = cookies[:current_user_session]
-    @email = Admin.where(uid: @id_token).first.email
-    @user = User.where(email: @email).first
+    @announcement = Announcement.new(announcement_params)
+    @user = get_user
 
     @announcement.update(user_id: @user.id)
 
@@ -45,6 +55,10 @@ class AnnouncementsController < ApplicationController
 
   # PATCH/PUT /announcements/1 or /announcements/1.json
   def update
+    if !get_permissions[:create_modify_announcements]
+      redirect_to '/', notice: "Insufficient permissions."
+    end
+
     respond_to do |format|
       if @announcement.update(announcement_params)
         format.html { redirect_to announcements_path, notice: 'Announcement was successfully updated.' }
@@ -58,8 +72,11 @@ class AnnouncementsController < ApplicationController
 
   # DELETE /announcements/1 or /announcements/1.json
   def destroy
-    @announcement.destroy
+    if !get_permissions[:create_modify_announcements]
+      redirect_to '/', notice: "Insufficient permissions."
+    end
 
+    @announcement.destroy
     respond_to do |format|
       format.html { redirect_to announcements_url, notice: 'Announcement was successfully destroyed.' }
       format.json { head :no_content }

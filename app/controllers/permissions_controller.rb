@@ -3,58 +3,37 @@ class PermissionsController < ApplicationController
 
   # GET /permissions or /permissions.json
   def index
-    @permissions = Permission.all
+    redirect_to '/', notice: "Attempted to access disabled route."
   end
 
   # GET /permissions/1 or /permissions/1.json
   def show
+    redirect_to '/', notice: "Attempted to access disabled route."
   end
 
   # GET /permissions/new
   def new
-    @permission = Permission.new
+    redirect_to '/', notice: "Attempted to access disabled route."
   end
 
   # GET /permissions/1/edit
   def edit
+    redirect_to '/', notice: "Attempted to access disabled route."
   end
 
   # POST /permissions or /permissions.json
   def create
-    @permission = Permission.new(permission_params)
-
-    respond_to do |format|
-      if @permission.save
-        format.html { redirect_to permission_url(@permission), notice: "Permission was successfully created." }
-        format.json { render :show, status: :created, location: @permission }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @permission.errors, status: :unprocessable_entity }
-      end
-    end
+    redirect_to '/', notice: "Attempted to access disabled route."
   end
 
   # PATCH/PUT /permissions/1 or /permissions/1.json
   def update
-    respond_to do |format|
-      if @permission.update(permission_params)
-        format.html { redirect_to permission_url(@permission), notice: "Permission was successfully updated." }
-        format.json { render :show, status: :ok, location: @permission }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @permission.errors, status: :unprocessable_entity }
-      end
-    end
+    redirect_to '/', notice: "Attempted to access disabled route."
   end
 
   # DELETE /permissions/1 or /permissions/1.json
   def destroy
-    @permission.destroy
-
-    respond_to do |format|
-      format.html { redirect_to permissions_url, notice: "Permission was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    redirect_to '/', notice: "Attempted to access disabled route."
   end
 
   private

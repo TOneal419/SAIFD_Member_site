@@ -6,7 +6,7 @@
   <thead>
     <tr>
       <th>Event</th>
-      <th>Created By</th>
+      <th>Email</th>
       <th>Attendance Time Start</th>
       <th>Attendance Time End</th>
       <th>Plans to Attend?</th>
@@ -20,11 +20,13 @@
         <td><%= Event.where(id: attendance.event_id).last.title %></td>
         <td><%= User.where(id: attendance.user_id).last.email %></td>
         <td><%= attendance.attend_time_start %></td>
-		<td><%= attendance.attend_time_end %></td>
-		<td><%= attendance.plans_to_attend %></td>
-        <td><%= link_to 'Show', attendance %></td>
-        <td><%= link_to 'Edit', edit_attendance_path(attendance) %></td>
-        <td><%= link_to 'Destroy', attendance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= attendance.attend_time_end %></td>
+        <td><%= attendance.plans_to_attend %></td>
+
+        <% if @perms[:view_all_attendances] %>
+          <td><%= link_to 'Edit', edit_attendance_path(attendance) %></td>
+          <td><%= link_to 'Destroy', attendance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -32,6 +34,8 @@
 
 <br>
 
-<%= link_to 'New Attendance Record', new_attendance_path %>
-<br>
-<%= link_to 'Home', root_path %>
+<% if @perms[:view_all_attendances] %>
+  <%= link_to 'New Attendance Record', new_attendance_path %>
+  <br>
+<% end %>
+<%= link_to 'Back', root_path %>

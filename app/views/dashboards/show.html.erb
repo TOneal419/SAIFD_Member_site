@@ -1,18 +1,28 @@
 <p id="notice"><%= notice %></p>
 <h1>You're logged in! Welcome to the Admin Dashboard!</h1>
 
-<%= link_to "Make Event", new_event_path %>
-</br>
+<% if @create_modify_events %>
+    <%= link_to "Make Event", new_event_path %>
+    </br>
+<% end %>
+
 <%= link_to "View Events", events_path %>
 </br>
 <%= link_to "Log Attendance Record", new_attendance_path %>
 </br>
 <%= link_to "View Attendance Records", attendances_path  %>
 </br>
-<%= link_to "View Users", users_path %>
-</br>
-<%= link_to "Make Announcement", new_announcement_path %>
-</br>
+
+<% if @is_admin %>
+    <%= link_to "Manage User Permissions", users_path %>
+    </br>
+<% end %>
+
+<% if @create_modify_announcements %>
+    <%= link_to "Make Announcement", new_announcement_path %>
+    </br>
+<% end %>
+
 <%= link_to "View Announcements", announcements_path %>
 </br>
 </br>
