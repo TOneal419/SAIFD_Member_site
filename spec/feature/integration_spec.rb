@@ -35,7 +35,7 @@ RSpec.describe 'Creating a User', type: :feature do
     click_on 'Create User'
     click_link "Sign in with Google"
     
-    expect(page).to have_content('Welcome tony')
+    expect(page).to have_content('Welcome, tony!')
 
     
 
@@ -62,7 +62,7 @@ end
     click_on 'Create User'
     click_link "Sign in with Google"
     
-    expect(page).to have_content('Welcome tony')
+    expect(page).to have_content('Welcome, tony!')
 
     click_link 'Make Event'
     
@@ -100,7 +100,7 @@ end
     click_on 'Create User'
     click_link "Sign in with Google"
     
-    expect(page).to have_content('Welcome tony')
+    expect(page).to have_content('Welcome, tony!')
 
     click_link 'Make Event'
     
@@ -123,9 +123,9 @@ end
     click_on 'Create Attendance'
 
     expect(page).to have_content("it's pretty crazy")
-    expect(page).to have_content("tony@tamu.edu")
-    expect(page).to have_content("2000-01-01 01:15:00 UTC")
-    expect(page).to have_content("2000-01-01 02:50:00 UTC")
+    expect(page).to have_content("tony hawk")
+    expect(page).to have_content("1:15 am")
+    expect(page).to have_content("2:50 am")
     expect(page).to have_content("false")
 
 
@@ -149,7 +149,7 @@ end
     click_on 'Create User'
     click_link "Sign in with Google"
     
-    expect(page).to have_content('Welcome tony')
+    expect(page).to have_content('Welcome, tony!')
 
     click_link 'Make Event'
     
@@ -179,7 +179,7 @@ end
 
     expect(page).to have_content("DANGER")
     expect(page).to have_content("the flowers have finally attacked")
-    expect(page).to have_content("2022-02-12 11:45:00 UTC")
+    expect(page).to have_content("11:45 am")
 
 
      
