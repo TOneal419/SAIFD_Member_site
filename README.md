@@ -2,7 +2,7 @@
 
 ## Introduction ##
 
-SAIFD Member Site is a website application that keeps track of peoples attendance to events scheduled by the officers or president.The events can be created and managed in this website by the admin/officers of the club. We also have announcements that will email the users for specific events or just everyone in general to be able to give updates to certain events or news.
+SAIFD Member Site is a website application that keeps track of peoples attendance to events scheduled by the officers or president. The events can be created and managed in this website by the admin/officers of the club. We also have announcements that will email the users for specific events or just everyone in general to be able to give updates to certain events or news.
 
 
 ## Requirements ##
