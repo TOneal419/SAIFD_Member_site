@@ -3,10 +3,10 @@
 # DashboardsController
 class DashboardsController < ApplicationController
   def show
-    @perms = get_permissions
+    @perms = grab_permissions
     @is_admin = @perms[:is_admin]
     @create_modify_events = @perms[:create_modify_events]
     @create_modify_announcements = @perms[:create_modify_announcements]
-    @user = get_user
+    @user = grab_user
   end
 end

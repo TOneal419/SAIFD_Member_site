@@ -7,34 +7,28 @@ class EventsController < ApplicationController
   # GET /events or /events.json
   def index
     @events = Event.all
-    @perms = get_permissions
+    @perms = grab_permissions
   end
 
   # GET /events/1 or /events/1.json
   def show
-    redirect_to '/', notice: "Attempted to access disabled route."
+    redirect_to '/', notice: 'Attempted to access disabled route.'
   end
 
   # GET /events/new
   def new
-    if !get_permissions[:create_modify_events]
-      redirect_to '/', notice: "Insufficient permissions."
-    end
+    redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_events]
     @event = Event.new
   end
 
   # GET /events/1/edit
   def edit
-    if !get_permissions[:create_modify_events]
-      redirect_to '/', notice: "Insufficient permissions."
-    end
+    redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_events]
   end
 
   # POST /events or /events.json
   def create
-    if !get_permissions[:create_modify_events]
-      redirect_to '/', notice: "Insufficient permissions."
-    end
+    redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_events]
 
     @event = Event.new(event_params)
 
@@ -51,9 +45,7 @@ class EventsController < ApplicationController
 
   # PATCH/PUT /events/1 or /events/1.json
   def update
-    if !get_permissions[:create_modify_events]
-      redirect_to '/', notice: "Insufficient permissions."
-    end
+    redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_events]
 
     respond_to do |format|
       if @event.update(event_params)
@@ -68,10 +60,8 @@ class EventsController < ApplicationController
 
   # DELETE /events/1 or /events/1.json
   def destroy
-    if !get_permissions[:create_modify_events]
-      redirect_to '/', notice: "Insufficient permissions."
-    end
-    
+    redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_events]
+
     @event.destroy
 
     respond_to do |format|

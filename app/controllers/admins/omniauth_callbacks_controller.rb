@@ -7,7 +7,7 @@ module Admins
       admin = Admin.from_google(**from_google_params)
 
       if admin.present?
-        user_exists = !User.where(email: admin.email).blank?
+        user_exists = User.where(email: admin.email).present?
         cookies[:current_user_session] = auth.uid
 
         # if user exists, log them into the dashboard
@@ -54,7 +54,7 @@ module Admins
     end
 
     def auth
-      @auth ||= Rails.application.env_config["omniauth.auth"] || request.env['omniauth.auth']
+      @auth ||= Rails.application.env_config['omniauth.auth'] || request.env['omniauth.auth']
     end
   end
 end

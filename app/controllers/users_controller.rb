@@ -10,32 +10,28 @@ class UsersController < ApplicationController
   # GET /users or /users.json
   def index
     # get permissions
-    @user = get_user
+    @user = grab_user
 
     # default to only seeing self
     @users = User.where(id: @user.id)
 
-    if get_permissions[:view_all_attendances]
-      @users = User.all
-    end
+    @users = User.all if grab_permissions[:view_all_attendances]
   end
 
   # GET /users/1 or /users/1.json
   def show
-    redirect_to '/', notice: "Attempted to access disabled route."
+    redirect_to '/', notice: 'Attempted to access disabled route.'
   end
 
   # GET /users/new
   def new
     @session = session[:new_user_session]
-    @user = User.new(email: @session["email"], first_name: @session["full_name"].split[0], last_name: @session["full_name"].split[1])
+    @user = User.new(email: @session['email'], first_name: @session['full_name'].split[0], last_name: @session['full_name'].split[1])
   end
 
   # GET /users/1/edit
   def edit
-    if !get_permissions[:is_admin]
-      redirect_to '/', notice: "Insufficient permissions."
-    end
+    redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:is_admin]
 
     # grab params from URL
     @user = User.find_by(email: params[:email])
@@ -46,7 +42,7 @@ class UsersController < ApplicationController
     session[:new_user_session] = nil
 
     @user = User.new(user_params)
-    @user.build_permission if @user.permission == nil
+    @user.build_permission if @user.permission.nil?
     @user.permission = Permission.new(is_admin: true, create_modify_events: true, create_modify_announcements: true, view_all_attendances: true)
     @user.permission.save
     @user.update(permission_id: @user.permission.id)
@@ -68,11 +64,9 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1 or /users/1.json
   def update
-    if !get_permissions[:is_admin]
-      redirect_to '/', notice: "Insufficient permissions."
-    end
+    redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:is_admin]
 
-    @user = User.find_by(email: user_params["email"])
+    @user = User.find_by(email: user_params['email'])
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to users_path, notice: 'User was successfully updated.' }
@@ -86,11 +80,9 @@ class UsersController < ApplicationController
 
   # DELETE /users/1 or /users/1.json
   def destroy
-    if !get_permissions[:is_admin]
-      redirect_to '/', notice: "Insufficient permissions."
-    end
-    
-    @user = User.find_by(email: params["email"])
+    redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:is_admin]
+
+    @user = User.find_by(email: params['email'])
     @user.destroy
     respond_to do |format|
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
@@ -107,6 +99,7 @@ class UsersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def user_params
-    params.require(:user).permit(:email, :first_name, :last_name, :class_year, :report_rate, :permission_id, permission_attributes: [:is_admin, :create_modify_events, :create_modify_announcements, :view_all_attendances])
+    params.require(:user).permit(:email, :first_name, :last_name, :class_year, :report_rate, :permission_id,
+                                 permission_attributes: %i[is_admin create_modify_events create_modify_announcements view_all_attendances])
   end
 end
