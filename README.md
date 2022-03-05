@@ -2,7 +2,8 @@
 
 ## Introduction ##
 
-Application Description
+SAIFD Member Site is a website application that keeps track of peoples attendance to events scheduled by the officers or president. The events can be created and managed in this website by the admin/officers of the club. We also have announcements that will email the users for specific events or just everyone in general to be able to give updates to certain events or news.
+
 
 ## Requirements ##
 
@@ -26,10 +27,21 @@ This code has been run and tested on:
 
 Download this code repository by using git:
 
- `git clone https://github.com/your_github_here.git`
+ `git clone https://github.com/TOneal419/SAIFD_Member_site.git`
 
 
 ## Tests ##
+
+A Brakeman test can be ran by using:
+
+  `brakeman/`
+
+Rubocop tests can be ran by using:
+
+  `rubocop/`
+
+  `bundle exec rubocop <filename>` 
+  
 
 An RSpec test suite is available and can be ran using:
 
@@ -41,7 +53,10 @@ Run the following code in Powershell if using windows or the terminal using Linu
 
   `cd your_github_here`
 
-  `docker run --rm -it --volume "$(pwd):/rails_app" -e DATABASE_USER=test_app -e DATABASE_PASSWORD=test_password -p 3000:3000 dmartinez05/ruby_rails_postgresql:latest`
+  `docker run --rm -it --volume "$(pwd):/csce431" -e DATABASE_USER=test_app -e DATABASE_PASSWORD=test_password -p 3000:3000 dmartinez05/ruby_rails_postgresql:latest`
+  
+  For windows replace $(pwd) -> ${PWD}
+
 
   `cd rails_app`
 
@@ -54,18 +69,14 @@ Run the app
 
 The application can be seen using a browser and navigating to http://localhost:3000/
 
-## Environmental Variables/Files ##
-
-** Add instructions/description if your application requires it.
-
 ## Deployment ##
 
-** Add instructions about how to deploy to Heroku
+Pushing to staging should automatically create a MVP.
 
 
 ## CI/CD ##
 
-TBD
+TBD After Sprint 2 Review
 
 ## Support ##
 

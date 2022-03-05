@@ -1,0 +1,31 @@
+require: 
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-rspec
+
+AllCops:
+  Exclude:
+    - 'db/**/*'
+    - 'script/**/*'
+    - 'bin/**/*'
+    - 'config/**/*'
+    - 'script/**/*' 
+    - 'bin/{rails,rake}'
+    - !ruby/regexp /old_and_unused\.rb$/
+    - 'node_modules/**/*'
+    - 'tmp/**/*'
+    - 'vendor/**/*'
+    - '.git/**/*'
+    - "**/spec/**/*"
+
+Layout/LineLength:
+    Max: 176
+
+Metrics/MethodLength:
+    Max: 20
+
+Metrics/AbcSize:
+    Max: 35
+
+Rails/HasManyOrHasOneDependent:
+  Enabled: false
