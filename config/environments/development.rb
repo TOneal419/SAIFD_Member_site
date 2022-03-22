@@ -80,14 +80,14 @@ Rails.application.configure do
   ENV['GOOGLE_OAUTH_CLIENT_SECRET'] = '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'
 
 
+  config.action_mailer.perform_deliveries = true
   config.action_mailer.delivery_method = :smtp
-
   config.action_mailer.smtp_settings = {
    address:              'smtp.gmail.com',
    port:                 587,
-   domain:               'example.com',
-   user_name:            '<username>',
-   password:             '<password>',
+   domain:               'TamuJohnDoe22@gmail.com',
+   user_name:            'TamuJohnDoe22',
+   password:             'Aggies22',
    authentication:       'plain',
    enable_starttls_auto: true  
 }
