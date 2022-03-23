@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     # default to only seeing self
     @users = User.where(id: @user.id)
 
-    @users = User.all if grab_permissions[:view_all_attendances]
+    @users = User.all if grab_permissions[:is_admin]
   end
 
   # GET /users/1 or /users/1.json
