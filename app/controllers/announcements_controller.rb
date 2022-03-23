@@ -12,24 +12,24 @@ class AnnouncementsController < ApplicationController
 
   # GET /announcements/1 or /announcements/1.json
   def show
-    redirect_to '/', notice: 'Attempted to access disabled route.'
+    return redirect_to '/', notice: 'Attempted to access disabled route.'
   end
 
   # GET /announcements/new
   def new
-    redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_announcements]
+    return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_announcements]
 
     @announcement = Announcement.new
   end
 
   # GET /announcements/1/edit
   def edit
-    redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_announcements]
+    return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_announcements]
   end
 
   # POST /announcements or /announcements.json
   def create
-    redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_announcements]
+    return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_announcements]
 
     @announcement = Announcement.new(announcement_params)
     @user = grab_user
@@ -49,7 +49,7 @@ class AnnouncementsController < ApplicationController
 
   # PATCH/PUT /announcements/1 or /announcements/1.json
   def update
-    redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_announcements]
+    return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_announcements]
 
     respond_to do |format|
       if @announcement.update(announcement_params)
@@ -64,7 +64,7 @@ class AnnouncementsController < ApplicationController
 
   # DELETE /announcements/1 or /announcements/1.json
   def destroy
-    redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_announcements]
+    return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_announcements]
 
     @announcement.destroy
     respond_to do |format|

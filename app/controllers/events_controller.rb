@@ -12,23 +12,23 @@ class EventsController < ApplicationController
 
   # GET /events/1 or /events/1.json
   def show
-    redirect_to '/', notice: 'Attempted to access disabled route.'
+    return redirect_to '/', notice: 'Attempted to access disabled route.'
   end
 
   # GET /events/new
   def new
-    redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_events]
+    return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_events]
     @event = Event.new
   end
 
   # GET /events/1/edit
   def edit
-    redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_events]
+    return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_events]
   end
 
   # POST /events or /events.json
   def create
-    redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_events]
+    return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_events]
 
     @event = Event.new(event_params)
 
@@ -45,7 +45,7 @@ class EventsController < ApplicationController
 
   # PATCH/PUT /events/1 or /events/1.json
   def update
-    redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_events]
+    return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_events]
 
     respond_to do |format|
       if @event.update(event_params)
@@ -60,7 +60,7 @@ class EventsController < ApplicationController
 
   # DELETE /events/1 or /events/1.json
   def destroy
-    redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_events]
+    return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_events]
 
     @event.destroy
 

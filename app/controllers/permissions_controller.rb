@@ -6,37 +6,37 @@ class PermissionsController < ApplicationController
 
   # GET /permissions or /permissions.json
   def index
-    redirect_to '/', notice: 'Attempted to access disabled route.'
+    return redirect_to '/', notice: 'Attempted to access disabled route.'
   end
 
   # GET /permissions/1 or /permissions/1.json
   def show
-    redirect_to '/', notice: 'Attempted to access disabled route.'
+    return redirect_to '/', notice: 'Attempted to access disabled route.'
   end
 
   # GET /permissions/new
   def new
-    redirect_to '/', notice: 'Attempted to access disabled route.'
+    return redirect_to '/', notice: 'Attempted to access disabled route.'
   end
 
   # GET /permissions/1/edit
   def edit
-    redirect_to '/', notice: 'Attempted to access disabled route.'
+    return redirect_to '/', notice: 'Attempted to access disabled route.'
   end
 
   # POST /permissions or /permissions.json
   def create
-    redirect_to '/', notice: 'Attempted to access disabled route.'
+    return redirect_to '/', notice: 'Attempted to access disabled route.'
   end
 
   # PATCH/PUT /permissions/1 or /permissions/1.json
   def update
-    redirect_to '/', notice: 'Attempted to access disabled route.'
+    return redirect_to '/', notice: 'Attempted to access disabled route.'
   end
 
   # DELETE /permissions/1 or /permissions/1.json
   def destroy
-    redirect_to '/', notice: 'Attempted to access disabled route.'
+    return redirect_to '/', notice: 'Attempted to access disabled route.'
   end
 
   private

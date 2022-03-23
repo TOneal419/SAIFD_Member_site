@@ -35,8 +35,10 @@
           <td style="text-align:center"><%= @user_perm.create_modify_events %></td>
           <td style="text-align:center"><%= @user_perm.create_modify_announcements %></td>
           <td style="text-align:center"><%= @user_perm.view_all_attendances %></td>
-          <td style="text-align:center"><%= link_to 'Edit', edit_user_path(user.email) %></td>
-          <td style="text-align:center"><%= link_to 'Destroy', 'users/' + user.email + '/destroy', data: { confirm: 'Are you sure? This action cannot be undone.' } %></td>
+          <% if user.email.downcase != "wjmckinley@tamu.edu" && user.email.downcase != "bill.mckinley@ag.tamu.edu" %>
+            <td style="text-align:center"><%= link_to 'Edit', edit_user_path(user.email) %></td>
+            <td style="text-align:center"><%= link_to 'Destroy', 'users/' + user.email + '/destroy', data: { confirm: 'Are you sure? This action cannot be undone.' } %></td>
+          <% end %>
         <% end %>
       </tr>
     <% end %>

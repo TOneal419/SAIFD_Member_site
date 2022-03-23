@@ -17,7 +17,7 @@ class AttendancesController < ApplicationController
 
   # GET /attendances/1 or /attendances/1.json
   def show
-    redirect_to '/', notice: 'Attempted to access disabled route.'
+    return redirect_to '/', notice: 'Attempted to access disabled route.'
   end
 
   # GET /attendances/new
