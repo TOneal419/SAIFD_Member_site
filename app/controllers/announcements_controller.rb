@@ -32,6 +32,7 @@ class AnnouncementsController < ApplicationController
     return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_announcements]
 
     @announcement = Announcement.new(announcement_params)
+    @announcement.update(posted_on: DateTime.now)
     @user = grab_user
 
     @announcement.update(user_id: @user.id)
