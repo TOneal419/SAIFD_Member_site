@@ -20,8 +20,8 @@
         <td style="text-align:center"><%= event.title %></td>
         <td style="text-align:center"><%= event.description %></td>
         <td style="text-align:center"><%= event.date %></td>
-        <td style="text-align:center"><%= event.event_time_start.strftime('%H:%M %P') %></td>
-        <td style="text-align:center"><%= event.event_time_end.strftime('%H:%M %P') %></td>
+        <td style="text-align:center"><%= event.event_time_start.strftime('%I:%M %P') %></td>
+        <td style="text-align:center"><%= event.event_time_end.strftime('%I:%M %P') %></td>
         <% if @perms[:create_modify_events] %>
           <td><%= link_to 'Edit', edit_event_path(event) %></td>
           <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>

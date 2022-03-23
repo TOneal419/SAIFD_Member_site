@@ -32,7 +32,9 @@ class AnnouncementsController < ApplicationController
     return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_announcements]
 
     @announcement = Announcement.new(announcement_params)
-    @announcement.update(posted_on: DateTime.now)
+
+    @posted_on = (DateTime.now.to_time - 5.hours).to_datetime
+    @announcement.update(posted_on: @posted_on)
     @user = grab_user
 
     @announcement.update(user_id: @user.id)
@@ -51,6 +53,9 @@ class AnnouncementsController < ApplicationController
   # PATCH/PUT /announcements/1 or /announcements/1.json
   def update
     return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_announcements]
+
+    @posted_on = (DateTime.now.to_time - 5.hours).to_datetime
+    @announcement.update(posted_on: @posted_on)
 
     respond_to do |format|
       if @announcement.update(announcement_params)
