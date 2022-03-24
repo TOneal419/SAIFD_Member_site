@@ -31,6 +31,12 @@ class AttendancesController < ApplicationController
   # POST /attendances or /attendances.json
   def create
     @attendance = Attendance.new(attendance_params)
+    
+    if @attendance.attend_time_start > @attendance.attend_time_end
+      flash[:alert] = "Attendance time must start before ending"
+      return render 'new'
+    end
+
     @user = grab_user
 
     @attendance.update(user_id: @user.id)
@@ -48,6 +54,12 @@ class AttendancesController < ApplicationController
 
   # PATCH/PUT /attendances/1 or /attendances/1.json
   def update
+    
+    if attendance_params[:attend_time_start] > attendance_params[:attend_time_end]
+      flash[:alert] = "Attendance time must start before ending"
+      return render 'edit'
+    end
+
     respond_to do |format|
       if @attendance.update(attendance_params)
         format.html { redirect_to attendances_path, notice: 'Attendance was successfully updated.' }

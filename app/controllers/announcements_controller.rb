@@ -18,7 +18,6 @@ class AnnouncementsController < ApplicationController
   # GET /announcements/new
   def new
     return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_announcements]
-
     @announcement = Announcement.new
   end
 

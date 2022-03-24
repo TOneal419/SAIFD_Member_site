@@ -31,6 +31,10 @@ class EventsController < ApplicationController
     return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_events]
 
     @event = Event.new(event_params)
+    if @event.event_time_start > @event.event_time_end
+        flash[:alert] = "Event must start before it ends"
+        return render 'new'
+    end    
 
     respond_to do |format|
       if @event.save
@@ -46,6 +50,11 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1 or /events/1.json
   def update
     return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_events]
+
+    if event_params[:event_time_start] > event_params[:event_time_end]
+      flash[:alert] = "Event must start before it ends"
+      return render 'edit'
+    end
 
     respond_to do |format|
       if @event.update(event_params)
