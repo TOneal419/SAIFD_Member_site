@@ -6,8 +6,17 @@ class AnnouncementsController < ApplicationController
 
   # GET /announcements or /announcements.json
   def index
-    @announcements = Announcement.all
     @perms = grab_permissions
+
+    @announcements = Announcement.all
+    if !@perms[:create_modify_announcements]
+      @announcements = []
+      @user = grab_user
+      @valid_plans_to_attend = Attendance.where(user_id: @user.id, plans_to_attend: 1)
+      @valid_plans_to_attend.each do |vpta|
+        @announcements.append(Announcement.where(user_id: @user.id, event_id: vpta.event_id).first)
+      end
+    end
   end
 
   # GET /announcements/1 or /announcements/1.json
