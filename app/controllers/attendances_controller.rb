@@ -26,7 +26,9 @@ class AttendancesController < ApplicationController
   end
 
   # GET /attendances/1/edit
-  def edit; end
+  def edit
+    return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:view_all_attendances]
+  end
 
   # POST /attendances or /attendances.json
   def create
@@ -54,7 +56,8 @@ class AttendancesController < ApplicationController
 
   # PATCH/PUT /attendances/1 or /attendances/1.json
   def update
-    
+    return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:view_all_attendances]
+
     if attendance_params[:attend_time_start] > attendance_params[:attend_time_end]
       flash[:alert] = "Attendance time must start before ending"
       return render 'edit'
