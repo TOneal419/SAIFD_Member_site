@@ -37,6 +37,9 @@ class AttendancesController < ApplicationController
     if @attendance.attend_time_start > @attendance.attend_time_end
       flash[:alert] = "Attendance time must start before ending"
       return render 'new'
+    elsif !Attendance.where(event_id: attendance_params[:event_id]).empty?
+      flash[:alert] = "Attendance record already exists"
+      return render 'new'
     end
 
     @user = grab_user
