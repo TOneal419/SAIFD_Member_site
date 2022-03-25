@@ -52,6 +52,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         @user.permission.update(user_id: @user.id)
+        UsermailerMailer.welcome_email(@user).deliver_later
         format.html do
           redirect_to new_admin_session_path, notice: 'User was successfully created. Please log in again to confirm.'
         end
