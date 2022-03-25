@@ -1,30 +1,180 @@
 <p id="notice"><%= notice %></p>
-<h1>Welcome, <%= @user.first_name %>!</h1>
 
-<% if @create_modify_events %>
-    <%= link_to "Make Event", new_event_path %>
-    </br>
-<% end %>
 
-<%= link_to "View Events", events_path %>
-</br>
-<%= link_to "Log Attendance Record", new_attendance_path %>
-</br>
-<%= link_to "View Attendance Records", attendances_path  %>
-</br>
+<style>
 
-<% if @is_admin %>
-    <%= link_to "Manage User Permissions", users_path %>
-    </br>
-<% end %>
+body {  
+    margin: 0;  
+    padding: 0;  
+    background-color: #800000; 
+    font-family: 'Arial';  
+}  
 
-<% if @create_modify_announcements %>
-    <%= link_to "Make Announcement", new_announcement_path %>
-    </br>
-<% end %>
 
-<%= link_to "View Announcements", announcements_path %>
-</br>
-</br>
-<%= link_to "Sign Out", destroy_admin_session_path %>
-</br>
+
+#block1 {
+    background-color: #F5F5F5;
+    margin: 10px 20px;
+    padding: 20px;
+    width: 360px;
+    float: left;
+}
+
+#block2 {
+    background-color: #F5F5F5;
+    margin: 10px 20px;
+    padding: 20px;
+    width: 360px;
+    float: right;
+}
+
+.wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #e0e0e0;
+    overflow: hidden;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #919191;
+}
+
+.active {
+    background-color: #04AA6D;
+}
+
+
+a {
+    display: block;
+    pading: 8px;
+    background-color: #dddddd;
+}
+
+a:visited {
+    color: inherit;
+}
+
+
+</style>
+
+
+
+<html>
+    <div>
+        <ul>
+            <li class= "active">
+                <%= link_to "Home", root_path %>
+            </li>
+
+            <li>
+                <% if @create_modify_events %>
+                    <%= link_to "Make Event", new_event_path %>
+                <% end %>
+            </li>
+
+            <li>
+                <%= link_to "View Events", events_path %>
+            </li>
+
+            <li>
+                <%= link_to "Log Attendance Record", new_attendance_path %>
+            </li>
+            
+            <li>
+                <%= link_to "View Attendance Records", attendances_path  %>
+            </li>
+
+            <li>
+                <% if @is_admin %>
+                    <%= link_to "Manage User Permissions", users_path %>
+                <% end %>
+            </li>
+
+            <li>
+                <% if @create_modify_announcements %>
+                    <%= link_to "Make Announcement", new_announcement_path %>
+                <% end %>
+            </li>
+
+            <li>
+                <%= link_to "View Announcements", announcements_path %>
+            </li>
+
+            <li style="float:right;">
+                <%= link_to "Sign Out", destroy_admin_session_path %>
+            </li>
+            
+        </ul>
+    </div>
+
+
+    <div style="text-align:center">
+        <h1 style="color: white;">Welcome, <%= @user.first_name %>!</h1>
+    </div>
+
+    <div class="wrapper">
+
+        <div style="display: flex; flex-direction: row; justify-content: space-around; align-items: center;">
+            <h2 style="float: left;">
+                Announcements
+            </h2>
+
+            <h2 style="float: right;">
+                Active Events
+            </h2>
+        </div>
+
+
+        <div style="display: flex; flex-direction: row; justify-content: space-around; align-items: center;">
+            <div id="block2">
+
+                <p style="text-align: center;">
+                    Will list announcements here
+                </p>
+            
+            </div>
+
+            <div id="block1">
+
+                <p style="text-align: center;">
+                    Will list events here
+                </p>
+                
+            </div>
+
+        </div>
+
+        
+    </div>
+
+    
+
+
+</html>
+
+
+
+
+
+
+
