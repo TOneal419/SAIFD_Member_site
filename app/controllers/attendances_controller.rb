@@ -9,15 +9,13 @@ class AttendancesController < ApplicationController
     # by default, only grab current user's attendance
     @user = grab_user
     @attendances = Attendance.where(user_id: @user.id)
-
     @attendances = Attendance.all if grab_permissions[:view_all_attendances]
-
     @perms = grab_permissions
   end
 
   # GET /attendances/1 or /attendances/1.json
   def show
-    redirect_to '/', notice: 'Attempted to access disabled route.'
+    return redirect_to '/', notice: 'Attempted to access disabled route.'
   end
 
   # GET /attendances/new
@@ -26,11 +24,30 @@ class AttendancesController < ApplicationController
   end
 
   # GET /attendances/1/edit
-  def edit; end
+  def edit
+    @attendance_id = params[:id]
+    @attendance = Attendance.where(id: @attendance_id).first
+    
+    return redirect_to '/' if @attendance.nil? 
+    return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:view_all_attendances] || @attendance.attend_time_start.nil? || @attendance.attend_time_end.nil?
+  end
 
   # POST /attendances or /attendances.json
   def create
     @attendance = Attendance.new(attendance_params)
+    @event = Event.where(id: @attendance.event_id).first
+    
+    if !Attendance.where(event_id: attendance_params[:event_id]).empty?
+      flash[:alert] = "Attendance record already exists"
+      return render 'new'
+    elsif !(@attendance.attend_time_start.to_time.strftime("%H:%M:%S") >= @event.event_time_start.to_time.strftime("%H:%M:%S") && @attendance.attend_time_end.to_time.strftime("%H:%M:%S") <= @event.event_time_end.to_time.strftime("%H:%M:%S"))
+      flash[:alert] = "Attendance time must be within bounds of event time"
+      return render 'new'
+    elsif @attendance.attend_time_start.to_time.strftime("%H:%M:%S") > @attendance.attend_time_end.to_time.strftime("%H:%M:%S")
+      flash[:alert] = "Attendance time must start before ending"
+      return render 'new'
+    end
+
     @user = grab_user
 
     @attendance.update(user_id: @user.id)
@@ -48,6 +65,21 @@ class AttendancesController < ApplicationController
 
   # PATCH/PUT /attendances/1 or /attendances/1.json
   def update
+    @attendance_id = params[:id]
+    @attendance = Attendance.where(id: @attendance_id).first
+    @event = Event.where(id: @attendance.event_id).first
+    
+    return redirect_to '/' if @attendance.nil? 
+    return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:view_all_attendances] || @attendance.attend_time_start.nil? || @attendance.attend_time_end.nil?
+
+    if !(attendance_params[:attend_time_start].to_time.strftime("%H:%M:%S") >= @event.event_time_start.to_time.strftime("%H:%M:%S") && attendance_params[:attend_time_end].to_time.strftime("%H:%M:%S") <= @event.event_time_end.to_time.strftime("%H:%M:%S"))
+      flash[:alert] = "Attendance time must be within bounds of event time"
+      return render 'edit'
+    elsif attendance_params[:attend_time_start].to_time.strftime("%H:%M:%S") > attendance_params[:attend_time_end].to_time.strftime("%H:%M:%S")
+      flash[:alert] = "Attendance time must start before ending"
+      return render 'edit'
+    end
+
     respond_to do |format|
       if @attendance.update(attendance_params)
         format.html { redirect_to attendances_path, notice: 'Attendance was successfully updated.' }

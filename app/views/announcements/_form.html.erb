@@ -22,13 +22,8 @@
   </div>
 
   <div class="field">
-    <%= form.label :posted_on %>
-    <%= form.datetime_select :posted_on %>
-  </div>
-
-  <div class="field">
-    <%= form.label :event_id %>
     <p>Do not select an event to email all members.</p>
+    <%= form.label :event_id %>
     <%= form.select :event_id, Event.order(:title).map{ |event| [event.title, event.id]}, include_blank: true, id: "id_of_the_event_id_select_box" %>
   </div>
 

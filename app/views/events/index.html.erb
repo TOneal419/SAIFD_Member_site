@@ -8,20 +8,27 @@
       <th>Title</th>
       <th>Description</th>
       <th>Date</th>
-      <th>Start Time</th>
-      <th>End Time</th>
+      <th>Start Time (CST)</th>
+      <th>End Time (CST)</th>
+      <th>Attending?</th>
       <th colspan="6"></th>
     </tr>
   </thead>
 
   <tbody>
-    <% @events.each do |event| %>
+    <% @events_attendings.each do |event, attending| %>
       <tr>
         <td style="text-align:center"><%= event.title %></td>
         <td style="text-align:center"><%= event.description %></td>
         <td style="text-align:center"><%= event.date %></td>
-        <td style="text-align:center"><%= event.event_time_start.strftime('%H:%M %P') %></td>
-        <td style="text-align:center"><%= event.event_time_end.strftime('%H:%M %P') %></td>
+        <td style="text-align:center"><%= event.event_time_start.strftime('%I:%M %P') %></td>
+        <td style="text-align:center"><%= event.event_time_end.strftime('%I:%M %P') %></td>
+        <% if attending %>
+          <td style="text-align:center"><%= link_to image_tag("checked.png", :border=>0, size: "35x35"), :action => :toggle, id: event.id %></td>
+        <% else %>
+          <td style="text-align:center"><%= link_to image_tag("unchecked.png", :border=>0, size: "35x35"), :action => :toggle, id: event.id %></td>
+        <% end %>
+
         <% if @perms[:create_modify_events] %>
           <td><%= link_to 'Edit', edit_event_path(event) %></td>
           <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>

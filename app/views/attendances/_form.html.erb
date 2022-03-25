@@ -1,3 +1,4 @@
+<p style="color: red"><%= alert %></p>
 <%= form_with(model: attendance) do |form| %>
   <% if attendance.errors.any? %>
     <div id="error_explanation">
@@ -13,7 +14,7 @@
 
   <div class="field">
     <%= form.label :event_id %>
-    <%= form.select :event_id, Event.order(:title).map { |event| [event.title, event.id] }, include_blank: true, id: "id_of_the_event_id_select_box" %>
+    <%= form.select :event_id, Event.order(:title).map { |event| [event.title + " | " + event.date.to_date.to_s + ", starts at " + event.event_time_start.strftime("%I:%M %p") + ", ends at " + event.event_time_end.strftime("%I:%M %p"), event.id] }, include_blank: true, id: "id_of_the_event_id_select_box" %>
   </div>
 
   <div class="field">
