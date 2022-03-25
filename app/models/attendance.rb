@@ -7,4 +7,5 @@ class Attendance < ApplicationRecord
   validates :plans_to_attend, presence: true, allow_blank: true
   has_one :event
   has_one :user
+  belongs_to :event
 end

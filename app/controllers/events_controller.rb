@@ -4,10 +4,35 @@
 class EventsController < ApplicationController
   before_action :set_event, only: %i[show edit update destroy]
 
+  def toggle
+    @user = grab_user
+    @event_id = params[:id]
+    @attendance = Attendance.where(event_id: @event_id, user_id: @user.id).first
+    if @attendance.nil?
+      @attendance = Attendance.new(event_id: @event_id, user_id: @user.id, attend_time_start: nil, attend_time_end: nil, plans_to_attend: true)
+      @attendance.save
+    else
+      @attendance.update(plans_to_attend: !@attendance.plans_to_attend)
+    end
+    return redirect_to '/events'
+  end
+
   # GET /events or /events.json
   def index
     @events = Event.all
+    @attendings = []
     @perms = grab_permissions
+
+    @events.each do |event|
+      @attending = Attendance.where(event_id: event.id, user_id: @user.id).first
+      if @attending.nil?
+        @attendings.append(false)
+      else
+        @attendings.append(@attending.plans_to_attend)
+      end
+    end
+
+    @events_attendings = @events.zip(@attendings)
   end
 
   # GET /events/1 or /events/1.json

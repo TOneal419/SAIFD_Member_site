@@ -21,12 +21,25 @@
         <td style="text-align:center"><%= Event.where(id: attendance.event_id).last.title %></td>
         <td style="text-align:center"><%= User.where(id: attendance.user_id).last.first_name %> </td>
         <td style="text-align:center"><%= User.where(id: attendance.user_id).last.last_name %> </td>
-        <td style="text-align:center"><%= attendance.attend_time_start.strftime('%I:%M %P')  %></td>
-        <td style="text-align:center"><%= attendance.attend_time_end.strftime('%I:%M %P') %></td>
+        <td style="text-align:center">
+          <% if attendance.attend_time_start.nil? %>
+            <p>nil</p>
+          <% else %>
+            <%= attendance.attend_time_start.strftime('%I:%M %P') %>
+          <% end %>
+        </td>
+        <td style="text-align:center">
+          <% if attendance.attend_time_end.nil? %>
+            <p>nil</p>
+          <% else %>
+            <%= attendance.attend_time_end.strftime('%I:%M %P') %>
+          <% end %>
+        </td>
         <td style="text-align:center"><%= attendance.plans_to_attend %></td>
-
-        <% if @perms[:view_all_attendances] %>
+        <% if @perms[:view_all_attendances] || attendance.attend_time_start.nil? || attendance.attend_time_end.nil? %>
           <td><%= link_to 'Edit', edit_attendance_path(attendance) %></td>
+        <% end %>
+        <% if @perms[:view_all_attendances] %>
           <td><%= link_to 'Destroy', attendance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% end %>
       </tr>

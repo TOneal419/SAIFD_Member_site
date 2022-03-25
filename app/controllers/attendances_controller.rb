@@ -27,15 +27,23 @@ class AttendancesController < ApplicationController
 
   # GET /attendances/1/edit
   def edit
-    return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:view_all_attendances]
+    @attendance_id = params[:id]
+    @attendance = Attendance.where(id: @attendance_id).first
+    
+    return redirect_to '/' if @attendance.nil? 
+    return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:view_all_attendances] || @attendance.attend_time_start.nil? || @attendance.attend_time_end.nil?
   end
 
   # POST /attendances or /attendances.json
   def create
     @attendance = Attendance.new(attendance_params)
+    @event = Event.where(id: @attendance.event_id)
     
     if @attendance.attend_time_start > @attendance.attend_time_end
       flash[:alert] = "Attendance time must start before ending"
+      return render 'new'
+    elsif !(@attendance.attend_time_start >= @event.event_time_start && @attendance.attend_time_end <= @event.event_time_end)
+      flash[:alert] = "Attendance time must be within bounds of event time"
       return render 'new'
     elsif !Attendance.where(event_id: attendance_params[:event_id]).empty?
       flash[:alert] = "Attendance record already exists"
@@ -59,7 +67,11 @@ class AttendancesController < ApplicationController
 
   # PATCH/PUT /attendances/1 or /attendances/1.json
   def update
-    return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:view_all_attendances]
+    @attendance_id = params[:id]
+    @attendance = Attendance.where(id: @attendance_id).first
+    
+    return redirect_to '/' if @attendance.nil? 
+    return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:view_all_attendances] || @attendance.attend_time_start.nil? || @attendance.attend_time_end.nil?
 
     if attendance_params[:attend_time_start] > attendance_params[:attend_time_end]
       flash[:alert] = "Attendance time must start before ending"

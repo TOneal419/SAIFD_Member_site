@@ -7,4 +7,5 @@ class Event < ApplicationRecord
   validates :event_time_start, presence: true
   validates :event_time_end, presence: true
   has_many :announcement
+  has_many :attendance
 end
