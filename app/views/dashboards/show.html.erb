@@ -148,10 +148,28 @@ a:visited {
         <div style="display: flex; flex-direction: row; justify-content: space-around; align-items: center;">
             <div id="block2">
 
-                <p style="text-align: center;">
+                <%# <p style="text-align: center;">
                     Will list announcements here
-                </p>
-            
+                </p> %>
+                
+                <tbody>
+                    <% @announcements.each do |announcement| %>
+                        <tr>
+                            <td style="align:left;"><%= announcement.title %></td>
+                            <td style="align:right"><%= User.where(id: announcement.user_id).last.first_name %></td>
+                            <td style="align:right"><%= announcement.posted_on.strftime('%d/%m/%Y, %I:%M %P') %></td>
+                            <br>
+                            <td> Description: </td>
+                            <td style="align:left"><%= announcement.description %></td>
+
+                            <br>
+                            <br>
+    
+
+                        </tr>
+                    <% end %>
+                </tbody>
+                
             </div>
 
             <div id="block1">
@@ -173,7 +191,35 @@ a:visited {
 </html>
 
 
+<!-- 
 
+<tbody>
+    <% @announcements.each do |announcement| %>
+      <tr>
+        <td style="text-align:center"><%= announcement.title %></td>
+        <td style="text-align:center"><%= announcement.description %></td>
+        <td style="text-align:center"><%= announcement.posted_on.strftime('%d/%m/%Y, %I:%M %P') %></td>
+
+        <td style="text-align:center"><%= User.where(id: announcement.user_id).last.first_name %></td>
+
+        <% if announcement.event_id.present? %>
+          <td><%= Event.where(id: announcement.event_id).last.title %></td>
+        <% else %>
+          <td>ALL</td>
+        <% end %>
+
+        <% if @perms[:create_modify_announcements] %>
+          <td><%= link_to 'Edit', edit_announcement_path(announcement) %></td>
+          <td><%= link_to 'Destroy', announcement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+      </tr>
+    <% end %>
+</tbody>
+
+
+
+
+ -->
 
 
 

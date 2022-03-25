@@ -26,7 +26,6 @@
 div.actions {
     display: flex;
     flex-direction: row-reverse;
-    text-align: center;
 }
 
 div.actions > a, div.actions > input  {
