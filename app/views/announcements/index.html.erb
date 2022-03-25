@@ -31,6 +31,8 @@
                   <td>ALL</td>
                 <% end %>
 
+                <td><%= link_to 'Show', announcement_path(announcement) %></td>
+                
                 <% if @perms[:create_modify_announcements] %>
                   <td><%= link_to 'Edit', edit_announcement_path(announcement) %></td>
                   <td><%= link_to 'Destroy', announcement, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -36,6 +36,8 @@
                   <td><%= link_to image_tag("unchecked.png", :border=>0, size: "35x35"), :action => :toggle, id: event.id %></td>
                 <% end %>
 
+                <td><%= link_to 'Show', event_path(event) %></td>
+
                 <% if @perms[:create_modify_events] %>
                   <td><%= link_to 'Edit', edit_event_path(event) %></td>
                   <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
