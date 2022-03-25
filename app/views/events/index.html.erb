@@ -1,48 +1,61 @@
-<p id="notice"><%= notice %></p>
+<style>
+  a:hover {
+    background-color: transparent;
+  }
+</style>
+<html>
+  <body>
+    <div class="vertical-center horizontal-center" style="background: #23463F">
+      <div class="form">
+        <p id="notice"><%= notice %></p>
+        <h1>Events</h1>
+        <table class="table-row-spacing">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Date</th>
+              <th>Start Time (CST)</th>
+              <th>End Time (CST)</th>
+              <th>Attending?</th>
+              <th colspan="6"></th>
+            </tr>
+          </thead>
 
-<h1>Events</h1>
+          <tbody>
+            <% @events_attendings.reverse_each do |event, attending| %>
+              <tr>
+                <td><%= event.title %></td>
+                <td><%= event.description %></td>
+                <td><%= event.date %></td>
+                <td><%= event.event_time_start.strftime('%I:%M %P') %></td>
+                <td><%= event.event_time_end.strftime('%I:%M %P') %></td>
+                <% if attending %>
+                  <td><%= link_to image_tag("checked.png", :border=>0, size: "35x35"), :action => :toggle, id: event.id %></td>
+                <% else %>
+                  <td><%= link_to image_tag("unchecked.png", :border=>0, size: "35x35"), :action => :toggle, id: event.id %></td>
+                <% end %>
 
-<table cellpadding="10">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Date</th>
-      <th>Start Time (CST)</th>
-      <th>End Time (CST)</th>
-      <th>Attending?</th>
-      <th colspan="6"></th>
-    </tr>
-  </thead>
+                <td><%= link_to 'Show', event_path(event) %></td>
 
-  <tbody>
-    <% @events_attendings.reverse_each do |event, attending| %>
-      <tr>
-        <td style="text-align:center"><%= event.title %></td>
-        <td style="text-align:center"><%= event.description %></td>
-        <td style="text-align:center"><%= event.date %></td>
-        <td style="text-align:center"><%= event.event_time_start.strftime('%I:%M %P') %></td>
-        <td style="text-align:center"><%= event.event_time_end.strftime('%I:%M %P') %></td>
-        <% if attending %>
-          <td style="text-align:center"><%= link_to image_tag("checked.png", :border=>0, size: "35x35"), :action => :toggle, id: event.id %></td>
-        <% else %>
-          <td style="text-align:center"><%= link_to image_tag("unchecked.png", :border=>0, size: "35x35"), :action => :toggle, id: event.id %></td>
-        <% end %>
 
-        <% if @perms[:create_modify_events] %>
-          <td><%= link_to 'Edit', edit_event_path(event) %></td>
-          <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+                <% if @perms[:create_modify_events] %>
+                  <td><%= link_to 'Edit', edit_event_path(event) %></td>
+                  <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                <% end %>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <br>
 
-<br>
+      <% if @perms[:create_modify_events] %>
+        <%= link_to 'New Event', new_event_path %>
+        <br>
+      <% end %>
 
-<% if @perms[:create_modify_events] %>
-  <%= link_to 'New Event', new_event_path %>
-  <br>
-<% end %>
-
-<%= link_to 'Back', root_path %>
+      <%= link_to 'Back', root_path %>
+      </div>
+    </div>
+  </body>
+</html>

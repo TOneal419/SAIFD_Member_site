@@ -21,7 +21,7 @@ class AnnouncementsController < ApplicationController
 
   # GET /announcements/1 or /announcements/1.json
   def show
-    return redirect_to '/', notice: 'Attempted to access disabled route.'
+    
   end
 
   # GET /announcements/new
