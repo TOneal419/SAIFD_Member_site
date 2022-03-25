@@ -14,5 +14,6 @@ class DashboardsController < ApplicationController
     # @active_events = Event.where(event_time_start: , event_time_end: )
     # @recent_announcements = Announcement.where()
     @announcements = Announcement.all
+    @events = Event.all
   end
 end

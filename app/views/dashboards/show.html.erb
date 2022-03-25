@@ -10,26 +10,20 @@ body {
     font-family: 'Arial';  
 }  
 
-
-
 #block1 {
     background-color: #F5F5F5;
-    margin: 10px 20px;
     padding: 20px;
-    width: 360px;
     float: left;
 }
 
 #block2 {
     background-color: #F5F5F5;
-    margin: 10px 20px;
     padding: 20px;
-    width: 360px;
     float: right;
 }
 
 .wrapper {
-    max-width: 800px;
+    width: 85%;
     margin: 0 auto;
     background: #e0e0e0;
     overflow: hidden;
@@ -128,7 +122,7 @@ a:visited {
     </div>
 
 
-    <div style="text-align:center">
+    <div>
         <h1 style="color: white;">Welcome, <%= @user.first_name %>!</h1>
     </div>
 
@@ -147,37 +141,49 @@ a:visited {
 
         <div style="display: flex; flex-direction: row; justify-content: space-around; align-items: center;">
             <div id="block2">
-
-                <%# <p style="text-align: center;">
-                    Will list announcements here
-                </p> %>
-                
-                <tbody>
+                <table>
+                    <tr>
+                        <th>Title</th>
+                        <th>First Name</th>
+                        <th>Posted On</th>
+                        <th>Description</th>
+                    </tr>
                     <% @announcements.each do |announcement| %>
                         <tr>
-                            <td style="align:left;"><%= announcement.title %></td>
-                            <td style="align:right"><%= User.where(id: announcement.user_id).last.first_name %></td>
-                            <td style="align:right"><%= announcement.posted_on.strftime('%d/%m/%Y, %I:%M %P') %></td>
-                            <br>
-                            <td> Description: </td>
-                            <td style="align:left"><%= announcement.description %></td>
-
-                            <br>
-                            <br>
-    
-
+                            <td><%= announcement.title %></td>
+                            <td><%= User.where(id: announcement.user_id).last.first_name %></td>
+                            <td><%= announcement.posted_on.strftime('%d/%m/%Y, %I:%M %P') %></td>
+                            <td><%= announcement.description %></td>
                         </tr>
                     <% end %>
-                </tbody>
-                
+                </table>
             </div>
 
             <div id="block1">
+                <table>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Last modified (CST)</th>
+                        <th>Created By</th>
+                        <th>Event</th>
+                    </tr>
+                    <% @announcements.each do |announcement| %>
+                    <tr>
+                        <td><%= announcement.title %></td>
+                        <td><%= announcement.description %></td>
+                        <td><%= announcement.posted_on.strftime('%d/%m/%Y, %I:%M %P') %></td>
 
-                <p style="text-align: center;">
-                    Will list events here
-                </p>
-                
+                        <td><%= User.where(id: announcement.user_id).last.first_name %></td>
+
+                        <% if announcement.event_id.present? %>
+                        <td><%= Event.where(id: announcement.event_id).last.title %></td>
+                        <% else %>
+                        <td>ALL</td>
+                        <% end %>
+                    </tr>
+                    <% end %>
+                </table>
             </div>
 
         </div>
@@ -189,38 +195,3 @@ a:visited {
 
 
 </html>
-
-
-<!-- 
-
-<tbody>
-    <% @announcements.each do |announcement| %>
-      <tr>
-        <td style="text-align:center"><%= announcement.title %></td>
-        <td style="text-align:center"><%= announcement.description %></td>
-        <td style="text-align:center"><%= announcement.posted_on.strftime('%d/%m/%Y, %I:%M %P') %></td>
-
-        <td style="text-align:center"><%= User.where(id: announcement.user_id).last.first_name %></td>
-
-        <% if announcement.event_id.present? %>
-          <td><%= Event.where(id: announcement.event_id).last.title %></td>
-        <% else %>
-          <td>ALL</td>
-        <% end %>
-
-        <% if @perms[:create_modify_announcements] %>
-          <td><%= link_to 'Edit', edit_announcement_path(announcement) %></td>
-          <td><%= link_to 'Destroy', announcement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
-      </tr>
-    <% end %>
-</tbody>
-
-
-
-
- -->
-
-
-
-
