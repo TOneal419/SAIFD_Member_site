@@ -32,8 +32,8 @@ div.actions > a, div.actions > input  {
     width: 50%;
 }
 
-td {
-    padding-right: 50px !important;
+th, td {
+    padding-right: 30px !important;
 }
 
 label {
@@ -47,4 +47,5 @@ html {
 
 body {
     height: 100%;
+    background-color: #23463F !important;
 }

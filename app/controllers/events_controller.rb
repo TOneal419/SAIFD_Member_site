@@ -37,7 +37,6 @@ class EventsController < ApplicationController
 
   # GET /events/1 or /events/1.json
   def show
-    return redirect_to '/', notice: 'Attempted to access disabled route.'
   end
 
   # GET /events/new
