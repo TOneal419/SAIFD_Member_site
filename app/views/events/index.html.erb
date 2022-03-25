@@ -23,7 +23,7 @@
           </thead>
 
           <tbody>
-            <% @events_attendings.each do |event, attending| %>
+            <% @events_attendings.reverse_each do |event, attending| %>
               <tr>
                 <td><%= event.title %></td>
                 <td><%= event.description %></td>
@@ -38,6 +38,7 @@
 
                 <td><%= link_to 'Show', event_path(event) %></td>
 
+
                 <% if @perms[:create_modify_events] %>
                   <td><%= link_to 'Edit', edit_event_path(event) %></td>
                   <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -46,7 +47,6 @@
             <% end %>
           </tbody>
         </table>
-
       <br>
 
       <% if @perms[:create_modify_events] %>

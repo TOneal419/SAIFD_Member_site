@@ -17,7 +17,7 @@
           </thead>
 
           <tbody>
-            <% @announcements.each do |announcement| %>
+            <% @announcements.reverse_each do |announcement| %>
               <tr>
                 <td style="text-align:center"><%= announcement.title %></td>
                 <td style="text-align:center"><%= announcement.description %></td>
@@ -53,3 +53,4 @@
     </div>
   </body>
 </html>
+
