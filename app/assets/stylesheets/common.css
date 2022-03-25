@@ -1,0 +1,51 @@
+.vertical-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+
+.horizontal-center {
+    display: flex;
+    align-items: center;
+}
+
+.form {
+    border-radius: 10px;
+    padding: 30px;
+    height: 80%;
+    max-height: 580px;
+    background: floralwhite;
+}
+
+.table-row-spacing {
+    border-collapse: separate;
+    border-spacing: 0 15px;
+}
+
+div.actions {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+div.actions > a, div.actions > input  {
+    width: 50%;
+}
+
+th, td {
+    padding-right: 30px !important;
+}
+
+label {
+    margin-right: 10px;
+    margin-top: 5px;
+}
+
+html {
+    height: 100vh;
+}
+
+body {
+    height: 100%;
+    background-color: #23463F !important;
+}

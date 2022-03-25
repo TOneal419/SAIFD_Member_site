@@ -15,12 +15,12 @@ class UsersController < ApplicationController
     # default to only seeing self
     @users = User.where(id: @user.id)
 
-    @users = User.all if grab_permissions[:view_all_attendances]
+    @users = User.all if grab_permissions[:is_admin]
   end
 
   # GET /users/1 or /users/1.json
   def show
-    redirect_to '/', notice: 'Attempted to access disabled route.'
+    return redirect_to '/', notice: 'Attempted to access disabled route.'
   end
 
   # GET /users/new
@@ -31,7 +31,8 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:is_admin]
+    return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:is_admin]
+    return redirect_to '/', notice: 'Cannot edit WebMaster.' if params[:email].downcase == "wjmckinley@tamu.edu" || params[:email].downcase == "bill.mckinley@ag.tamu.edu"
 
     # grab params from URL
     @user = User.find_by(email: params[:email])
@@ -65,7 +66,7 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1 or /users/1.json
   def update
-    redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:is_admin]
+    return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:is_admin]
 
     @user = User.find_by(email: user_params['email'])
     respond_to do |format|
@@ -81,7 +82,11 @@ class UsersController < ApplicationController
 
   # DELETE /users/1 or /users/1.json
   def destroy
-    redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:is_admin]
+    return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:is_admin]
+    return redirect_to '/', notice: 'Cannot destroy WebMaster.' if params[:email].downcase == "wjmckinley@tamu.edu" || params[:email].downcase == "bill.mckinley@ag.tamu.edu"
+
+    @current_user = grab_user
+    return redirect_to '/', notice: 'Cannot destroy self.' if @current_user.email.downcase == params[:email].downcase
 
     @user = User.find_by(email: params['email'])
     @user.destroy

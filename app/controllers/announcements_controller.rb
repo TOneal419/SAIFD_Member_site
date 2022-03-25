@@ -6,32 +6,43 @@ class AnnouncementsController < ApplicationController
 
   # GET /announcements or /announcements.json
   def index
-    @announcements = Announcement.all
     @perms = grab_permissions
+
+    @announcements = Announcement.all
+    if !@perms[:create_modify_announcements]
+      @announcements = []
+      @user = grab_user
+      @valid_plans_to_attend = Attendance.where(user_id: @user.id, plans_to_attend: 1)
+      @valid_plans_to_attend.each do |vpta|
+        @announcements.append(Announcement.where(user_id: @user.id, event_id: vpta.event_id).first)
+      end
+    end
   end
 
   # GET /announcements/1 or /announcements/1.json
   def show
-    redirect_to '/', notice: 'Attempted to access disabled route.'
+    
   end
 
   # GET /announcements/new
   def new
-    redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_announcements]
-
+    return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_announcements]
     @announcement = Announcement.new
   end
 
   # GET /announcements/1/edit
   def edit
-    redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_announcements]
+    return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_announcements]
   end
 
   # POST /announcements or /announcements.json
   def create
-    redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_announcements]
+    return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_announcements]
 
     @announcement = Announcement.new(announcement_params)
+
+    @posted_on = (DateTime.now.to_time - 5.hours).to_datetime
+    @announcement.update(posted_on: @posted_on)
     @user = grab_user
 
     @announcement.update(user_id: @user.id)
@@ -49,7 +60,10 @@ class AnnouncementsController < ApplicationController
 
   # PATCH/PUT /announcements/1 or /announcements/1.json
   def update
-    redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_announcements]
+    return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_announcements]
+
+    @posted_on = (DateTime.now.to_time - 5.hours).to_datetime
+    @announcement.update(posted_on: @posted_on)
 
     respond_to do |format|
       if @announcement.update(announcement_params)
@@ -64,7 +78,7 @@ class AnnouncementsController < ApplicationController
 
   # DELETE /announcements/1 or /announcements/1.json
   def destroy
-    redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_announcements]
+    return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_announcements]
 
     @announcement.destroy
     respond_to do |format|

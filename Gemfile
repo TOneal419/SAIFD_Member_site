@@ -66,5 +66,6 @@ gem 'omniauth-google-oauth2', '~>0.8.2'
 gem 'brakeman'
 gem 'rubocop'
 gem 'rubocop-rails'
-
 gem 'mail', '~> 2.7'
+gem 'bootstrap-sass'
+
