@@ -6,7 +6,7 @@
 body {  
     margin: 0;  
     padding: 0;  
-    background-color: #800000; 
+    background-color: #23463F; 
     font-family: 'Arial';  
 }  
 
@@ -146,38 +146,55 @@ a:visited {
 
 
         <div style="display: flex; flex-direction: row; justify-content: space-around; align-items: center;">
-            <div id="block2">
+            <div style="display: flex; flex-direction: column; justify-content: space-around; align-items: center;">
+                <% @announcements.last(4).reverse_each do |announcement| %>
+                    <div id="block2">
+                        
+                        <tbody>
+                            
+                            <tr>
+                                <td> <div style="text-align:center; font-size:20px;"> <%= announcement.title %> </div> </td>
+                                <td> <div style="text-align:center"> <%= User.where(id: announcement.user_id).last.first_name %> <%= User.where(id: announcement.user_id).last.last_name %></div> </td>
+                                <td> <div style="text-align:center"> <%= announcement.posted_on.strftime('%d/%m/%Y, %I:%M %P') %> </div> </td>
+                                <br>
+                                <td> Description: </td>
+                                <td> <div>  <%= announcement.description[0..50] %> ... </div></td>
 
-                <%# <p style="text-align: center;">
-                    Will list announcements here
-                </p> %>
-                
-                <tbody>
-                    <% @announcements.each do |announcement| %>
-                        <tr>
-                            <td style="align:left;"><%= announcement.title %></td>
-                            <td style="align:right"><%= User.where(id: announcement.user_id).last.first_name %></td>
-                            <td style="align:right"><%= announcement.posted_on.strftime('%d/%m/%Y, %I:%M %P') %></td>
-                            <br>
-                            <td> Description: </td>
-                            <td style="align:left"><%= announcement.description %></td>
+                                <br>
+        
 
-                            <br>
-                            <br>
-    
+                            </tr>
+                            
+                        </tbody>
+                        
+                    </div>
+                <% end %>        
 
-                        </tr>
-                    <% end %>
-                </tbody>
-                
             </div>
 
-            <div id="block1">
+            <div style="display: flex; flex-direction: column; justify-content: space-around; align-items: center;">
+                <% @events.last(4).reverse_each do |event| %>
+                    <div id="block1">
+                        
+                        <tbody>
+                            <tr>
 
-                <p style="text-align: center;">
-                    Will list events here
-                </p>
-                
+                                <td> <div style="text-align:center; font-size:20px;"> <%= event.title %> </div> </td>
+                                <td> <div style="text-align:center"> <%= event.date %> </div> </td>
+                                <br>
+                                <td> Description: </td>
+                                <td> <div><%= event.description[0..50] %> ... </div> </td>
+
+                                <br>
+
+                            </tr>    
+
+                            
+                        </tbody>
+                        
+                    </div>
+                <% end %>        
+
             </div>
 
         </div>

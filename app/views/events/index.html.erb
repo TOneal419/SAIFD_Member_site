@@ -16,7 +16,7 @@
   </thead>
 
   <tbody>
-    <% @events_attendings.each do |event, attending| %>
+    <% @events_attendings.reverse_each do |event, attending| %>
       <tr>
         <td style="text-align:center"><%= event.title %></td>
         <td style="text-align:center"><%= event.description %></td>

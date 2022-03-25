@@ -9,5 +9,6 @@ class DashboardsController < ApplicationController
     @create_modify_announcements = @perms[:create_modify_announcements]
     @user = grab_user
     @announcements = Announcement.all
+    @events = Event.all
   end
 end
