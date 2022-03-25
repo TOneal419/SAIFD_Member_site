@@ -1,47 +1,53 @@
-<p id="notice"><%= notice %></p>
+<html>
+  <body>
+    <div class="vertical-center horizontal-center" style="background: #23463F">
+      <div class="form">
+        <p id="notice"><%= notice %></p>
+        <h1>Announcements</h1>
+        <table class="table-row-spacing">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Last modified (CST)</th>
+              <th>Created By</th>
+              <th>Event</th>
+              <th colspan="3"></th>
+            </tr>
+          </thead>
 
-<h1>Announcements</h1>
+          <tbody>
+            <% @announcements.each do |announcement| %>
+              <tr>
+                <td style="text-align:center"><%= announcement.title %></td>
+                <td style="text-align:center"><%= announcement.description %></td>
+                <td style="text-align:center"><%= announcement.posted_on.strftime('%d/%m/%Y, %I:%M %P') %></td>
 
-<table cellpadding="10">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Last modified (CST)</th>
-      <th>Created By</th>
-	    <th>Event</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+                <td style="text-align:center"><%= User.where(id: announcement.user_id).last.first_name %></td>
 
-  <tbody>
-    <% @announcements.each do |announcement| %>
-      <tr>
-        <td style="text-align:center"><%= announcement.title %></td>
-        <td style="text-align:center"><%= announcement.description %></td>
-        <td style="text-align:center"><%= announcement.posted_on.strftime('%d/%m/%Y, %I:%M %P') %></td>
+                <% if announcement.event_id.present? %>
+                  <td><%= Event.where(id: announcement.event_id).last.title %></td>
+                <% else %>
+                  <td>ALL</td>
+                <% end %>
 
-        <td style="text-align:center"><%= User.where(id: announcement.user_id).last.first_name %></td>
+                <% if @perms[:create_modify_announcements] %>
+                  <td><%= link_to 'Edit', edit_announcement_path(announcement) %></td>
+                  <td><%= link_to 'Destroy', announcement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                <% end %>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
 
-        <% if announcement.event_id.present? %>
-          <td><%= Event.where(id: announcement.event_id).last.title %></td>
-        <% else %>
-          <td>ALL</td>
-        <% end %>
+      <br>
 
-        <% if @perms[:create_modify_announcements] %>
-          <td><%= link_to 'Edit', edit_announcement_path(announcement) %></td>
-          <td><%= link_to 'Destroy', announcement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<% if @perms[:create_modify_announcements] %>
-  <%= link_to 'New Announcement', new_announcement_path %>
-  <br>
-<% end %>
-<%= link_to 'Back', root_path %>
+      <% if @perms[:create_modify_announcements] %>
+        <%= link_to 'New Announcement', new_announcement_path %>
+        <br>
+      <% end %>
+      <%= link_to 'Back', root_path %>
+      </div>
+    </div>
+  </body>
+</html>
