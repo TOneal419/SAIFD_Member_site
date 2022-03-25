@@ -84,6 +84,9 @@ class UsersController < ApplicationController
     return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:is_admin]
     return redirect_to '/', notice: 'Cannot destroy WebMaster.' if params[:email].downcase == "wjmckinley@tamu.edu" || params[:email].downcase == "bill.mckinley@ag.tamu.edu"
 
+    @current_user = grab_user
+    return redirect_to '/', notice: 'Cannot destroy self.' if @current_user.email.downcase == params[:email].downcase
+
     @user = User.find_by(email: params['email'])
     @user.destroy
     respond_to do |format|
