@@ -1,84 +1,75 @@
 <p id="notice" style="color: red"><%= notice %></p>
 
-
 <style>
+    body {  
+        margin: 0;  
+        padding: 0;  
+        background-color: #23463F; 
+        font-family: 'Arial';  
+    }  
 
-body {  
-    margin: 0;  
-    padding: 0;  
-    background-color: #23463F; 
-    font-family: 'Arial';  
-}  
+    #block1 {
+        background-color: #F5F5F5;
+        margin: 10px 20px;
+        padding: 20px;
+        width: 360px;
+        float: left;
+    }
 
+    #block2 {
+        background-color: #F5F5F5;
+        margin: 10px 20px;
+        padding: 20px;
+        width: 360px;
+        float: right;
+    }
 
+    .wrapper {
+        max-width: 800px;
+        margin: 0 auto;
+        background: #e0e0e0;
+        overflow: hidden;
+    }
 
-#block1 {
-    background-color: #F5F5F5;
-    margin: 10px 20px;
-    padding: 20px;
-    width: 360px;
-    float: left;
-}
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+    }
 
-#block2 {
-    background-color: #F5F5F5;
-    margin: 10px 20px;
-    padding: 20px;
-    width: 360px;
-    float: right;
-}
+    li {
+        float: left;
+    }
 
-.wrapper {
-    max-width: 800px;
-    margin: 0 auto;
-    background: #e0e0e0;
-    overflow: hidden;
-}
+    li a {
+        display: block;
+        color: black;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
 
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
-}
+    li a:hover {
+        background-color: #919191;
+    }
 
-li {
-    float: left;
-}
-
-li a {
-    display: block;
-    color: black;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-
-li a:hover {
-    background-color: #919191;
-}
-
-.active {
-    background-color: #04AA6D;
-}
+    .active {
+        background-color: #04AA6D;
+    }
 
 
-a {
-    display: block;
-    pading: 8px;
-    background-color: #dddddd;
-}
+    a {
+        display: block;
+        pading: 8px;
+        background-color: #dddddd;
+    }
 
-a:visited {
-    color: inherit;
-}
-
-
+    a:visited {
+        color: inherit;
+    }
 </style>
-
-
-
 
 <html>
     <div>
@@ -150,9 +141,7 @@ a:visited {
             <div style="display: flex; flex-direction: column; justify-content: space-around; align-items: center;">
                 <% @announcements.last(4).reverse_each do |announcement| %>
                     <div id="block2">
-                        
                         <tbody>
-                            
                             <tr>
                                 <td> <div style="text-align:center; font-size:20px;"> <%= announcement.title %> </div> </td>
                                 <td> <div style="text-align:center"> <%= User.where(id: announcement.user_id).last.first_name %> <%= User.where(id: announcement.user_id).last.last_name %></div> </td>
@@ -160,10 +149,7 @@ a:visited {
                                 <br>
                                 <td> Description: </td>
                                 <td> <div>  <%= announcement.description[0..100] %> ... </div></td>
-
                                 <br>
-        
-
                             </tr>
                             
                         </tbody>

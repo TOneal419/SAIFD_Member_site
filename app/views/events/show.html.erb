@@ -21,12 +21,12 @@
 
         <p>
           <strong>Start Time:</strong>
-          <%= @event.event_time_start %>
+          <%= @event.event_time_start.strftime("%I:%M %p") %>
         </p>
 
         <p>
           <strong>End Time:</strong>
-          <%= @event.event_time_start %>
+          <%= @event.event_time_start.strftime("%I:%M %p") %>
         </p>
         
         <div class="actions">
