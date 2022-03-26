@@ -10,7 +10,7 @@
             <thead>
               <tr>
                 <th>Title</th>
-                <th style="width: 25%; overflow-wrap: anywhere;">Description</th>
+                <th style="width: 25%;" class="desc">Description</th>
                 <th>Last modified (CST)</th>
                 <th>Created By</th>
                 <th>Event</th>
@@ -22,7 +22,7 @@
               <% @announcements.reverse_each do |announcement| %>
                 <tr>
                   <td><%= announcement.title %></td>
-                  <td style="width: 25%; overflow-wrap: anywhere;">
+                  <td style="width: 25%;" class="desc">
                     <%= announcement.description[0..100] %>
                     <% if announcement.description.length > 100 %>
                       <p style="display: inline">...</p>

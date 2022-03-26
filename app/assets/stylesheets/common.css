@@ -55,3 +55,20 @@ body {
     height: 100%;
     background-color: #23463F !important;
 }
+
+.desc {
+    overflow-wrap: anywhere;
+}
+
+*::-webkit-scrollbar {
+    width: 12px;               /* width of the entire scrollbar */
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent;        /* color of the tracking area */
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: rgb(51, 51, 51);    /* color of the scroll thumb */
+    border-radius: 20px;
+}
