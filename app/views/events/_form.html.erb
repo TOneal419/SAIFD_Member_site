@@ -27,7 +27,7 @@
         <%= form.label :description %>
       </td>
       <td>
-        <%= form.text_field :description %>
+        <%= form.text_area :description %>
       </td>
     </tr>
 
@@ -60,7 +60,7 @@
   </table>
 
   <div class="actions">
-    <%= form.submit %>
-    <%= link_to 'Cancel', events_path %>
+    <%= form.submit class:'btn' %>
+    <%= link_to 'Cancel', events_path, class:'btn' %>
   </div>
 <% end %>

@@ -39,7 +39,7 @@ div.actions > a, div.actions > input  {
 
 th, td {
     padding-right: 30px !important;
-    vertical-align: baseline;
+    vertical-align: top;
 }
 
 label {
@@ -71,4 +71,15 @@ body {
 *::-webkit-scrollbar-thumb {
     background-color: #919191;    /* color of the scroll thumb */
     border-radius: 20px;
+}
+
+textarea {
+    width: 50vw;
+    height: 20vh;
+    resize: none;
+}
+
+.btn {
+    background: #E5E5E5;
+    border: 0.5px solid black;
 }
