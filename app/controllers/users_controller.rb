@@ -97,6 +97,12 @@ class UsersController < ApplicationController
       end
     end
 
+    @permission = Permission.where(user_id: @user.id).first
+    @permission.destroy
+
+    @admin = Admin.where(email: @user.email).first
+    @admin.destroy
+
     @related_announcements = Announcement.where(user_id: @user.id)
     if !@related_announcements.nil?
       @related_announcements.each do |announcement|
