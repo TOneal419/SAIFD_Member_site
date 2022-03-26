@@ -10,8 +10,14 @@ class ApplicationController < ActionController::Base
   # gets info of user currently logged in
   def grab_user
     @id_token = cookies[:current_user_session]
-    @email = Admin.where(uid: @id_token).first.email
-    @user = User.where(email: @email).first
+    @google_acc = Admin.where(uid: @id_token)
+    if @id_token.nil? || @google_acc.nil?
+      cookies[:current_user_session] = nil
+      return redirect_to '/', notice: 'Invalid user session.'
+    else
+      @email = @google_acc.first.email
+      @user = User.where(email: @email).first
+    end
   end
 
   def grab_permissions
