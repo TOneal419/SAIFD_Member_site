@@ -1,14 +1,14 @@
 <html>
   <body>
     <div class="vertical-center horizontal-center" style="background: #23463F">
-      <div class="form">
+      <div class="form" style="width: 90%">
         <p id="notice"><%= notice %></p>
         <h1>Announcements</h1>
         <table class="table-row-spacing">
           <thead>
             <tr>
               <th>Title</th>
-              <th>Description</th>
+              <th style="width: 25%; overflow-wrap: anywhere;">Description</th>
               <th>Last modified (CST)</th>
               <th>Created By</th>
               <th>Event</th>
@@ -19,11 +19,16 @@
           <tbody>
             <% @announcements.reverse_each do |announcement| %>
               <tr>
-                <td style="text-align:center"><%= announcement.title %></td>
-                <td style="text-align:center"><%= announcement.description %></td>
-                <td style="text-align:center"><%= announcement.posted_on.strftime('%d/%m/%Y, %I:%M %P') %></td>
+                <td><%= announcement.title %></td>
+                <td style="width: 25%; overflow-wrap: anywhere;">
+                  <%= announcement.description[0..100] %>
+                  <% if announcement.description.length > 100 %>
+                    <p style="display: inline">...</p>
+                  <% end %>
+                </td>
+                <td><%= announcement.posted_on.strftime('%d/%m/%Y, %I:%M %P') %></td>
 
-                <td style="text-align:center"><%= User.where(id: announcement.user_id).last.first_name %></td>
+                <td><%= User.where(id: announcement.user_id).last.first_name %></td>
 
                 <% if announcement.event_id.present? %>
                   <td><%= Event.where(id: announcement.event_id).last.title %></td>

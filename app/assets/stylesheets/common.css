@@ -34,6 +34,7 @@ div.actions > a, div.actions > input  {
 
 th, td {
     padding-right: 30px !important;
+    vertical-align: baseline;
 }
 
 label {

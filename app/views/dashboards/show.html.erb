@@ -148,7 +148,14 @@
                                 <td> <div style="text-align:center"> <%= announcement.posted_on.strftime('%d/%m/%Y, %I:%M %P') %> </div> </td>
                                 <br>
                                 <td> Description: </td>
-                                <td> <div>  <%= announcement.description[0..100] %> ... </div></td>
+                                <td> 
+                                    <div>  
+                                        <%= announcement.description[0..100] %>
+                                        <% if announcement.description.length > 100 %>
+                                            <p style="display: inline">...</p>
+                                        <% end %>
+                                    </div>
+                                </td>
                                 <br>
                             </tr>
                             
@@ -169,7 +176,12 @@
                                 <td> <div style="text-align:center"> <%= event.date %> </div> </td>
                                 <br>
                                 <td> Description: </td>
-                                <td> <div><%= event.description[0..100] %> ... </div> </td>
+                                <div>  
+                                    <%= event.description[0..100] %>
+                                    <% if event.description.length > 100 %>
+                                        <p style="display: inline">...</p>
+                                    <% end %>
+                                </div>
 
                                 <br>
 
