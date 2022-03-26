@@ -121,4 +121,6 @@ Rails.application.configure do
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
   ENV['GOOGLE_OAUTH_CLIENT_ID'] = '308710543738-t6dp4sal56ghupflaaud23spm9vqh53h.apps.googleusercontent.com'
   ENV['GOOGLE_OAUTH_CLIENT_SECRET'] = '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'
+  ENV['mail_name'] = 'saifdmembertracking@gmail.com'
+  ENV['mail_password'] = 'zuwjngjfozckxbdb'
 end
