@@ -12,4 +12,5 @@ class UsermailerMailer < ApplicationMailer
       @announcement = announcement
       @url = 'www.heroku.com'
       mail(to: @user.email, subject: '[SAIFD Member Site] ' << @announcement.title)
+   end
 end
