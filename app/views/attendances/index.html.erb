@@ -40,10 +40,10 @@
                 </td>
                 <td><%= attendance.plans_to_attend %></td>
                 <% if @perms[:view_all_attendances] || attendance.attend_time_start.nil? || attendance.attend_time_end.nil? %>
-                  <td><%= link_to 'Edit', edit_attendance_path(attendance) %></td>
+                  <td><%= link_to 'Edit', edit_attendance_path(attendance), class:'btn' %></td>
                 <% end %>
                 <% if @perms[:view_all_attendances] %>
-                  <td><%= link_to 'Destroy', attendance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                  <td><%= link_to 'Destroy', attendance, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn' %></td>
                 <% end %>
               </tr>
             <% end %>
@@ -53,11 +53,13 @@
 
       <br>
 
-      <% if @perms[:view_all_attendances] %>
-        <%= link_to 'New Attendance Record', new_attendance_path %>
-        <br>
-      <% end %>
-      <%= link_to 'Back', root_path %>
+        <div style="display: inline">
+          <%= link_to 'Back', root_path, class:'btn' %>
+          <% if @perms[:view_all_attendances] %>
+            <%= link_to 'New Attendance Record', new_attendance_path, class:'btn' %>
+            <br>
+          <% end %>
+        </div>
       </div>
     </div>
   </body>

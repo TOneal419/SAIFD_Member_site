@@ -43,12 +43,12 @@
                     <td><%= link_to image_tag("unchecked.png", :border=>0, size: "35x35"), :action => :toggle, id: event.id %></td>
                   <% end %>
 
-                  <td><%= link_to 'Show', event_path(event) %></td>
+                  <td><%= link_to 'Show', event_path(event), class:'btn' %></td>
 
 
                   <% if @perms[:create_modify_events] %>
-                    <td><%= link_to 'Edit', edit_event_path(event) %></td>
-                    <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                    <td><%= link_to 'Edit', edit_event_path(event), class:'btn' %></td>
+                    <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn' %></td>
                   <% end %>
                 </tr>
               <% end %>
@@ -57,12 +57,13 @@
         </div>
       <br>
 
-      <% if @perms[:create_modify_events] %>
-        <%= link_to 'New Event', new_event_path %>
-        <br>
-      <% end %>
-
-      <%= link_to 'Back', root_path %>
+        <div style="display: inline">
+          <%= link_to 'Back', root_path, class:'btn' %>
+          <% if @perms[:create_modify_events] %>
+            <%= link_to 'New Event', new_event_path, class:'btn' %>
+            <br>
+          <% end %>
+        </div>
       </div>
     </div>
   </body>

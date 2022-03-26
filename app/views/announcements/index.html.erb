@@ -38,11 +38,11 @@
                     <td>ALL</td>
                   <% end %>
 
-                  <td><%= link_to 'Show', announcement_path(announcement) %></td>
+                  <td><%= link_to 'Show', announcement_path(announcement), class:'btn' %></td>
                   
                   <% if @perms[:create_modify_announcements] %>
-                    <td><%= link_to 'Edit', edit_announcement_path(announcement) %></td>
-                    <td><%= link_to 'Destroy', announcement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                    <td><%= link_to 'Edit', edit_announcement_path(announcement), class:'btn' %></td>
+                    <td><%= link_to 'Destroy', announcement, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn' %></td>
                   <% end %>
                 </tr>
               <% end %>
@@ -51,11 +51,13 @@
         </div>
       <br>
 
-      <% if @perms[:create_modify_announcements] %>
-        <%= link_to 'New Announcement', new_announcement_path %>
-        <br>
-      <% end %>
-      <%= link_to 'Back', root_path %>
+      <div style="display: inline">
+        <%= link_to 'Back', root_path, class:'btn' %>
+        <% if @perms[:create_modify_announcements] %>
+          <%= link_to 'New Announcement', new_announcement_path, class:'btn' %>
+          <br>
+        <% end %>
+      </div>
       </div>
     </div>
   </body>
