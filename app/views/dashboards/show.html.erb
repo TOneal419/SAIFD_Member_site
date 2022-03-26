@@ -159,7 +159,7 @@ a:visited {
                                 <td> <div style="text-align:center"> <%= announcement.posted_on.strftime('%d/%m/%Y, %I:%M %P') %> </div> </td>
                                 <br>
                                 <td> Description: </td>
-                                <td> <div>  <%= announcement.description[0..50] %> ... </div></td>
+                                <td> <div>  <%= announcement.description[0..100] %> ... </div></td>
 
                                 <br>
         
@@ -183,7 +183,7 @@ a:visited {
                                 <td> <div style="text-align:center"> <%= event.date %> </div> </td>
                                 <br>
                                 <td> Description: </td>
-                                <td> <div><%= event.description[0..50] %> ... </div> </td>
+                                <td> <div><%= event.description[0..100] %> ... </div> </td>
 
                                 <br>
 
