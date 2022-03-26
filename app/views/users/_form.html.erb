@@ -53,8 +53,8 @@
 
       <% @user.build_permission if @user.permission.nil? %>
       <div class="actions">
-        <%= form.submit %>
-        <%= link_to 'Cancel', root_path %>
+        <%= form.submit class:'btn' %>
+        <%= link_to 'Cancel', root_path, class:'btn' %>
       </div>
     <% end %>
   </body>
