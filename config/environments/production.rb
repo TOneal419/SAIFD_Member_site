@@ -123,4 +123,16 @@ Rails.application.configure do
   ENV['GOOGLE_OAUTH_CLIENT_SECRET'] = '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'
   ENV['mail_name'] = 'saifdmembertracking@gmail.com'
   ENV['mail_password'] = 'zuwjngjfozckxbdb'
+  
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+   address:              'smtp.gmail.com',
+   port:                 587,
+   domain:               'gmail.com',
+   user_name:            ENV['mail_name'],
+   password:             ENV['mail_password'],
+   authentication:       :plain, 
+  }
 end
