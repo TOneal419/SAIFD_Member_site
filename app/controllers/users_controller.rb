@@ -89,6 +89,21 @@ class UsersController < ApplicationController
     return redirect_to '/', notice: 'Cannot destroy self.' if @current_user.email.downcase == params[:email].downcase
 
     @user = User.find_by(email: params['email'])
+
+    @related_attendances = Attendance.where(user_id: @user.id)
+    if !@related_attendances.nil?
+      @related_attendances.each do |attendance|
+        attendance.destroy
+      end
+    end
+
+    @related_announcements = Announcement.where(user_id: @user.id)
+    if !@related_announcements.nil?
+      @related_announcements.each do |announcement|
+        announcement.destroy
+      end
+    end
+
     @user.destroy
     respond_to do |format|
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
