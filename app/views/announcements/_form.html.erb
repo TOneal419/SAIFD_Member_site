@@ -11,23 +11,41 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
-  </div>
+  <table class="table-row-spacing">
+    <tr>
+      <td>
+        <%= form.label :title %>
+      </td>
+      <td>
+        <%= form.text_field :title %>
+      </td>
+    </tr>
 
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_field :description %>
-  </div>
+    <tr>
+      <td>
+        <%= form.label :description %>
+      </td>
+      <td>
+        <%= form.text_field :description %>
+      </td>
+    </tr>
 
-  <div class="field">
-    <p>Do not select an event to email all members.</p>
-    <%= form.label :event_id %>
-    <%= form.select :event_id, Event.order(:title).map{ |event| [event.title, event.id]}, include_blank: true, id: "id_of_the_event_id_select_box" %>
-  </div>
+    <tr>
+      <p>Do not select an event to email all members.</p>
+    </tr>
+
+    <tr>
+      <td>
+        <%= form.label :event_id %>
+      </td>
+      <td>
+        <%= form.select :event_id, Event.order(:title).map{ |event| [event.title, event.id]}, include_blank: true, id: "id_of_the_event_id_select_box" %>
+      </td>
+    </tr>
+  </table>
 
   <div class="actions">
     <%= form.submit %>
+    <%= link_to 'Cancel', announcements_path %>
   </div>
 <% end %>

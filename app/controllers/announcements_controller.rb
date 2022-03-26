@@ -21,7 +21,7 @@ class AnnouncementsController < ApplicationController
 
   # GET /announcements/1 or /announcements/1.json
   def show
-    return redirect_to '/', notice: 'Attempted to access disabled route.'
+    
   end
 
   # GET /announcements/new
@@ -49,7 +49,20 @@ class AnnouncementsController < ApplicationController
 
     respond_to do |format|
       if @announcement.save
-        format.html { redirect_to announcements_path, notice: 'Announcement was successfully created.' }
+        @users = User.all
+        if !announcement_params[:event_id].empty?
+          @attendances = Attendance.where(event_id: announcement_params[:event_id], plans_to_attend: true)
+          @users = []
+          @attendances.each do |attendance|
+            @users.append(User.where(id: attendance.user_id).first)
+          end
+        end
+
+        @users.each do |user|
+          UsermailerMailer.announceAll(user, @announcement).deliver_later
+        end
+
+        format.html { redirect_to announcements_path, notice: 'Announcement was successfully created, and emails have been sent.' }
         format.json { render :index, status: :created, location: @announcement }
       else
         format.html { render :new, status: :unprocessable_entity }
