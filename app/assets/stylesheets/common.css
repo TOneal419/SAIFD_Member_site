@@ -23,6 +23,11 @@
     border-spacing: 0 15px;
 }
 
+.table-overflow {
+    height: 70%;
+    overflow: auto;
+}
+
 div.actions {
     display: flex;
     flex-direction: row-reverse;

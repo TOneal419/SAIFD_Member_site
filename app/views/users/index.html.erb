@@ -4,48 +4,50 @@
       <div class="form">
         <p id="notice"><%= notice %></p>
         <h1>Users</h1>
-        <table class="table-row-spacing">
-          <thead>
-            <tr>
-              <th>Email</th>
-              <th>First name</th>
-              <th>Last name</th>
-              <th>Class year</th>
+        <div class="table-overflow">
+          <table class="table-row-spacing">
+            <thead>
+              <tr>
+                <th>Email</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Class year</th>
 
-              <% if @perms[:is_admin] %>
-                <th>Report Rate</th>
-                <th>Is Admin</th>
-                <th>Create/Modify Events</th>
-                <th>Create/Modify Announcements</th>
-                <th>View/Modify All Attendances</th>
-              <% end %>
-              <th colspan="3"></th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <% @users.each do |user| %>
-            <% @user_perm = Permission.where(user_id: user.id).first %>
-            <tr>
-              <td><%= user.email %></td>
-              <td><%= user.first_name %></td>
-              <td><%= user.last_name %></td>
-              <td><%= user.class_year %></td>
-              <% if @perms[:is_admin] %>
-                <td><%= user.report_rate %></td>
-                <td><%= @user_perm.is_admin %></td>
-                <td><%= @user_perm.create_modify_events %></td>
-                <td><%= @user_perm.create_modify_announcements %></td>
-                <td><%= @user_perm.view_all_attendances %></td>
-                <% if user.email.downcase != "wjmckinley@tamu.edu" && user.email.downcase != "bill.mckinley@ag.tamu.edu" %>
-                  <td><%= link_to 'Edit', edit_user_path(user.email) %></td>
-                  <td><%= link_to 'Destroy', 'users/' + user.email + '/destroy', data: { confirm: 'Are you sure? This action cannot be undone.' } %></td>
+                <% if @perms[:is_admin] %>
+                  <th>Report Rate</th>
+                  <th>Is Admin</th>
+                  <th>Create/Modify Events</th>
+                  <th>Create/Modify Announcements</th>
+                  <th>View/Modify All Attendances</th>
                 <% end %>
-              <% end %>
-            </tr>
-          <% end %>
-          </tbody>
-        </table>
+                <th colspan="3"></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @users.each do |user| %>
+              <% @user_perm = Permission.where(user_id: user.id).first %>
+              <tr>
+                <td><%= user.email %></td>
+                <td><%= user.first_name %></td>
+                <td><%= user.last_name %></td>
+                <td><%= user.class_year %></td>
+                <% if @perms[:is_admin] %>
+                  <td><%= user.report_rate %></td>
+                  <td><%= @user_perm.is_admin %></td>
+                  <td><%= @user_perm.create_modify_events %></td>
+                  <td><%= @user_perm.create_modify_announcements %></td>
+                  <td><%= @user_perm.view_all_attendances %></td>
+                  <% if user.email.downcase != "wjmckinley@tamu.edu" && user.email.downcase != "bill.mckinley@ag.tamu.edu" %>
+                    <td><%= link_to 'Edit', edit_user_path(user.email) %></td>
+                    <td><%= link_to 'Destroy', 'users/' + user.email + '/destroy', data: { confirm: 'Are you sure? This action cannot be undone.' } %></td>
+                  <% end %>
+                <% end %>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
 
       <br>
 
