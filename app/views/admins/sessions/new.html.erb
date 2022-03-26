@@ -1,11 +1,4 @@
 <style>
-    body {  
-        margin: 0;  
-        padding: 0;  
-        background-image: url("/assets/Sunflowers.png"); 
-        font-family: 'Arial';  
-        height: 100vh;
-    }  
     .login {  
         width: 382px;  
         overflow: hidden;  
@@ -49,12 +42,12 @@
 
 
 <html>    
-    <body>
+    <body id="splash">
         <div class="vertical-center horizontal-center">
             <div class="login form" style="background: #23463F">
                 <p id="notice"><%= notice %></p>
                 <div>
-                    <img src="/assets/saifd.png" alt="SAIFD Logo" width="100%" height="100%">
+                    <img src=<%= asset_path("saifd.png") %> alt="SAIFD Logo" width="100%" height="100%">
                 </div>
                 <form style="color:white; font-size: 40px; text-align:center"> SAIFD Member Login Page </form>
                 <br>
