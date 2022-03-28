@@ -15,7 +15,7 @@ wb.add_worksheet(name: "Events") do |sheet|
 end
 
 wb.add_worksheet(name: "Attendances") do |sheet|
-    sheet.add_row ["Created By", "Event", "Attend Time Start", "Attend Time End", "Plans To Attend?"]
+    sheet.add_row ["Full Name", "Event", "Attend Time Start", "Attend Time End", "Plans To Attend?"]
     @attendances.each do |attendance|
         @user = User.where(id: attendance.user_id).first
         username = "DELETED USER"
