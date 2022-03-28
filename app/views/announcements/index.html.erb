@@ -51,12 +51,11 @@
         </div>
       <br>
 
-      <div style="display: inline">
-        <%= link_to 'Back', root_path, class:'btn' %>
+      <div class="actions">
         <% if @perms[:create_modify_announcements] %>
           <%= link_to 'New Announcement', new_announcement_path, class:'btn' %>
-          <br>
         <% end %>
+        <%= link_to 'Back', root_path, class:'btn' %>
       </div>
       </div>
     </div>

@@ -1,6 +1,4 @@
 class UsermailerMailer < ApplicationMailer
-    
-   
    def welcome_email(user)
       @user = user
       @url  = 'www.heroku.com'
@@ -12,5 +10,9 @@ class UsermailerMailer < ApplicationMailer
       @announcement = announcement
       @url = 'www.heroku.com'
       mail(to: @user.email, subject: '[SAIFD Member Site] ' << @announcement.title)
+   end
+
+   def send_report(user, report_rate)
+      mail(to: user.email, subject: '[SAIFD Member Site]' << report_rate << ' Report')
    end
 end

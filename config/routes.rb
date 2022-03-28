@@ -3,6 +3,8 @@
 Rails.application.routes.draw do
   resources :permissions
   resources :announcements
+  get '/download', to: 'dashboards#download', defaults: { format: :xlsx }
+  get '/help', to: 'dashboards#help'
   root to: 'dashboards#show'
   devise_for :admins, controllers: { omniauth_callbacks: 'admins/omniauth_callbacks' }
   devise_scope :admin do
