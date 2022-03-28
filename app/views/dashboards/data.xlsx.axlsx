@@ -10,20 +10,39 @@ end
 wb.add_worksheet(name: "Events") do |sheet|
     sheet.add_row ["Title", "Description", "Date", "Event Time Start", "Event Time End"]
     @events.each do |event|
-        sheet.add_row [event.title, event.description, event.date, event.event_time_start, event.event_time_end]
+        sheet.add_row [event.title, event.description, event.date, event.event_time_start.strftime("%I:%M %p"), event.event_time_end.strftime("%I:%M %p")]
     end
 end
 
 wb.add_worksheet(name: "Attendances") do |sheet|
-    sheet.add_row ["Event ID", "User ID", "Attend Time Start", "Attend Time End", "Plans To Attend?"]
+    sheet.add_row ["Created By", "Event", "Attend Time Start", "Attend Time End", "Plans To Attend?"]
     @attendances.each do |attendance|
-        sheet.add_row [attendance.event_id, attendance.user_id, attendance.attend_time_start, attendance.attend_time_end, attendance.plans_to_attend]
+        @user = User.where(id: attendance.user_id).first
+        username = "DELETED USER"
+        username = @user.first_name + " " + @user.last_name if !@user.nil?
+        
+        @event = Event.where(id: attendance.event_id).first
+        event_title = "UNIDENTIFIED EVENT"
+        event_title = @event.title if !@event.nil?
+
+        time_start = attendance.attend_time_start
+        time_start = time_start.strftime("%I:%M %p") if !time_start.nil?
+        time_end = attendance.attend_time_end
+        time_end = time_end.strftime("%I:%M %p") if !time_end.nil?
+        sheet.add_row [username, event_title, time_start, time_end, attendance.plans_to_attend]
     end
 end
 
 wb.add_worksheet(name: "Announcements") do |sheet|
-    sheet.add_row ["Title", "Description", "Posted On", "User ID", "Event ID"]
+    sheet.add_row ["Created By", "Event", "Title", "Description", "Posted On"]
     @announcements.each do |announcement|
-        sheet.add_row [announcement.title, announcement.description, announcement.posted_on, announcement.user_id, announcement.event_id]
+        @user = User.where(id: announcement.user_id).first
+        username = "DELETED USER"
+        username = @user.first_name + " " + @user.last_name if !@user.nil?
+        
+        @event = Event.where(id: announcement.event_id).first
+        event_title = "ALL"
+        event_title = @event.title if !@event.nil?
+        sheet.add_row [username, event_title, announcement.title, announcement.description, announcement.posted_on.strftime("%I:%M %p")]
     end
 end
