@@ -141,6 +141,12 @@
                 <%= link_to "View Announcements", announcements_path %>
             </li>
 
+            <% if @is_admin %>
+                <li>
+                    <%= link_to "Download Report", '/download', format: "xlsx" %>
+                </li>
+            <% end %>
+
             <li style="float:right;">
                 <%= link_to "Sign Out", destroy_admin_session_path %>
             </li>

@@ -1,0 +1,29 @@
+wb = xlsx_package.workbook
+
+wb.add_worksheet(name: "Users") do |sheet|
+    sheet.add_row ["Email", "First Name", "Last Name", "Report Rate", "Class Year"]
+    @users.each do |user|
+    sheet.add_row [user.email, user.first_name, user.last_name, user.report_rate, user.class_year]
+    end
+end
+
+wb.add_worksheet(name: "Events") do |sheet|
+    sheet.add_row ["Title", "Description", "Date", "Event Time Start", "Event Time End"]
+    @events.each do |event|
+        sheet.add_row [event.title, event.description, event.date, event.event_time_start, event.event_time_end]
+    end
+end
+
+wb.add_worksheet(name: "Attendances") do |sheet|
+    sheet.add_row ["Event ID", "User ID", "Attend Time Start", "Attend Time End", "Plans To Attend?"]
+    @attendances.each do |attendance|
+        sheet.add_row [attendance.event_id, attendance.user_id, attendance.attend_time_start, attendance.attend_time_end, attendance.plans_to_attend]
+    end
+end
+
+wb.add_worksheet(name: "Announcements") do |sheet|
+    sheet.add_row ["Title", "Description", "Posted On", "User ID", "Event ID"]
+    @announcements.each do |announcement|
+        sheet.add_row [announcement.title, announcement.description, announcement.posted_on, announcement.user_id, announcement.event_id]
+    end
+end

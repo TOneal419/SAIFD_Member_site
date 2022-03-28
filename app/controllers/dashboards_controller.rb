@@ -2,6 +2,21 @@
 
 # DashboardsController
 class DashboardsController < ApplicationController
+  def download
+    return redirect_to '/', notice: 'Insufficient Permissions' if !grab_permissions[:is_admin]
+
+    @users = User.all
+    @events = Event.all
+    @attendances = Attendance.all
+    @announcements = Announcement.all
+
+    respond_to do |format|
+      format.xlsx {
+        render xlsx: 'data', filename: 'report.xlsx'
+      }
+    end
+  end
+
   def show
     @perms = grab_permissions
     @is_admin = @perms[:is_admin]
