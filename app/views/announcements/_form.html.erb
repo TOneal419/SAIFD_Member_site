@@ -32,7 +32,7 @@
 
     <tr>
       <td>
-        <%= form.label :event_id %>
+        <%= form.label :event_id, "Event" %>
       </td>
       <td>
         <%= form.select :event_id, Event.order(:title).map{ |event| [event.title, event.id]}, include_blank: 'Send to All', id: "id_of_the_event_id_select_box" %>

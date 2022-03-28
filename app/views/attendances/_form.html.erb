@@ -15,7 +15,7 @@
   <table class="table-row-spacing">
     <tr>
       <td>
-        <%= form.label :event_id %>
+        <%= form.label :event_id, "Event" %>
       </td>
       <td>
         <%= form.select :event_id, Event.order(:title).map { |event| [event.title + " | " + event.date.to_date.to_s + ", starts at " + event.event_time_start.strftime("%I:%M %p") + ", ends at " + event.event_time_end.strftime("%I:%M %p"), event.id] }, include_blank: true, id: "id_of_the_event_id_select_box" %>
@@ -24,7 +24,7 @@
 
     <tr>
       <td>
-        <%= form.label :attend_time_start %>
+        <%= form.label :attend_time_start, "Attend Time Start" %>
       </td>
       <td>
         <%= form.time_field :attend_time_start %>
@@ -33,7 +33,7 @@
 
     <tr>
       <td>
-        <%= form.label :attend_time_end %>
+        <%= form.label :attend_time_end, "Attend Time End" %>
       </td>
       <td>
         <%= form.time_field :attend_time_end %>
@@ -42,7 +42,7 @@
 
     <tr>
       <td>
-        <%= form.label "Do you plan to attend, but have not yet?" %>
+        <%= form.label "Do you plan to attend?" %>
       </td>
       <td>
         <%= form.check_box :plans_to_attend %>
