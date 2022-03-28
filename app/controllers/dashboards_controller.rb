@@ -17,6 +17,10 @@ class DashboardsController < ApplicationController
     end
   end
 
+  def help
+    render 'help'
+  end
+
   def show
     @perms = grab_permissions
     @is_admin = @perms[:is_admin]

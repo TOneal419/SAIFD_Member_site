@@ -40,4 +40,21 @@ class ApplicationController < ActionController::Base
     @ret = { "is_admin": @is_admin, "create_modify_events": @create_modify_events, "create_modify_announcements": @create_modify_announcements,
              "view_all_attendances": @view_all_attendances }
   end
+
+  # TODO: not in use... requires credit card info for Heroku Scheduler
+  # TODO: also, edit send_report.html.erb
+  # TODO: if ever want to use, schedule "send_reports" to run automatically via Heroku Scheduler
+  def send_reports
+    @users = User.all
+    @users.each do |user|
+      if user.report_rate != 'Disabled'
+        current_date = Date.today
+        # weekly implies a report every monday
+        # monthly implies a report on the 1st of every month
+        if ((user.report_rate == 'Weekly' && current_date.monday?) || (user.report_rate == 'Monthly' && current_date == current_date.end_of_month))
+          send_report(user, user.report_rate)
+        end
+      end
+    end
+  end
 end
