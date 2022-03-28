@@ -25,6 +25,7 @@ end
 
 RSpec.describe Attendance, type: :model do
   subject do
+    Event.new(id: 1, title: 'example title', description: 'blah', date: '3/28/2022', event_time_start: '1:00', event_time_end: '2:00')
     described_class.new(event_id: 1, user_id: 1, attend_time_start: '1:00', attend_time_end: '2:00')
   end
 
