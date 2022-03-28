@@ -31,15 +31,11 @@
     </tr>
 
     <tr>
-      <p>Do not select an event to email all members.</p>
-    </tr>
-
-    <tr>
       <td>
         <%= form.label :event_id %>
       </td>
       <td>
-        <%= form.select :event_id, Event.order(:title).map{ |event| [event.title, event.id]}, include_blank: true, id: "id_of_the_event_id_select_box" %>
+        <%= form.select :event_id, Event.order(:title).map{ |event| [event.title, event.id]}, include_blank: 'Send to All', id: "id_of_the_event_id_select_box" %>
       </td>
     </tr>
   </table>

@@ -9,11 +9,23 @@ class DashboardsController < ApplicationController
     @create_modify_announcements = @perms[:create_modify_announcements]
     @user = grab_user
 
-    # TODO: list out events and announcements
-    # @current_time = DateTime.now()
-    # @active_events = Event.where(event_time_start: , event_time_end: )
-    # @recent_announcements = Announcement.where()
-    @announcements = Announcement.all
-    @events = Event.all
+    # get announcements/events that user is planning to attend and are >= current date
+    @planned_attendances = Attendance.where(user_id: @user.id, plans_to_attend: true)
+    
+    @recent_announcements_all = Announcement.where({ event_id: nil }, posted_on: 0.day.ago..)
+    @recent_announcements_specific = []
+    @events = []
+    
+    @planned_attendances.each do |attendance|
+      @e = Event.where(id: attendance.event_id, date: 0.day.ago..)
+
+      if !@e.empty?
+        @events.append(@e.first)
+        @a = Announcement.where(event_id: @e.first.id)
+        @recent_announcements_specific.append(@a.first)  if !@a.empty?
+      end
+    end
+    
+    @announcements = @recent_announcements_all + @recent_announcements_specific
   end
 end
