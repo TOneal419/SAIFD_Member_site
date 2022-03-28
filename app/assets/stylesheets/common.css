@@ -93,3 +93,7 @@ textarea {
     color: white !important;
     background: #333 !important;
 }
+
+.wide {
+    width: 90%;
+}
