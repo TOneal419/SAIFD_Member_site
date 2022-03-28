@@ -31,10 +31,15 @@
 div.actions {
     display: flex;
     flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+div.actions > :nth-child(even) {
+    margin-right: 25px;
 }
 
 div.actions > a, div.actions > input  {
-    width: 50%;
+    width: fit-content;
 }
 
 th, td {

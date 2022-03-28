@@ -53,12 +53,11 @@
 
       <br>
 
-        <div style="display: inline">
-          <%= link_to 'Back', root_path, class:'btn' %>
+        <div class="actions">
           <% if @perms[:view_all_attendances] %>
             <%= link_to 'New Attendance Record', new_attendance_path, class:'btn' %>
-            <br>
           <% end %>
+          <%= link_to 'Back', root_path, class:'btn' %>
         </div>
       </div>
     </div>
