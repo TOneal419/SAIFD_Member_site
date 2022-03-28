@@ -31,6 +31,11 @@
     <%= form.number_field :class_year %>
   </div>
 
+  <div class="field">
+    <%= form.label :report_rate, :value => "Report Rate" %>
+    <%= form.select :report_rate, [['Disabled', 'Disabled'], ['Weekly', 'Weekly'], ['Monthly', 'Monthly']] %>
+  </div>
+
   <% @user.build_permission if @user.permission.nil? %>
   <%= form.fields_for :permission do |p| %>
     <div class="field">

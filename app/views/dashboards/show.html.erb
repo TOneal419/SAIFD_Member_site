@@ -108,37 +108,21 @@
             </li>
 
             <li>
-                <% if @create_modify_events %>
-                    <%= link_to "Make Event", new_event_path %>
-                <% end %>
-            </li>
-
-            <li>
-                <%= link_to "View Events", events_path %>
-            </li>
-
-            <li>
-                <%= link_to "Log Attendance Record", new_attendance_path %>
+                <%= link_to "Events", events_path %>
             </li>
             
             <li>
-                <%= link_to "View Attendance Records", attendances_path  %>
+                <%= link_to "Attendance", attendances_path  %>
             </li>
 
             <li>
                 <% if @is_admin %>
-                    <%= link_to "Manage User Permissions", users_path %>
+                    <%= link_to "Manage Users", users_path %>
                 <% end %>
             </li>
 
             <li>
-                <% if @create_modify_announcements %>
-                    <%= link_to "Make Announcement", new_announcement_path %>
-                <% end %>
-            </li>
-
-            <li>
-                <%= link_to "View Announcements", announcements_path %>
+                <%= link_to "Announcements", announcements_path %>
             </li>
 
             <% if @is_admin %>
