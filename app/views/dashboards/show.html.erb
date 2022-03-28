@@ -164,7 +164,9 @@
                             <div class="panel-body">
                                 <tbody>
                                     <tr>
-                                        <td> <div style="text-align:center; font-size:20px;"> <%= announcement.title %> </div> </td>
+                                        <% @event_name = "ALL" %>
+                                        <% @event_name = Event.where(id: announcement.event_id).first.title if !announcement.event_id.nil? %>
+                                        <td> <div style="text-align:center; font-size:20px;">[<%= @event_name %>] <%= announcement.title %> </div> </td>
                                         <td> <div style="text-align:center"> <%= User.where(id: announcement.user_id).last.first_name %> <%= User.where(id: announcement.user_id).last.last_name %></div> </td>
                                         <td> <div style="text-align:center"> <%= announcement.posted_on.strftime('%d/%m/%Y, %I:%M %P') %> </div> </td>
                                         <br>
