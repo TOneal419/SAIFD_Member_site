@@ -94,6 +94,7 @@ RSpec.describe 'Sunny Day', type: :feature do
       expect(page).to have_content("it's pretty crazy")
       expect(page).to have_content('some crazy event')
       expect(page).to have_content('2020-11-15')
+      visit '/events/toggle/1'
     end
   end
 
@@ -122,6 +123,9 @@ RSpec.describe 'Sunny Day', type: :feature do
       expect(page).to have_content('2:30 pm')
       expect(page).to have_content('2:50 pm')
       expect(page).to have_content('false')
+
+      visit '/attendances/1'
+      expect(page).to have_content("Attempted to access disabled route.")
     end
   end
 
@@ -160,6 +164,23 @@ RSpec.describe 'Sunny Day', type: :feature do
 
       expect(page).to have_content('DANGER')
       expect(page).to have_content('the flowers have finally attacked')
+
+      click_link 'Back'
+
+      visit root_path
+      click_link 'Announcements'
+      click_on 'Edit'
+      fill_in 'Title', with: 'DANGER2'
+      click_on 'Update Announcement'
+      expect(page).to have_content('DANGER2')
+    end
+  end
+
+  context 'Download' do 
+    it 'Download CSV' do 
+      visit root_path
+      expect(page).to have_content('Download Report')
+      click_link 'Download Report'
     end
   end
 end
@@ -240,9 +261,6 @@ RSpec.describe 'Rainy Day', type: :feature do
 
     expect(page).to have_content("Event can't be blank")
     expect(page).to have_content("Event must exist")
-    
-    visit '/attendances/1'
-    expect(page).to have_content("Attempted to access disabled route.")
   end
 
   scenario 'Manage Users Invalid Inputs' do 
