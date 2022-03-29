@@ -41,11 +41,11 @@ RSpec.describe 'Sunny Day', type: :feature do
     fill_in 'Event Time End', with: '5:50 PM'
     click_on 'Create Event'
     click_link 'Back'
-    click_link 'Sign Out'
   end
 
   context 'Events' do 
     scenario '- Successfully Created a User' do
+      click_link 'Sign Out'
       # get normal-privillege user
       mock_auth_hash
       click_link 'Sign in with Google'
@@ -60,6 +60,7 @@ RSpec.describe 'Sunny Day', type: :feature do
     end
     
     scenario '- Event Attributes Properly Showing' do 
+      click_link 'Sign Out'
       mock_auth_hash
       click_link 'Sign in with Google'
 
@@ -79,6 +80,7 @@ RSpec.describe 'Sunny Day', type: :feature do
     end
     
     it '- Events Properly Showing' do
+      click_link 'Sign Out'
       mock_auth_hash
       click_link 'Sign in with Google'
 
@@ -92,11 +94,13 @@ RSpec.describe 'Sunny Day', type: :feature do
       expect(page).to have_content("it's pretty crazy")
       expect(page).to have_content('some crazy event')
       expect(page).to have_content('2020-11-15')
+      visit '/events/toggle/1'
     end
   end
 
-  context 'Attendance' do
+  context 'Unescalated Account Logging Attendance' do
     it '- Successfully Logged Attendance' do
+      click_link 'Sign Out'
       mock_auth_hash
       click_link 'Sign in with Google'
 
@@ -119,21 +123,65 @@ RSpec.describe 'Sunny Day', type: :feature do
       expect(page).to have_content('2:30 pm')
       expect(page).to have_content('2:50 pm')
       expect(page).to have_content('false')
+
+      visit '/attendances/1'
+      expect(page).to have_content("Attempted to access disabled route.")
+    end
+  end
+
+  context 'Escalated Account Logging Attendance' do
+    it '- Successfully Logged Attendance' do
+      visit root_path
+      click_link 'Attendance'
+      click_on 'New Attendance Record'
+      select "it's pretty crazy", from: 'Event'
+      fill_in 'Attend Time Start', with: '2:30pm'
+      fill_in 'Attend Time End', with: '2:50pm'
+      click_on 'Create Attendance'
+  
+      expect(page).to have_content("it's pretty crazy")
+      expect(page).to have_content('Isaac Yeang')
+      expect(page).to have_content('2:30 pm')
+      expect(page).to have_content('2:50 pm')
+      expect(page).to have_content('false')
+
+      click_on 'Edit'
+      fill_in 'Attend Time End', with: '5:50pm'
+      click_on 'Update Attendance'
     end
   end
 
   context 'Announcement' do 
-    visit root_path
-    click_link 'Announcements'
-    click_on 'New Announcement'
+    it '- Successfully Created Announcement' do 
+      visit root_path
+      click_link 'Announcements'
+      click_on 'New Announcement'
 
-    fill_in 'Title', with: 'DANGER'
-    fill_in 'Description', with: 'the flowers have finally attacked'
+      fill_in 'Title', with: 'DANGER'
+      fill_in 'Description', with: 'the flowers have finally attacked'
 
-    click_on 'Create Announcement'
+      click_on 'Create Announcement'
 
-    expect(page).to have_content('DANGER')
-    expect(page).to have_content('the flowers have finally attacked')
+      expect(page).to have_content('DANGER')
+      expect(page).to have_content('the flowers have finally attacked')
+
+      click_link 'Back'
+
+      visit root_path
+      click_link 'Announcements'
+      click_on 'Edit'
+      fill_in 'Title', with: 'DANGER2'
+      click_on 'Update Announcement'
+      expect(page).to have_content('DANGER2')
+    end
+  end
+
+  context 'Download' do 
+    it 'Download CSV' do 
+      visit root_path
+      expect(page).to have_content('Download Report')
+      click_link 'Download Report'
+    end
   end
 end
 
@@ -160,46 +208,75 @@ RSpec.describe 'Rainy Day', type: :feature do
     fill_in 'Event Time End', with: '5:50 PM'
     click_on 'Create Event'
     click_link 'Back'
-    click_link 'Sign Out'
-
-    mock_auth_hash
-    click_link 'Sign in with Google'
-
-    fill_in 'First Name', with: 'tony'
-    fill_in 'Last Name', with: 'hawk'
-    fill_in 'user_class_year', with: 2020
-
-    click_on 'Create User'
-    click_link 'Sign in with Google'
   end
 
-  scenario 'Ensure Proper Privilleges' do
-    click_link 'Events'
-    expect(page).not_to have_content('New Event')
+  context 'Ensure Proper Privilleges' do
+    it 'Try with unescalated account' do 
+      click_link 'Sign Out'
 
-    click_link 'Back'
-    click_link 'Attendance'
-    expect(page).to have_content('New Attendance Record')
-    click_link 'Back'
-    click_link 'Manage Users'
-    expect(page).to have_content('Edit')
-    expect(page).to have_content('Destroy')
-    click_link 'Back'
+      mock_auth_hash
+      click_link 'Sign in with Google'
 
-    expect(page).not_to have_content('Download Report')
+      fill_in 'First Name', with: 'tony'
+      fill_in 'Last Name', with: 'hawk'
+      fill_in 'user_class_year', with: 2020
+
+      click_on 'Create User'
+      click_link 'Sign in with Google'
+
+      click_link 'Events'
+      expect(page).not_to have_content('New Event')
+
+      click_link 'Back'
+      click_link 'Attendance'
+      expect(page).to have_content('New Attendance Record')
+      click_link 'Back'
+
+      expect(page).not_to have_content('Manage Users')
+      expect(page).not_to have_content('Download Report')
+    end
   end
 
   scenario 'Event Invalid Inputs' do 
     click_link 'Events'
     click_on 'New Event'
     fill_in 'Title', with: ""
-    fill_in 'Description', with: 'some crazy event'
+    fill_in 'Description', with: ''
 
-    fill_in 'event_date', with: '2020/11/15'
-    fill_in 'Event Time Start', with: '2:30 PM'
-    fill_in 'Event Time End', with: '5:50 PM'
+    fill_in 'event_date', with: ''
+    fill_in 'Event Time Start', with: ''
+    fill_in 'Event Time End', with: ''
     click_on 'Create Event'
 
-    expect(page).to have_content('Title cannot be blank')
+    expect(page).to have_content("Event time end can't be blank")
+  end
+
+  scenario 'Attendance Invalid Inputs' do 
+    click_link 'Attendance'
+    click_on 'New Attendance Record'
+    select "", from: 'Event'
+    fill_in 'Attend Time Start', with: ''
+    fill_in 'Attend Time End', with: ''
+    click_on 'Create Attendance'
+
+    expect(page).to have_content("Event can't be blank")
+    expect(page).to have_content("Event must exist")
+  end
+
+  scenario 'Manage Users Invalid Inputs' do 
+    click_link 'Manage Users'
+    
+    expect(page).to have_content("Edit")
+    expect(page).to have_content("Destroy")
+  end
+
+  scenario 'Announcements Invalid Inputs' do 
+    click_link 'Announcements'
+    
+    click_on 'New Announcement'
+    fill_in 'Title', with: ''
+    click_on 'Create Announcement'
+
+    expect(page).to have_content("Title can't be blank")
   end
 end

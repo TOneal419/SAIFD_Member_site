@@ -11,6 +11,7 @@ class UsersController < ApplicationController
   def index
     # get permissions
     @user = grab_user
+    return redirect_to '/', notice: 'Invalid user session. Please try logging in again.' if @user.nil?
 
     # default to only seeing self
     @users = User.where(id: @user.id)
@@ -20,7 +21,7 @@ class UsersController < ApplicationController
 
   # GET /users/1 or /users/1.json
   def show
-    return redirect_to '/', notice: 'Attempted to access disabled route.'
+    redirect_to '/', notice: 'Attempted to access disabled route.'
   end
 
   # GET /users/new
@@ -32,7 +33,7 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:is_admin]
-    return redirect_to '/', notice: 'Cannot edit WebMaster.' if params[:email].downcase == "wjmckinley@tamu.edu" || params[:email].downcase == "bill.mckinley@ag.tamu.edu"
+    return redirect_to '/', notice: 'Cannot edit WebMaster.' if params[:email].casecmp('wjmckinley@tamu.edu').zero?
 
     # grab params from URL
     @user = User.find_by(email: params[:email])
@@ -45,7 +46,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     @user.build_permission if @user.permission.nil?
     @user.permission = Permission.new(is_admin: false, create_modify_events: false, create_modify_announcements: false, view_all_attendances: false)
-    if @user.email.downcase == 'wjmckinley@tamu.edu' || @user.email.downcase == 'bill.mckinley@ag.tamu.edu' || @user.email.downcase == 'tyler.oneal419@tamu.edu' || @user.email.downcase == 'isaacy13@tamu.edu'
+    if @user.email.casecmp('wjmckinley@tamu.edu').zero? || @user.email.casecmp('bill.mckinley@ag.tamu.edu').zero? || @user.email.casecmp('tyler.oneal419@tamu.edu').zero? || @user.email.casecmp('isaacy13@tamu.edu').zero?
       @user.permission.update(is_admin: true, create_modify_events: true, create_modify_announcements: true, view_all_attendances: true)
     end
     @user.permission.save
@@ -86,18 +87,17 @@ class UsersController < ApplicationController
   # DELETE /users/1 or /users/1.json
   def destroy
     return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:is_admin]
-    return redirect_to '/', notice: 'Cannot destroy WebMaster.' if params[:email].downcase == "wjmckinley@tamu.edu" || params[:email].downcase == "bill.mckinley@ag.tamu.edu"
+    return redirect_to '/', notice: 'Cannot destroy WebMaster.' if params[:email].casecmp('wjmckinley@tamu.edu').zero? || params[:email].casecmp('bill.mckinley@ag.tamu.edu').zero?
 
     @current_user = grab_user
-    return redirect_to '/', notice: 'Cannot destroy self.' if @current_user.email.downcase == params[:email].downcase
+    return redirect_to '/', notice: 'Invalid user session. Please try logging in again.' if @user.nil?
+    return redirect_to '/', notice: 'Cannot destroy self.' if @current_user.email.casecmp(params[:email]).zero?
 
     @user = User.find_by(email: params['email'])
 
     @related_attendances = Attendance.where(user_id: @user.id)
-    if !@related_attendances.nil?
-      @related_attendances.each do |attendance|
-        attendance.destroy
-      end
+    @related_attendances&.each do |attendance|
+      attendance.destroy
     end
 
     @permission = Permission.where(user_id: @user.id).first
@@ -107,10 +107,8 @@ class UsersController < ApplicationController
     @admin.destroy
 
     @related_announcements = Announcement.where(user_id: @user.id)
-    if !@related_announcements.nil?
-      @related_announcements.each do |announcement|
-        announcement.destroy
-      end
+    @related_announcements&.each do |announcement|
+      announcement.destroy
     end
 
     @user.destroy

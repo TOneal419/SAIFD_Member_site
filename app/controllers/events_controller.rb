@@ -6,6 +6,8 @@ class EventsController < ApplicationController
 
   def toggle
     @user = grab_user
+    return redirect_to '/', notice: 'Invalid user session. Please try logging in again.' if @user.nil?
+
     @event_id = params[:id]
     @attendance = Attendance.where(event_id: @event_id, user_id: @user.id).first
     if @attendance.nil?
@@ -14,7 +16,7 @@ class EventsController < ApplicationController
     else
       @attendance.update(plans_to_attend: !@attendance.plans_to_attend)
     end
-    return redirect_to '/events'
+    redirect_to '/events'
   end
 
   # GET /events or /events.json
@@ -22,6 +24,7 @@ class EventsController < ApplicationController
     @events = Event.all
     @attendings = []
     @perms = grab_permissions
+    return redirect_to '/', notice: 'Invalid user session. Please try logging in again.' if @perms.nil?
 
     @events.each do |event|
       @attending = Attendance.where(event_id: event.id, user_id: @user.id).first
@@ -36,12 +39,12 @@ class EventsController < ApplicationController
   end
 
   # GET /events/1 or /events/1.json
-  def show
-  end
+  def show; end
 
   # GET /events/new
   def new
     return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_events]
+
     @event = Event.new
   end
 
@@ -55,11 +58,9 @@ class EventsController < ApplicationController
     return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_events]
 
     @event = Event.new(event_params)
-    if !@event.event_time_start.nil? && !@event.event_time_end.nil?
-      if @event.event_time_start > @event.event_time_end
-        flash[:alert] = "Event must start before it ends"
-        return render 'new'
-      end
+    if !@event.event_time_start.nil? && !@event.event_time_end.nil? && (@event.event_time_start > @event.event_time_end)
+      flash[:alert] = 'Event must start before it ends'
+      return render 'new'
     end
 
     respond_to do |format|
@@ -78,7 +79,7 @@ class EventsController < ApplicationController
     return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_events]
 
     if event_params[:event_time_start] > event_params[:event_time_end]
-      flash[:alert] = "Event must start before it ends"
+      flash[:alert] = 'Event must start before it ends'
       return render 'edit'
     end
 

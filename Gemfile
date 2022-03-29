@@ -60,17 +60,17 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
+gem 'bootstrap-sass'
+gem 'brakeman'
 gem 'devise'
+gem 'mail', '~> 2.7'
 gem 'omniauth', '~>1.9.1'
 gem 'omniauth-google-oauth2', '~>0.8.2'
-gem 'brakeman'
-gem 'rubocop-rails'
 gem 'rubocop-performance'
+gem 'rubocop-rails'
 gem 'rubocop-rspec'
-gem 'mail', '~> 2.7'
-gem 'bootstrap-sass'
 
-gem 'rubyzip', '>= 1.2.1'
 gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: 'c8ac844'
 gem 'axlsx_rails'
 gem 'database_cleaner'
+gem 'rubyzip', '>= 1.2.1'
