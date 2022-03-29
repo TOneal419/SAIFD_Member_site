@@ -42,8 +42,8 @@ class AttendancesController < ApplicationController
 
     @user = grab_user
     return redirect_to '/', notice: 'Invalid user session. Please try logging in again.' if @user.nil?
-    
-    if !Attendance.where(event_id: attendance_params[:event_id], user_id: @user.id).empty?
+
+    unless Attendance.where(event_id: attendance_params[:event_id], user_id: @user.id).empty?
       flash[:alert] = 'Attendance record already exists'
       return render 'new'
     end
