@@ -23,10 +23,12 @@ class DashboardsController < ApplicationController
 
   def show
     @perms = grab_permissions
+    return redirect_to '/', notice: 'Invalid user session. Please try logging in again.' if @perms.nil?
     @is_admin = @perms[:is_admin]
     @create_modify_events = @perms[:create_modify_events]
     @create_modify_announcements = @perms[:create_modify_announcements]
     @user = grab_user
+    return redirect_to '/', notice: 'Invalid user session. Please try logging in again.' if @user.nil?
 
     # get announcements/events that user is planning to attend and are >= current date
     @planned_attendances = Attendance.where(user_id: @user.id, plans_to_attend: true)

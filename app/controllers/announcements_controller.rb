@@ -7,11 +7,13 @@ class AnnouncementsController < ApplicationController
   # GET /announcements or /announcements.json
   def index
     @perms = grab_permissions
+    return redirect_to '/', notice: 'Invalid user session. Please try logging in again.' if @perms.nil?
 
     @announcements = Announcement.all
     if !@perms[:create_modify_announcements]
       @announcements = []
       @user = grab_user
+      return redirect_to '/', notice: 'Invalid user session. Please try logging in again.' if @user.nil?
       @valid_plans_to_attend = Attendance.where(user_id: @user.id, plans_to_attend: 1)
       @valid_plans_to_attend.each do |vpta|
         @announcements.append(Announcement.where(user_id: @user.id, event_id: vpta.event_id).first)
@@ -44,6 +46,7 @@ class AnnouncementsController < ApplicationController
     @posted_on = (DateTime.now.to_time - 5.hours).to_datetime
     @announcement.update(posted_on: @posted_on)
     @user = grab_user
+    return redirect_to '/', notice: 'Invalid user session. Please try logging in again.' if @user.nil?
 
     @announcement.update(user_id: @user.id)
 

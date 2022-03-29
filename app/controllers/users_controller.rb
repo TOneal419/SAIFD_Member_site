@@ -11,6 +11,7 @@ class UsersController < ApplicationController
   def index
     # get permissions
     @user = grab_user
+    return redirect_to '/', notice: 'Invalid user session. Please try logging in again.' if @user.nil?
 
     # default to only seeing self
     @users = User.where(id: @user.id)
@@ -89,6 +90,7 @@ class UsersController < ApplicationController
     return redirect_to '/', notice: 'Cannot destroy WebMaster.' if params[:email].downcase == "wjmckinley@tamu.edu" || params[:email].downcase == "bill.mckinley@ag.tamu.edu"
 
     @current_user = grab_user
+    return redirect_to '/', notice: 'Invalid user session. Please try logging in again.' if @user.nil?
     return redirect_to '/', notice: 'Cannot destroy self.' if @current_user.email.downcase == params[:email].downcase
 
     @user = User.find_by(email: params['email'])

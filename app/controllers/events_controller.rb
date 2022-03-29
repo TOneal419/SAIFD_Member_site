@@ -6,6 +6,7 @@ class EventsController < ApplicationController
 
   def toggle
     @user = grab_user
+    return redirect_to '/', notice: 'Invalid user session. Please try logging in again.' if @user.nil?
     @event_id = params[:id]
     @attendance = Attendance.where(event_id: @event_id, user_id: @user.id).first
     if @attendance.nil?
@@ -22,6 +23,7 @@ class EventsController < ApplicationController
     @events = Event.all
     @attendings = []
     @perms = grab_permissions
+    return redirect_to '/', notice: 'Invalid user session. Please try logging in again.' if @perms.nil?
 
     @events.each do |event|
       @attending = Attendance.where(event_id: event.id, user_id: @user.id).first

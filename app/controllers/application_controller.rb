@@ -13,7 +13,8 @@ class ApplicationController < ActionController::Base
     @google_acc = Admin.where(uid: @id_token)
     if @id_token.nil? || @google_acc.nil?
       cookies[:current_user_session] = nil
-      return redirect_to '/', notice: 'Invalid user session. Please try logging in again.'
+      reset_session
+      return nil
     else
       @email = @google_acc.first.email
       @user = User.where(email: @email).first
@@ -28,6 +29,7 @@ class ApplicationController < ActionController::Base
     @view_all_attendances = false
 
     @user = grab_user
+    return nil if @user.nil?
     unless cookies[:current_user_session].nil?
       @perms = Permission.where(user_id: @user.id).first
 
