@@ -39,13 +39,18 @@ class AttendancesController < ApplicationController
   # POST /attendances or /attendances.json
   def create
     @attendance = Attendance.new(attendance_params)
-    @event = Event.where(id: @attendance.event_id).first
+
+    @user = grab_user
+    return redirect_to '/', notice: 'Invalid user session. Please try logging in again.' if @user.nil?
+    
+    if !Attendance.where(event_id: attendance_params[:event_id], user_id: @user.id).empty?
+      flash[:alert] = 'Attendance record already exists'
+      return render 'new'
+    end
 
     if !@attendance.attend_time_start.nil? && !@attendance.attend_time_end.nil?
-      if !Attendance.where(event_id: attendance_params[:event_id]).empty?
-        flash[:alert] = 'Attendance record already exists'
-        return render 'new'
-      elsif !(@attendance.attend_time_start.to_time.strftime('%H:%M:%S') >= @event.event_time_start.to_time.strftime('%H:%M:%S') && @attendance.attend_time_end.to_time.strftime('%H:%M:%S') <= @event.event_time_end.to_time.strftime('%H:%M:%S'))
+      @event = Event.where(id: @attendance.event_id).first
+      if !(@attendance.attend_time_start.to_time.strftime('%H:%M:%S') >= @event.event_time_start.to_time.strftime('%H:%M:%S') && @attendance.attend_time_end.to_time.strftime('%H:%M:%S') <= @event.event_time_end.to_time.strftime('%H:%M:%S'))
         flash[:alert] = 'Attendance time must be within bounds of event time'
         return render 'new'
       elsif @attendance.attend_time_start.to_time.strftime('%H:%M:%S') > @attendance.attend_time_end.to_time.strftime('%H:%M:%S')
