@@ -23,7 +23,7 @@
     }
 
     .wrapper {
-        width: 80%;
+        width: 90%;
         max-width: 1000px;
         margin: 0 auto;
         overflow: hidden;
@@ -31,6 +31,7 @@
     }
 
     .column {
+        min-width: 285px;
         width: 50%;
         margin: 15px;
         background: #e0e0e0;
@@ -98,6 +99,18 @@
         background-color: #919191;    /* color of the scroll thumb */
         border-radius: 0 20px 0 0;
     }
+
+    @media only screen and (max-width: 700px) {
+        .wrapper {
+            flex-direction: column;
+        }
+
+        .column {
+            width: 100%;
+            margin-left: 0;
+            margin-right: 0;
+        }
+    }
 </style>
 
 <html>
@@ -144,7 +157,7 @@
 
     <div style="display: flex; flex-direction: column">
         <h1 style="color: white; text-align:center; ">Welcome, <%= @user.first_name %>!</h1>
-        <p id="notice" style="color: red; text-align: center; margin: 0"><%= notice %></p>
+        <p id="notice"><%= notice %></p>
         <div class="wrapper">
             <div class="column">
                 <div class="panel panel-default">

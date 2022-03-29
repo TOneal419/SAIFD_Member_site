@@ -16,6 +16,7 @@
     height: 80%;
     max-height: 580px;
     background: floralwhite;
+    overflow: auto;
 }
 
 .table-row-spacing {
@@ -45,6 +46,7 @@ div.actions > a, div.actions > input  {
 th, td {
     padding-right: 30px !important;
     vertical-align: top;
+    min-width: 125px;
 }
 
 label {
@@ -59,10 +61,12 @@ html {
 body {
     height: 100%;
     background-color: #23463F !important;
+    min-width: 500px;
 }
 
 .desc {
     overflow-wrap: anywhere;
+    min-width: 175px;
 }
 
 *::-webkit-scrollbar {
@@ -87,9 +91,20 @@ textarea {
 .btn {
     background: #E5E5E5;
     border: 0.5px solid black;
+    min-width: 80px;
 }
 
 .btn:hover, .btn:focus, .btn.focus {
     color: white !important;
     background: #333 !important;
+}
+
+.wide {
+    width: 90%;
+}
+
+@media only screen and (max-width: 700px) {
+    th, td {
+        padding-right: 15px !important;
+    }
 }

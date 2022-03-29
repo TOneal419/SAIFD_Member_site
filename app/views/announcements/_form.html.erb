@@ -17,7 +17,7 @@
         <%= form.label :title %>
       </td>
       <td>
-        <%= form.text_field :title %>
+        <%= form.text_field :title, presence: true %>
       </td>
     </tr>
 
@@ -26,16 +26,16 @@
         <%= form.label :description %>
       </td>
       <td>
-        <%= form.text_area :description %>
+        <%= form.text_area :description, presence: true %>
       </td>
     </tr>
 
     <tr>
       <td>
-        <%= form.label :event_id %>
+        <%= form.label :event_id, "Event" %>
       </td>
       <td>
-        <%= form.select :event_id, Event.order(:title).map{ |event| [event.title, event.id]}, include_blank: 'Send to All', id: "id_of_the_event_id_select_box" %>
+        <%= form.select :event_id, Event.order(:title).map{ |event| [event.title, event.id]}, include_blank: 'Send to All', id: "id_of_the_event_id_select_box", presence: true %>
       </td>
     </tr>
   </table>

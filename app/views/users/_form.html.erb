@@ -25,19 +25,19 @@
 
         <tr>
           <td>
-            <%= form.label :first_name %>
+            <%= form.label :first_name, "First Name" %>
           </td>
           <td>
-            <%= form.text_field :first_name %>
+            <%= form.text_field :first_name, presence: true %>
           </td>
         </tr>
 
         <tr>
           <td>
-            <%= form.label :last_name %>
+            <%= form.label :last_name, "Last Name" %>
           </td>
           <td>
-            <%= form.text_field :last_name %>
+            <%= form.text_field :last_name, presence: true %>
           </td>
         </tr>
 
@@ -46,7 +46,7 @@
             <%= form.label :class_year, :value => "Graduation Year" %>
           </td>
           <td>
-            <%= form.number_field :class_year %>
+            <%= form.number_field :class_year, presence: true %>
           </td>
         </tr>
       </table>
