@@ -2,14 +2,14 @@
 require 'rails_helper'
 require 'rspec/rails'
 
-def mock_auth_hash
+def mock_auth_hash(full_name = 'tony hawk', email = 'tony@tamu.edu')
   OmniAuth.config.test_mode = true
   OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
     provider: 'google_oauth2',
-    uid: '123456789',
+    uid: (Random.rand(999999999) + 100000000).to_s,
     info: {
-      name: 'tony hawk',
-      email: 'tony@tamu.edu'
+      name: full_name,
+      email: email
     },
     credentials: {
       token: '308710543738-t6dp4sal56ghupflaaud23spm9vqh53h.apps.googleusercontent.com',
@@ -20,11 +20,32 @@ end
 
 RSpec.describe 'Sunny Day Events', type: :feature do
   before 'Init' do
+    # create dummy event with privilleged account
     visit root_path
-    mock_auth_hash
+    mock_auth_hash("Isaac Yeang", "isaacy13@tamu.edu")
     click_link 'Sign in with Google'
 
-    puts page.body
+    fill_in 'First Name', with: 'Isaac'
+    fill_in 'Last Name', with: 'Yeang'
+    fill_in 'user_class_year', with: 2022
+    click_on 'Create User'
+    click_link 'Sign in with Google'
+    click_link 'Events'
+
+    click_on 'New Event'
+    fill_in 'Title', with: "it's pretty crazy"
+    fill_in 'Description', with: 'some crazy event'
+
+    fill_in 'event_date', with: '2020/11/15'
+    fill_in 'Event Time Start', with: '2:30 PM'
+    fill_in 'Event Time End', with: '5:50 PM'
+    click_on 'Create Event'
+    click_link 'Back'
+    click_link 'Sign Out'
+
+    # get normal-privillege user
+    mock_auth_hash
+    click_link 'Sign in with Google'
 
     fill_in 'First Name', with: 'tony'
     fill_in 'Last Name', with: 'hawk'
@@ -32,19 +53,19 @@ RSpec.describe 'Sunny Day Events', type: :feature do
 
     click_on 'Create User'
     click_link 'Sign in with Google'
+  end
 
-    scenario '- Successfully Created a User' do
-      expect(page).to have_content('Welcome, tony!')
-    end
-    
-    click_link 'Events'
+  scenario '- Successfully Created a User' do
+    expect(page).to have_content('Welcome, tony!')
   end
   
   scenario '- Proper Privilleges' do
+    click_link 'Events'
     expect(page).not_to have_content('New Event')
   end
   
   scenario '- Event Attributes Properly Showing' do 
+    click_link 'Events'
     expect(page).to have_content('Events')
     expect(page).to have_content('Title')
     expect(page).to have_content('Description')
@@ -54,16 +75,7 @@ RSpec.describe 'Sunny Day Events', type: :feature do
   end
   
   it '- Events Properly Showing' do
-    # TODO: create event with admin privilleges
-    click_on 'New Event'
-    fill_in 'Title', with: "it's pretty crazy"
-    fill_in 'Description', with: 'some crazy event'
-
-    fill_in 'event_date', with: '2020/11/15'
-    fill_in 'Event Time Start', with: '2:30 PM'
-    fill_in 'Event Time End', with: '5:50 PM'
-    click_on 'Create Event'
-
+    click_link 'Events'
     expect(page).to have_content("it's pretty crazy")
     expect(page).to have_content('some crazy event')
     expect(page).to have_content('2020-11-15')

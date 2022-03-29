@@ -23,29 +23,30 @@ RSpec.describe Announcement, type: :model do
   end
 end
 
-RSpec.describe Attendance, type: :model do
+RSpec.describe Attendance do
   subject do
-    Event.new(id: 1, title: 'example title', description: 'blah', date: '3/28/2022', event_time_start: '1:00', event_time_end: '2:00')
-    described_class.new(event_id: 1, user_id: 1, attend_time_start: '1:00', attend_time_end: '2:00')
-  end
+    @e = Event.new(id: 1)
+    @e.save
+    described_class.new(id:1, user_id: 1, attend_time_start: '1:00', attend_time_end: '2:00', plans_to_attend: true, created_at: '3/27/22 1:00', updated_at: '3/28/22 2:00', event_id: @e.id)
 
-  it 'is valid with valid attributes' do
-    expect(subject).to be_valid
-  end
-
-  it 'is not valid without an event id' do
-    subject.event_id = nil
-    expect(subject).not_to be_valid
-  end
-
-  it 'is valid without an attend time start' do
-    subject.attend_time_start = nil
-    expect(subject).to be_valid
-  end
-
-  it 'is valid without an attend time end' do
-    subject.attend_time_end = nil
-    expect(subject).to be_valid
+    it 'is valid with valid attributes' do
+      expect(subject).to be_valid
+    end
+  
+    it 'is not valid without an event id' do
+      subject.event_id = nil
+      expect(subject).not_to be_valid
+    end
+  
+    it 'is valid without an attend time start' do
+      subject.attend_time_start = nil
+      expect(subject).to be_valid
+    end
+  
+    it 'is valid without an attend time end' do
+      subject.attend_time_end = nil
+      expect(subject).to be_valid
+    end
   end
 end
 
