@@ -11,8 +11,4 @@ class UsermailerMailer < ApplicationMailer
       @url = 'www.heroku.com'
       mail(to: @user.email, subject: '[SAIFD Member Site] ' << @announcement.title)
    end
-
-   def send_report(user, report_rate)
-      mail(to: user.email, subject: '[SAIFD Member Site]' << report_rate << ' Report')
-   end
 end

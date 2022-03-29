@@ -36,16 +36,18 @@ class AttendancesController < ApplicationController
   def create
     @attendance = Attendance.new(attendance_params)
     @event = Event.where(id: @attendance.event_id).first
-    
-    if !Attendance.where(event_id: attendance_params[:event_id]).empty?
-      flash[:alert] = "Attendance record already exists"
-      return render 'new'
-    elsif !(@attendance.attend_time_start.to_time.strftime("%H:%M:%S") >= @event.event_time_start.to_time.strftime("%H:%M:%S") && @attendance.attend_time_end.to_time.strftime("%H:%M:%S") <= @event.event_time_end.to_time.strftime("%H:%M:%S"))
-      flash[:alert] = "Attendance time must be within bounds of event time"
-      return render 'new'
-    elsif @attendance.attend_time_start.to_time.strftime("%H:%M:%S") > @attendance.attend_time_end.to_time.strftime("%H:%M:%S")
-      flash[:alert] = "Attendance time must start before ending"
-      return render 'new'
+
+    if !@attendance.attend_time_start.nil? && !@attendance.attend_time_end.nil?
+      if !Attendance.where(event_id: attendance_params[:event_id]).empty?
+        flash[:alert] = "Attendance record already exists"
+        return render 'new'
+      elsif !(@attendance.attend_time_start.to_time.strftime("%H:%M:%S") >= @event.event_time_start.to_time.strftime("%H:%M:%S") && @attendance.attend_time_end.to_time.strftime("%H:%M:%S") <= @event.event_time_end.to_time.strftime("%H:%M:%S"))
+        flash[:alert] = "Attendance time must be within bounds of event time"
+        return render 'new'
+      elsif @attendance.attend_time_start.to_time.strftime("%H:%M:%S") > @attendance.attend_time_end.to_time.strftime("%H:%M:%S")
+        flash[:alert] = "Attendance time must start before ending"
+        return render 'new'
+      end
     end
 
     @user = grab_user

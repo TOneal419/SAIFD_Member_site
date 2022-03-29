@@ -54,9 +54,7 @@
       <br>
 
         <div class="actions">
-          <% if @perms[:view_all_attendances] %>
-            <%= link_to 'New Attendance Record', new_attendance_path, class:'btn' %>
-          <% end %>
+          <%= link_to 'New Attendance Record', new_attendance_path, class:'btn' %>
           <%= link_to 'Back', root_path, class:'btn' %>
         </div>
       </div>
