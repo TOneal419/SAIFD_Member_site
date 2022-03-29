@@ -9,6 +9,7 @@ class AttendancesController < ApplicationController
     # by default, only grab current user's attendance
     @user = grab_user
     return redirect_to '/', notice: 'Invalid user session. Please try logging in again.' if @user.nil?
+
     @attendances = Attendance.where(user_id: @user.id)
     @attendances = Attendance.all if grab_permissions[:view_all_attendances]
     @perms = grab_permissions
@@ -17,7 +18,7 @@ class AttendancesController < ApplicationController
 
   # GET /attendances/1 or /attendances/1.json
   def show
-    return redirect_to '/', notice: 'Attempted to access disabled route.'
+    redirect_to '/', notice: 'Attempted to access disabled route.'
   end
 
   # GET /attendances/new
@@ -29,9 +30,10 @@ class AttendancesController < ApplicationController
   def edit
     @attendance_id = params[:id]
     @attendance = Attendance.where(id: @attendance_id).first
-    
-    return redirect_to '/' if @attendance.nil? 
-    return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:view_all_attendances] || @attendance.attend_time_start.nil? || @attendance.attend_time_end.nil?
+
+    return redirect_to '/' if @attendance.nil?
+
+    redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:view_all_attendances] || @attendance.attend_time_start.nil? || @attendance.attend_time_end.nil?
   end
 
   # POST /attendances or /attendances.json
@@ -41,13 +43,13 @@ class AttendancesController < ApplicationController
 
     if !@attendance.attend_time_start.nil? && !@attendance.attend_time_end.nil?
       if !Attendance.where(event_id: attendance_params[:event_id]).empty?
-        flash[:alert] = "Attendance record already exists"
+        flash[:alert] = 'Attendance record already exists'
         return render 'new'
-      elsif !(@attendance.attend_time_start.to_time.strftime("%H:%M:%S") >= @event.event_time_start.to_time.strftime("%H:%M:%S") && @attendance.attend_time_end.to_time.strftime("%H:%M:%S") <= @event.event_time_end.to_time.strftime("%H:%M:%S"))
-        flash[:alert] = "Attendance time must be within bounds of event time"
+      elsif !(@attendance.attend_time_start.to_time.strftime('%H:%M:%S') >= @event.event_time_start.to_time.strftime('%H:%M:%S') && @attendance.attend_time_end.to_time.strftime('%H:%M:%S') <= @event.event_time_end.to_time.strftime('%H:%M:%S'))
+        flash[:alert] = 'Attendance time must be within bounds of event time'
         return render 'new'
-      elsif @attendance.attend_time_start.to_time.strftime("%H:%M:%S") > @attendance.attend_time_end.to_time.strftime("%H:%M:%S")
-        flash[:alert] = "Attendance time must start before ending"
+      elsif @attendance.attend_time_start.to_time.strftime('%H:%M:%S') > @attendance.attend_time_end.to_time.strftime('%H:%M:%S')
+        flash[:alert] = 'Attendance time must start before ending'
         return render 'new'
       end
     end
@@ -73,16 +75,20 @@ class AttendancesController < ApplicationController
     @attendance_id = params[:id]
     @attendance = Attendance.where(id: @attendance_id).first
     @event = Event.where(id: @attendance.event_id).first
-    
-    return redirect_to '/' if @attendance.nil? 
-    return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:view_all_attendances] || @attendance.attend_time_start.nil? || @attendance.attend_time_end.nil?
 
-    if (!attendance_params[:attend_time_start].nil? && !attendance_params[:attend_time_end].nil?)
-      if !(attendance_params[:attend_time_start].to_time.strftime("%H:%M:%S") >= @event.event_time_start.to_time.strftime("%H:%M:%S") && attendance_params[:attend_time_end].to_time.strftime("%H:%M:%S") <= @event.event_time_end.to_time.strftime("%H:%M:%S"))
-        flash[:alert] = "Attendance time must be within bounds of event time"
+    return redirect_to '/' if @attendance.nil?
+
+    unless grab_permissions[:view_all_attendances] || @attendance.attend_time_start.nil? || @attendance.attend_time_end.nil?
+      return redirect_to '/',
+                         notice: 'Insufficient permissions.'
+    end
+
+    if !attendance_params[:attend_time_start].nil? && !attendance_params[:attend_time_end].nil?
+      if !(attendance_params[:attend_time_start].to_time.strftime('%H:%M:%S') >= @event.event_time_start.to_time.strftime('%H:%M:%S') && attendance_params[:attend_time_end].to_time.strftime('%H:%M:%S') <= @event.event_time_end.to_time.strftime('%H:%M:%S'))
+        flash[:alert] = 'Attendance time must be within bounds of event time'
         return render 'edit'
-      elsif attendance_params[:attend_time_start].to_time.strftime("%H:%M:%S") > attendance_params[:attend_time_end].to_time.strftime("%H:%M:%S")
-        flash[:alert] = "Attendance time must start before ending"
+      elsif attendance_params[:attend_time_start].to_time.strftime('%H:%M:%S') > attendance_params[:attend_time_end].to_time.strftime('%H:%M:%S')
+        flash[:alert] = 'Attendance time must start before ending'
         return render 'edit'
       end
     end

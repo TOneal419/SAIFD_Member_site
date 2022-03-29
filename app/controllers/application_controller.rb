@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
     if @id_token.nil? || @google_acc.nil?
       cookies[:current_user_session] = nil
       reset_session
-      return nil
+      nil
     else
       @email = @google_acc.first.email
       @user = User.where(email: @email).first
@@ -30,6 +30,7 @@ class ApplicationController < ActionController::Base
 
     @user = grab_user
     return nil if @user.nil?
+
     unless cookies[:current_user_session].nil?
       @perms = Permission.where(user_id: @user.id).first
 

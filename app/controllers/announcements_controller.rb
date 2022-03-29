@@ -10,10 +10,11 @@ class AnnouncementsController < ApplicationController
     return redirect_to '/', notice: 'Invalid user session. Please try logging in again.' if @perms.nil?
 
     @announcements = Announcement.all
-    if !@perms[:create_modify_announcements]
+    unless @perms[:create_modify_announcements]
       @announcements = []
       @user = grab_user
       return redirect_to '/', notice: 'Invalid user session. Please try logging in again.' if @user.nil?
+
       @valid_plans_to_attend = Attendance.where(user_id: @user.id, plans_to_attend: 1)
       @valid_plans_to_attend.each do |vpta|
         @announcements.append(Announcement.where(user_id: @user.id, event_id: vpta.event_id).first)
@@ -22,13 +23,12 @@ class AnnouncementsController < ApplicationController
   end
 
   # GET /announcements/1 or /announcements/1.json
-  def show
-    
-  end
+  def show; end
 
   # GET /announcements/new
   def new
     return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_announcements]
+
     @announcement = Announcement.new
   end
 
@@ -53,7 +53,7 @@ class AnnouncementsController < ApplicationController
     respond_to do |format|
       if @announcement.save
         @users = User.all
-        if !announcement_params[:event_id].empty?
+        unless announcement_params[:event_id].empty?
           @attendances = Attendance.where(event_id: announcement_params[:event_id], plans_to_attend: true)
           @users = []
           @attendances.each do |attendance|
@@ -62,7 +62,7 @@ class AnnouncementsController < ApplicationController
         end
 
         @users.each do |user|
-          UsermailerMailer.announceAll(user, @announcement).deliver_later
+          UsermailerMailer.announce_all(user, @announcement).deliver_later
         end
 
         format.html { redirect_to announcements_path, notice: 'Announcement was successfully created, and emails have been sent.' }
