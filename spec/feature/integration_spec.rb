@@ -259,8 +259,19 @@ RSpec.describe 'Rainy Day', type: :feature do
     fill_in 'Attend Time End', with: ''
     click_on 'Create Attendance'
 
-    expect(page).to have_content("Event can't be blank")
-    expect(page).to have_content("Event must exist")
+    expect(page).to have_content("Must attend an event")
+    
+    select "it's pretty crazy", from: 'Event'
+    click_on 'Create Attendance'
+    expect(page).to have_content("Must set attendance times")
+
+    fill_in 'Attend Time Start', with: '2:30 PM'
+    click_on 'Create Attendance'
+    expect(page).to have_content("Must set attendance times")
+
+    fill_in 'Attend Time End', with: '5:30 PM'
+    click_on 'Create Attendance'
+    expect(page).to have_content("Attendance was successfully created.")
   end
 
   scenario 'Manage Users Invalid Inputs' do 
