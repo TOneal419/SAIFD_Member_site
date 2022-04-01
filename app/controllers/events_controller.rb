@@ -98,6 +98,17 @@ class EventsController < ApplicationController
   def destroy
     return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_events]
 
+    @related_announcements = Announcement.where(event_id: @event.id)
+    @related_attendances = Attendance.where(event_id: @event.id)
+
+    @related_announcements.each do |a|
+      a.destroy
+    end
+
+    @related_attendances.each do |a|
+      a.destroy
+    end
+
     @event.destroy
 
     respond_to do |format|

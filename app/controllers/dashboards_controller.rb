@@ -34,7 +34,7 @@ class DashboardsController < ApplicationController
     # get announcements/events that user is planning to attend and are >= current date
     @planned_attendances = Attendance.where(user_id: @user.id, plans_to_attend: true)
 
-    @recent_announcements_all = Announcement.where({ event_id: nil }, posted_on: 0.days.ago..)
+    @recent_announcements_all = Announcement.where({ event_id: nil }, posted_on: 10.days.ago..)
     @recent_announcements_specific = []
     @events = []
 
