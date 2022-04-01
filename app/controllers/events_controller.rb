@@ -101,11 +101,11 @@ class EventsController < ApplicationController
     @related_announcements = Announcement.where(event_id: @event.id)
     @related_attendances = Attendance.where(event_id: @event.id)
 
-    @related_announcements.each do |a|
+    @related_announcements&.each do |a|
       a.destroy
     end
 
-    @related_attendances.each do |a|
+    @related_attendances&.each do |a|
       a.destroy
     end
 
