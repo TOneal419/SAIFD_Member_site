@@ -45,7 +45,7 @@
     }
 
     .panel-title {
-        font-size: 24px;
+        font-size: 32px;
     }
 
     .panel-heading {
@@ -87,7 +87,7 @@
 
     a {
         display: block;
-        pading: 8px;
+        padding: 8px;
         background-color: #dddddd;
     }
 
@@ -165,7 +165,7 @@
                         <h1 class="panel-title">Recent Announcements</h1>
                     </div>
                     <% if @announcements.empty? %>
-                        No recent announcements.
+                        <p style="padding-left: 15px;">No recent announcements.</p>
                     <% else %>
                         <% @announcements.last(4).reverse_each do |announcement| %>
                             <div class="panel-body">
@@ -202,7 +202,7 @@
                         <h1 class="panel-title">Upcoming Events</h1>
                     </div>
                     <% if @events.empty? %>
-                        Check the events tab to sign up for upcoming events.
+                        <p style="padding-left: 15px;">Check the events tab to sign up for upcoming events.</p>
                     <% else %>
                         <% @events.last(4).reverse_each do |event| %>
                             <div class="panel-body">

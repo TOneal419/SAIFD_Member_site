@@ -46,7 +46,15 @@ div.actions > a, div.actions > input  {
 th, td {
     padding-right: 30px !important;
     vertical-align: top;
-    min-width: 125px;
+    min-width: 150px;
+}
+
+th {
+    font-size: 24px;
+}
+
+td {
+    font-size: 18px;
 }
 
 label {
@@ -61,7 +69,6 @@ html {
 body {
     height: 100%;
     background-color: #23463F !important;
-    min-width: 500px;
 }
 
 .desc {
@@ -95,8 +102,7 @@ textarea {
 }
 
 .btn:hover, .btn:focus, .btn.focus {
-    color: white !important;
-    background: #333 !important;
+    background: #919191 !important;
 }
 
 .wide {
