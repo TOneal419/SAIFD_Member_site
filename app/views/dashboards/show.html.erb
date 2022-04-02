@@ -95,6 +95,14 @@
         color: inherit;
     }
 
+    .card-link {
+        background: transparent;
+    }
+
+    .card-link:hover {
+        background: transparent;
+    }
+
     *::-webkit-scrollbar-thumb {
         background-color: #919191;    /* color of the scroll thumb */
         border-radius: 0 20px 0 0;
@@ -173,20 +181,22 @@
                                     <tr>
                                         <% @event_name = "ALL" %>
                                         <% @event_name = Event.where(id: announcement.event_id).first.title if !announcement.event_id.nil? %>
-                                        <td> <div style="text-align:center; font-size:24px;">[<%= @event_name %>] <%= announcement.title %> </div> </td>
-                                        <td> <div style="text-align:center; font-size:18px;"> <%= User.where(id: announcement.user_id).last.first_name %> <%= User.where(id: announcement.user_id).last.last_name %></div> </td>
-                                        <td> <div style="text-align:center; font-size:16px;"> <%= announcement.posted_on.strftime('%d/%m/%Y, %I:%M %P') %> </div> </td>
-                                        <br>
-                                        <td><p style="font-size:18px;">Description:</p></td>
-                                        <td> 
-                                            <div class="desc" style="font-size:16px;">  
-                                                <%= announcement.description[0..100] %>
-                                                <% if announcement.description.length > 100 %>
-                                                    <p style="display: inline">...</p>
-                                                <% end %>
-                                            </div>
-                                        </td>
-                                        <br>
+                                        <%= link_to announcement_path(announcement.id), class:'card-link' do %>
+                                            <td> <div style="text-align:center; font-size:24px;">[<%= @event_name %>] <%= announcement.title %> </div> </td>
+                                            <td> <div style="text-align:center; font-size:18px;"> <%= User.where(id: announcement.user_id).last.first_name %> <%= User.where(id: announcement.user_id).last.last_name %></div> </td>
+                                            <td> <div style="text-align:center; font-size:16px;"> <%= announcement.posted_on.strftime('%d/%m/%Y, %I:%M %P') %> </div> </td>
+                                            <br>
+                                            <td><p style="font-size:18px;">Description:</p></td>
+                                            <td> 
+                                                <div class="desc" style="font-size:16px;">  
+                                                    <%= announcement.description[0..100] %>
+                                                    <% if announcement.description.length > 100 %>
+                                                        <p style="display: inline">...</p>
+                                                    <% end %>
+                                                </div>
+                                            </td>
+                                            <br>
+                                        <% end %>
                                     </tr>
                                     
                                 </tbody>
@@ -208,18 +218,20 @@
                             <div class="panel-body">
                                 <tbody>
                                     <tr>
-                                        <td> <div style="text-align:center; font-size:24px;"> <%= event.title %> </div> </td>
-                                        <td> <div style="text-align:center; font-size:18px;"> <%= event.date %> </div> </td>
-                                        <br>
-                                        <td><p style="font-size:18px;">Description:</p></td>
-                                        <div class="desc" style="font-size:16px;">
-                                            <%= event.description[0..100] %>
-                                            <% if event.description.length > 100 %>
-                                                <p style="display: inline">...</p>
-                                            <% end %>
-                                        </div>
+                                        <%= link_to event_path(event.id), class:'card-link' do %>
+                                            <td> <div style="text-align:center; font-size:24px;"> <%= event.title %> </div> </td>
+                                            <td> <div style="text-align:center; font-size:18px;"> <%= event.date %> </div> </td>
+                                            <br>
+                                            <td><p style="font-size:18px;">Description:</p></td>
+                                            <div class="desc" style="font-size:16px;">
+                                                <%= event.description[0..100] %>
+                                                <% if event.description.length > 100 %>
+                                                    <p style="display: inline">...</p>
+                                                <% end %>
+                                            </div>
 
-                                        <br>
+                                            <br>
+                                        <% end %>
                                     </tr>
                                 </tbody>
                             </div>
