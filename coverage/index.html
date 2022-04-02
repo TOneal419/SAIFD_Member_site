@@ -14,7 +14,7 @@
       <img src="./assets/0.12.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2022-04-01T17:51:43+00:00">2022-04-01T17:51:43+00:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2022-04-02T01:05:22+00:00">2022-04-02T01:05:22+00:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -23,14 +23,14 @@
     <span class="group_name">All Files</span>
     (<span class="covered_percent">
       <span class="yellow">
-  83.35%
+  83.21%
 </span>
 
      </span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         6.55
+         6.52
        </span>
     </span> hits/line
     )
@@ -43,11 +43,11 @@
   </div>
 
   <div class="t-line-summary">
-    <b>799</b> relevant lines,
-    <span class="green"><b>666</b> lines covered</span> and
-    <span class="red"><b>133</b> lines missed. </span>
+    <b>804</b> relevant lines,
+    <span class="green"><b>669</b> lines covered</span> and
+    <span class="red"><b>135</b> lines missed. </span>
     (<span class="yellow">
-  83.35%
+  83.21%
 </span>
 )
   </div>
@@ -116,12 +116,12 @@
         
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#d4fdb3c23772d16a38e0b5f33adc2191e03c7c35" class="src_link" title="app/controllers/attendances_controller.rb">app/controllers/attendances_controller.rb</a></td>
-            <td class="red strong cell--number t-file__coverage">70.73 %</td>
+            <td class="red strong cell--number t-file__coverage">69.41 %</td>
             <td class="cell--number">154</td>
-            <td class="cell--number">82</td>
-            <td class="cell--number">58</td>
-            <td class="cell--number">24</td>
-            <td class="cell--number">2.22</td>
+            <td class="cell--number">85</td>
+            <td class="cell--number">59</td>
+            <td class="cell--number">26</td>
+            <td class="cell--number">2.18</td>
             
           </tr>
         
@@ -260,9 +260,9 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#b218f013b63904bf0c37ce559a59834676d2ea34" class="src_link" title="app/models/attendance.rb">app/models/attendance.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">11</td>
-            <td class="cell--number">8</td>
-            <td class="cell--number">8</td>
+            <td class="cell--number">13</td>
+            <td class="cell--number">10</td>
+            <td class="cell--number">10</td>
             <td class="cell--number">0</td>
             <td class="cell--number">1.00</td>
             
@@ -3263,7 +3263,7 @@
     <h3>app/controllers/attendances_controller.rb</h3>
     <h4>
       <span class="red">
-  70.73%
+  69.41%
 </span>
 
       lines covered
@@ -3272,9 +3272,9 @@
     
 
     <div class="t-line-summary">
-      <b>82</b> relevant lines.
-      <span class="green"><b>58</b> lines covered</span> and
-      <span class="red"><b>24</b> lines missed.</span>
+      <b>85</b> relevant lines.
+      <span class="green"><b>59</b> lines covered</span> and
+      <span class="red"><b>26</b> lines missed.</span>
     </div>
 
     
@@ -4473,35 +4473,35 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="109">
-            
-            
-
+          <li class="covered" data-hits="1" data-linenumber="109">
+            <span class="hits">1</span>
             
 
-            <code class="ruby">    # if attendance_params[:attend_time_start].empty? || attendance_params[:attend_time_end].empty?</code>
+            
+
+            <code class="ruby">    if attendance_params[:attend_time_start].empty? || attendance_params[:attend_time_end].empty?</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="110">
+          <li class="missed" data-hits="0" data-linenumber="110">
             
             
 
             
 
-            <code class="ruby">    #   flash[:alert] = &#39;Must set attendance times&#39;</code>
+            <code class="ruby">      flash[:alert] = &#39;Must set attendance times&#39;</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="111">
+          <li class="missed" data-hits="0" data-linenumber="111">
             
             
 
             
 
-            <code class="ruby">    #   return render &#39;new&#39;</code>
+            <code class="ruby">      return render &#39;edit&#39;</code>
           </li>
         </div>
       
@@ -4512,7 +4512,7 @@
 
             
 
-            <code class="ruby">    # end</code>
+            <code class="ruby">    end</code>
           </li>
         </div>
       
@@ -4946,8 +4946,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="25" data-linenumber="152">
-            <span class="hits">25</span>
+          <li class="covered" data-hits="27" data-linenumber="152">
+            <span class="hits">27</span>
             
 
             
@@ -9626,8 +9626,8 @@
     
 
     <div class="t-line-summary">
-      <b>8</b> relevant lines.
-      <span class="green"><b>8</b> lines covered</span> and
+      <b>10</b> relevant lines.
+      <span class="green"><b>10</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
 
@@ -9689,7 +9689,7 @@
 
             
 
-            <code class="ruby">  validates :attend_time_start, presence: true</code>
+            <code class="ruby">  validates :attend_time_start, presence: true, on: :create</code>
           </li>
         </div>
       
@@ -9700,7 +9700,7 @@
 
             
 
-            <code class="ruby">  validates :attend_time_end, presence: true</code>
+            <code class="ruby">  validates :attend_time_start, presence: true, on: :update</code>
           </li>
         </div>
       
@@ -9711,7 +9711,7 @@
 
             
 
-            <code class="ruby">  validates :plans_to_attend, presence: true, allow_blank: true</code>
+            <code class="ruby">  validates :attend_time_end, presence: true, on: :create</code>
           </li>
         </div>
       
@@ -9722,7 +9722,7 @@
 
             
 
-            <code class="ruby">  has_one :event</code>
+            <code class="ruby">  validates :attend_time_end, presence: true, on: :update</code>
           </li>
         </div>
       
@@ -9733,7 +9733,7 @@
 
             
 
-            <code class="ruby">  has_one :user</code>
+            <code class="ruby">  validates :plans_to_attend, presence: true, allow_blank: true</code>
           </li>
         </div>
       
@@ -9744,12 +9744,34 @@
 
             
 
+            <code class="ruby">  has_one :event</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="11">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  has_one :user</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="12">
+            <span class="hits">1</span>
+            
+
+            
+
             <code class="ruby">  belongs_to :event</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="11">
+          <li class="never" data-hits="" data-linenumber="13">
             
             
 
@@ -20176,7 +20198,7 @@
 
             
 
-            <code class="ruby">    expect(page).to have_content(&quot;Attendance was successfully updated&quot;)</code>
+            <code class="ruby">    expect(page).to have_content(&quot;Attendance was successfully created.&quot;)</code>
           </li>
         </div>
       
