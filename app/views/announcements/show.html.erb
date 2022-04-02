@@ -1,7 +1,7 @@
 <html>
   <body>
     <div class="vertical-center horizontal-center">
-      <div class="form">
+      <div class="wide form">
         <p id="notice"><%= notice %></p>
 
         <p>
@@ -22,18 +22,14 @@
         <p>
           <strong>Created By:</strong>
           <%= User.where(id: @announcement.user_id).last.email %>
-          </p>
+        </p>
 
         <p>
           <strong>Event:</strong>
           <% if @announcement.event_id.present? %>
-            <td>
-              <%= Event.where(id: @announcement.event_id).last.title %>
-            </td>
+            <p><%= Event.where(id: @announcement.event_id).last.title %></p>
           <% else %>
-            <td>
-              <%= @announcement.event_id %>
-            </td>
+            <p>ALL</p>
           <% end %>
         </p>
         

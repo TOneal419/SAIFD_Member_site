@@ -26,14 +26,14 @@
                 <td><%= User.where(id: attendance.user_id).last.last_name %> </td>
                 <td>
                   <% if attendance.attend_time_start.nil? %>
-                    <p>nil</p>
+                    <p>-</p>
                   <% else %>
                     <%= attendance.attend_time_start.strftime('%I:%M %P') %>
                   <% end %>
                 </td>
                 <td>
                   <% if attendance.attend_time_end.nil? %>
-                    <p>nil</p>
+                    <p>-</p>
                   <% else %>
                     <%= attendance.attend_time_end.strftime('%I:%M %P') %>
                   <% end %>

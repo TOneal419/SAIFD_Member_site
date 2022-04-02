@@ -76,11 +76,6 @@ Rails.application.configure do
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
 
-  ENV['GOOGLE_OAUTH_CLIENT_ID'] = '308710543738-t6dp4sal56ghupflaaud23spm9vqh53h.apps.googleusercontent.com'
-  ENV['GOOGLE_OAUTH_CLIENT_SECRET'] = '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'
-  ENV['mail_name'] = 'saifdmembertracking@gmail.com'
-  ENV['mail_password'] = 'zuwjngjfozckxbdb'
-
 
 
   config.action_mailer.perform_deliveries = true

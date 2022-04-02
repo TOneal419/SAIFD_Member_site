@@ -1,4 +1,3 @@
-
 # User Mailer Entity
 class UsermailerMailer < ApplicationMailer
   def welcome_email(user)
