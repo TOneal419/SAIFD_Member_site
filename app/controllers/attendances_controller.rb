@@ -106,10 +106,10 @@ class AttendancesController < ApplicationController
                          notice: 'Insufficient permissions.'
     end
 
-    # if attendance_params[:attend_time_start].empty? || attendance_params[:attend_time_end].empty?
-    #   flash[:alert] = 'Must set attendance times'
-    #   return render 'new'
-    # end
+    if attendance_params[:attend_time_start].empty? || attendance_params[:attend_time_end].empty?
+      flash[:alert] = 'Must set attendance times'
+      return render 'edit'
+    end
 
     if !(attendance_params[:attend_time_start].to_time.strftime('%H:%M:%S') >= @event.event_time_start.to_time.strftime('%H:%M:%S') && attendance_params[:attend_time_end].to_time.strftime('%H:%M:%S') <= @event.event_time_end.to_time.strftime('%H:%M:%S'))
       flash[:alert] = 'Attendance time must be within bounds of event time'
