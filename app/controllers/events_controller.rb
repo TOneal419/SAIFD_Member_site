@@ -12,7 +12,8 @@ class EventsController < ApplicationController
     @attendance = Attendance.where(event_id: @event_id, user_id: @user.id).first
     if @attendance.nil?
       @attendance = Attendance.new(event_id: @event_id, user_id: @user.id, attend_time_start: nil, attend_time_end: nil, plans_to_attend: true)
-      @attendance.save
+      @attendance.save validate: false
+      @attendance.errors.full_messages if @attendance.errors.any?
     else
       @attendance.update(plans_to_attend: !@attendance.plans_to_attend)
     end
