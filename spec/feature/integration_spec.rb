@@ -123,9 +123,6 @@ RSpec.describe 'Sunny Day', type: :feature do
       expect(page).to have_content('2:30 pm')
       expect(page).to have_content('2:50 pm')
       expect(page).to have_content('false')
-
-      visit '/attendances/1'
-      expect(page).to have_content("Attempted to access disabled route.")
     end
   end
 
