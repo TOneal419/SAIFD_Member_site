@@ -33,6 +33,7 @@ div.actions {
     display: flex;
     flex-direction: row-reverse;
     justify-content: flex-end;
+    width: fit-content;
 }
 
 div.actions > :nth-child(even) {
