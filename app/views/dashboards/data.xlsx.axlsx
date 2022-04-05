@@ -45,6 +45,6 @@ wb.add_worksheet(name: 'Announcements') do |sheet|
     @event = Event.where(id: announcement.event_id).first
     event_title = 'ALL'
     event_title = @event.title unless @event.nil?
-    sheet.add_row [username, event_title, announcement.title, announcement.description, announcement.posted_on.strftime('%I:%M %p')]
+    sheet.add_row [username, event_title, announcement.title, announcement.description, announcement.posted_on.strftime('%d/%m/%Y, %I:%M %P')]
   end
 end
