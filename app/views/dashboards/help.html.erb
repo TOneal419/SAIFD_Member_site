@@ -2,19 +2,37 @@
     <div class="form wide">
         <h1>Welcome to the SAIFD Members App</h1>
         <p><strong>Overview</strong></p>
-        <p>This application is intended for the members, officers and advisors of SAIFD to track and record attendance to events, create events, and broadcast information about events to members of SAIFD.</p>
+        <p>This application is for the members, officers, and advisors of SAIFD to track and record attendance to events, create events, and broadcast information about events to members of SAIFD.</p>
         <p><strong>As a Member</strong></p>
-        <p>Most users of the app will only have permissions to view events, record attendance to events, and view relevant announcements. Regular members will NOT have access to creating or modifying existing events, viewing all attendance records, and creating new announcements. If you attempt to do these actions, you will be prevented from doing so by the app. If you believe this is an error, contact an admin (example: club advisor) to get permissions.</p>
-        <p>In order to properly receive announcements about events, it is recommended to log attendance records ahead of the event with your expected attendance time. Members need to log attendance for an event to receive announcements about the event. You can always change the duration of your attendance or remove the record, for example if you ended up not attending an event.</p>
+        <p>Most users will only have permission to view events, record attendance to events, and view relevant announcements. Regular members will NOT be able to create or modify existing events, view all attendance records, or create announcements. If you attempt to do these actions, you will be prevented from doing so by the app. If you believe this is an error, contact an admin (example: club advisor) to get permissions.</p>
+        <p>To properly receive announcements about events, you must check the 'Attending?' box for the event under the 'Events' tab. After attending the event, you can visit the 'Attendances' tab to log your attendance (either via the 'Edit' or 'New Attendance Record' button).</p>
         <p><strong>As an Officer</strong></p>
-        <p>Officers have a variety of abilities above a regular member, including viewing attendance records, creating new events or creating new announcements. You can only receive these permissions from an admin. Contact an admin (example: club advisor) if you believe you need permissions.</p>
+        <p>Officers have a variety of abilities above a regular member, including viewing attendance records, creating new events, or creating new announcements. You can only receive these permissions from an admin. Contact an admin (example: club advisor) if you believe you need permissions.</p>
         <p><strong>As an Admin</strong></p>
         <p>Admins have all possible permissions of an officer, plus the ability to give out and remove permissions to all users. Care should be taken not to remove an admin's permissions without another account being an admin.</p>
         <h2>FAQ</h2>
-        <p><strong>I came in early to an event but I can't register the time that I came in. Why is this?</strong></p>
-        <p>The attendance record functionality allows you to register your start and end time within 2 hours of an event beginning or 2 hours of an event ending. If you arrive or leave before or after this threshold, record the earliest possible time.</p>
+        <p><strong>How do I log my attendance for an event?</strong></p>
+        <p>Attendance can be logged in two ways. Option one is checking the box under the 'Attending?' for an event on the 'Events' page and editing the attendance under the 'Attendances' page. Option two is simply clicking 'New Attendance Record' under the 'Attendances' tab.</p>
+        <p><strong>How can I receive announcements for an event?</strong></p>
+        <p>Go to the events tab to view all available events. Check the box under the 'Attending?' column to receive all announcements for that event. This implies that you are planning to attend the event and will receive emails about said event.</p>
+        <p><strong>How can I stop receiving announcements for an event?</strong></p>
+        <p>Go to the events tab to view all available events. Uncheck the box under the 'Attending?' column to receive all announcements for that event. This will also take you off the emailing list for that event.</p>
+        <p><strong>How are announcements sent?</strong></p>
+        <p>Whenever an announcement is created by officers/admins, they can send it to every member or only members part of an event. If sent to everybody, the announcement will be displayed under the 'Announcements' tab for 10 days and emailed to everybody. If the announcement is event-specific, it will show under the 'Recent Announcements' and be emailed to members planning to attend said event.</p>
+        <p><strong>Why do my attendance record times have dashes ('-')?</strong></p>
+        <p>Dashes mean that your attendance hasn't been logged yet. Click on the 'Edit' button and input the times you attended the event. Finish by clicking the 'Update Attendance' button. Alternatively, you can click 'New Attendance Record' and input your attendance information there.</p>
+        <p><strong>What are the 'Recent Announcements' and 'Upcoming Events' on the front page?</strong></p>
+        <p>Upcoming events display events that have checked boxes under the 'Attending?' column on the events page and haven't occurred yet. Recent Announcements display announcements from upcoming events. Additionally, it displays announcements sent to everybody (denoted by '[ALL]'). </p>
+        <p><strong>How long do 'Recent Announcements' and 'Upcoming Events' stay on the front page?</strong></p>
+        <p>Upcoming events last until the current date and time in CST has passed the event's date and time. Recent announcements last until the corresponding event has expired. Announcements that have been sent to everybody last for 10 days. After the event/announcement expires, it will be removed from the front page.</p>
+        <p><strong>How can I unclutter the 'Recent Announcements' and 'Upcoming Events' on the front page?</strong></p>
+        <p>Go to the 'Events' tab and uncheck the 'Attending?' button. This will remove the upcoming event and recent announcement from the front page.</p>
+        <p><strong>Why can't I see events/announcements on the front page?</strong></p>
+        <p>Ensure that you have the 'Attending?' box checked on the 'Events' page for the event. Additionally, make sure that the event hasn't passed yet. If the announcement is event-specific, then ensure these steps are taken. Otherwise, make sure that the announcement was made within the past 10 days.</p>
+        <p><strong>Why can't I view/create/modify/delete anything?</strong></p>
+        <p>Contact an administrator to ensure you have proper permissions. (hint: administrator can use the 'Manage Users' tab to give users permissions)</p>
         <p><strong>What is Heroku and why is it important?</strong></p>
-        <p>Heroku is a service used to host the SAIFD member application. It is the centralized<br />location which brings all components required to run the application together. This is the most important<br />service that keeps this application running for SAIFD.</p>
+        <p>To the everyday user, Heroku isn't important. However, if you are an administrator or just interested: Heroku is a service used to host the SAIFD member application. It is the centralized location that brings all components required to run the application together. This is the most important service that keeps this application running for SAIFD.</p>
         <%= link_to 'Back', root_path, class:'btn' %>
     </div>
 </div>
