@@ -17,12 +17,12 @@
   </div>
   
   <div class="field">
-    <%= form.label :first_name %>
+    <%= form.label :first_name, "First Name" %>
     <%= form.text_field :first_name %>
   </div>
 
   <div class="field">
-    <%= form.label :last_name %>
+    <%= form.label :last_name, "Last Name" %>
     <%= form.text_field :last_name %>
   </div>
 
@@ -31,30 +31,35 @@
     <%= form.number_field :class_year %>
   </div>
 
+  <div class="field">
+    <%= form.label :report_rate, "Report Rate" %>
+    <%= form.select :report_rate, [['Disabled', 'Disabled'], ['Weekly', 'Weekly'], ['Monthly', 'Monthly']] %>
+  </div>
+
   <% @user.build_permission if @user.permission.nil? %>
   <%= form.fields_for :permission do |p| %>
     <div class="field">
-      <%= p.label :is_admin %>
+      <%= p.label :is_admin, "Is Admin" %>
       <%= p.check_box :is_admin %>
     </div>
 
     <div class="field">
-      <%= p.label :create_modify_events %>
+      <%= p.label :create_modify_events, "Create/Modify Events" %>
       <%= p.check_box :create_modify_events %>
     </div>
 
     <div class="field">
-      <%= p.label :create_modify_announcements %>
+      <%= p.label :create_modify_announcements, "Create/Modify Announcements" %>
       <%= p.check_box :create_modify_announcements %>
     </div>
 
     <div class="field">
-      <%= p.label :view_all_attendances %>
+      <%= p.label :view_all_attendances, "View/Modify Attendances" %>
       <%= p.check_box :view_all_attendances %>
     </div>
   <% end %>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class:'btn' %>
   </div>
 <% end %>

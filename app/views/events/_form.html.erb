@@ -1,3 +1,4 @@
+<p style="color: red"><%= alert %></p>
 <%= form_with(model: event) do |form| %>
   <% if event.errors.any? %>
     <div id="error_explanation">
@@ -11,32 +12,55 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
-  </div>
+  <table class="table-row-spacing">
+    <tr>
+      <td>
+        <%= form.label :title %>
+      </td>
+      <td>
+        <%= form.text_field :title, presence: true %>
+      </td>
+    </tr>
 
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_field :description %>
-  </div>
+    <tr>
+      <td>
+        <%= form.label :description %>
+      </td>
+      <td>
+        <%= form.text_area :description, presence: true %>
+      </td>
+    </tr>
 
-  <div class="field">
-    <%= form.label :date %>
-    <%= form.date_field :date %>
-  </div>
+    <tr>
+      <td>
+        <%= form.label :date %>
+      </td>
+      <td>
+        <%= form.date_field :date, presence: true %>
+      </td>
+    </tr>
 
-  <div class="field">
-    <%= form.label :event_time_start %>
-    <%= form.time_field :event_time_start %>
-  </div>
+    <tr>
+      <td>
+        <%= form.label :event_time_start, "Event Time Start" %>
+      </td>
+      <td>
+        <%= form.time_field :event_time_start, presence: true %>
+      </td>
+    </tr>
 
-  <div class="field">
-    <%= form.label :event_time_end %>
-    <%= form.time_field :event_time_end %>
-  </div>
+    <tr>
+      <td>
+        <%= form.label :event_time_end, "Event Time End" %>
+      </td>
+      <td>
+        <%= form.time_field :event_time_end, presence: true %>
+      </td>
+    </tr>
+  </table>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class:'btn' %>
+    <%= link_to 'Cancel', events_path, class:'btn' %>
   </div>
 <% end %>

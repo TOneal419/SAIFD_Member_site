@@ -11,11 +11,12 @@ class UsersController < ApplicationController
   def index
     # get permissions
     @user = grab_user
+    return redirect_to '/', notice: 'Invalid user session. Please try logging in again.' if @user.nil?
 
     # default to only seeing self
     @users = User.where(id: @user.id)
 
-    @users = User.all if grab_permissions[:view_all_attendances]
+    @users = User.all if grab_permissions[:is_admin]
   end
 
   # GET /users/1 or /users/1.json
@@ -31,7 +32,8 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:is_admin]
+    return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:is_admin]
+    return redirect_to '/', notice: 'Cannot edit WebMaster.' if params[:email].casecmp('wjmckinley@tamu.edu').zero?
 
     # grab params from URL
     @user = User.find_by(email: params[:email])
@@ -43,7 +45,10 @@ class UsersController < ApplicationController
 
     @user = User.new(user_params)
     @user.build_permission if @user.permission.nil?
-    @user.permission = Permission.new(is_admin: true, create_modify_events: true, create_modify_announcements: true, view_all_attendances: true)
+    @user.permission = Permission.new(is_admin: false, create_modify_events: false, create_modify_announcements: false, view_all_attendances: false)
+    if @user.email.casecmp('wjmckinley@tamu.edu').zero? || @user.email.casecmp('bill.mckinley@ag.tamu.edu').zero? || @user.email.casecmp('tyler.oneal419@tamu.edu').zero? || @user.email.casecmp('isaacy13@tamu.edu').zero?
+      @user.permission.update(is_admin: true, create_modify_events: true, create_modify_announcements: true, view_all_attendances: true)
+    end
     @user.permission.save
     @user.update(permission_id: @user.permission.id)
     @user.update(report_rate: 'Disabled') # by default, normal users shouldn't have reports
@@ -51,6 +56,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         @user.permission.update(user_id: @user.id)
+        UsermailerMailer.welcome_email(@user).deliver_later
         format.html do
           redirect_to new_admin_session_path, notice: 'User was successfully created. Please log in again to confirm.'
         end
@@ -64,7 +70,7 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1 or /users/1.json
   def update
-    redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:is_admin]
+    return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:is_admin]
 
     @user = User.find_by(email: user_params['email'])
     respond_to do |format|
@@ -80,9 +86,31 @@ class UsersController < ApplicationController
 
   # DELETE /users/1 or /users/1.json
   def destroy
-    redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:is_admin]
+    return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:is_admin]
+    return redirect_to '/', notice: 'Cannot destroy WebMaster.' if params[:email].casecmp('wjmckinley@tamu.edu').zero? || params[:email].casecmp('bill.mckinley@ag.tamu.edu').zero?
+
+    @current_user = grab_user
+    return redirect_to '/', notice: 'Invalid user session. Please try logging in again.' if @user.nil?
+    return redirect_to '/', notice: 'Cannot destroy self.' if @current_user.email.casecmp(params[:email]).zero?
 
     @user = User.find_by(email: params['email'])
+
+    @related_attendances = Attendance.where(user_id: @user.id)
+    @related_attendances&.each do |attendance|
+      attendance.destroy
+    end
+
+    @permission = Permission.where(user_id: @user.id).first
+    @permission.destroy
+
+    @admin = Admin.where(email: @user.email).first
+    @admin.destroy
+
+    @related_announcements = Announcement.where(user_id: @user.id)
+    @related_announcements&.each do |announcement|
+      announcement.destroy
+    end
+
     @user.destroy
     respond_to do |format|
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }

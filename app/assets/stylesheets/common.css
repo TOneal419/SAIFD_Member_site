@@ -1,0 +1,117 @@
+.vertical-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+
+.horizontal-center {
+    display: flex;
+    align-items: center;
+}
+
+.form {
+    border-radius: 10px;
+    padding: 30px;
+    height: 80%;
+    max-height: 580px;
+    background: floralwhite;
+    overflow: auto;
+}
+
+.table-row-spacing {
+    border-collapse: separate;
+    border-spacing: 0 15px;
+}
+
+.table-overflow {
+    height: 70%;
+    overflow: auto;
+}
+
+div.actions {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    width: fit-content;
+}
+
+div.actions > :nth-child(even) {
+    margin-right: 25px;
+}
+
+div.actions > a, div.actions > input  {
+    width: fit-content;
+}
+
+th, td {
+    padding-right: 30px !important;
+    vertical-align: top;
+    min-width: 150px;
+}
+
+th {
+    font-size: 24px;
+}
+
+td {
+    font-size: 18px;
+}
+
+label {
+    margin-right: 10px;
+    margin-top: 5px;
+}
+
+html {
+    height: 100vh;
+}
+
+body {
+    height: 100%;
+    background-color: #23463F !important;
+}
+
+.desc {
+    overflow-wrap: anywhere;
+    min-width: 175px;
+}
+
+*::-webkit-scrollbar {
+    width: 12px;               /* width of the entire scrollbar */
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent;        /* color of the tracking area */
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #919191;    /* color of the scroll thumb */
+    border-radius: 20px;
+}
+
+textarea {
+    width: 50vw;
+    height: 20vh;
+    resize: none;
+}
+
+.btn {
+    background: #E5E5E5;
+    border: 0.5px solid black;
+    min-width: 80px;
+}
+
+.btn:hover, .btn:focus, .btn.focus {
+    background: #919191 !important;
+}
+
+.wide {
+    max-width: 90%;
+}
+
+@media only screen and (max-width: 700px) {
+    th, td {
+        padding-right: 15px !important;
+    }
+}

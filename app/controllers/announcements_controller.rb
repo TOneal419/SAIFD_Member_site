@@ -6,39 +6,66 @@ class AnnouncementsController < ApplicationController
 
   # GET /announcements or /announcements.json
   def index
-    @announcements = Announcement.all
     @perms = grab_permissions
+    return redirect_to '/', notice: 'Invalid user session. Please try logging in again.' if @perms.nil?
+
+    @announcements = Announcement.all
+    unless @perms[:create_modify_announcements]
+      @announcements = []
+      @user = grab_user
+      return redirect_to '/', notice: 'Invalid user session. Please try logging in again.' if @user.nil?
+
+      @valid_plans_to_attend = Attendance.where(user_id: @user.id, plans_to_attend: 1)
+      @valid_plans_to_attend.each do |vpta|
+        @announcements.append(Announcement.where(user_id: @user.id, event_id: vpta.event_id).first)
+      end
+    end
   end
 
   # GET /announcements/1 or /announcements/1.json
-  def show
-    redirect_to '/', notice: 'Attempted to access disabled route.'
-  end
+  def show; end
 
   # GET /announcements/new
   def new
-    redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_announcements]
+    return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_announcements]
 
     @announcement = Announcement.new
   end
 
   # GET /announcements/1/edit
   def edit
-    redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_announcements]
+    return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_announcements]
   end
 
   # POST /announcements or /announcements.json
   def create
-    redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_announcements]
+    return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_announcements]
 
     @announcement = Announcement.new(announcement_params)
+
+    @posted_on = (DateTime.now.to_time - 5.hours).to_datetime
+    @announcement.update(posted_on: @posted_on)
     @user = grab_user
+    return redirect_to '/', notice: 'Invalid user session. Please try logging in again.' if @user.nil?
 
     @announcement.update(user_id: @user.id)
 
     respond_to do |format|
       if @announcement.save
-        format.html { redirect_to announcements_path, notice: 'Announcement was successfully created.' }
+        @users = User.all
+        unless announcement_params[:event_id].empty?
+          @attendances = Attendance.where(event_id: announcement_params[:event_id], plans_to_attend: true)
+          @users = []
+          @attendances.each do |attendance|
+            @users.append(User.where(id: attendance.user_id).first)
+          end
+        end
+
+        @users.each do |user|
+          UsermailerMailer.announce_all(user, @announcement).deliver_later
+        end
+
+        format.html { redirect_to announcements_path, notice: 'Announcement was successfully created, and emails have been sent.' }
         format.json { render :index, status: :created, location: @announcement }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -49,7 +76,10 @@ class AnnouncementsController < ApplicationController
 
   # PATCH/PUT /announcements/1 or /announcements/1.json
   def update
-    redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_announcements]
+    return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_announcements]
+
+    @posted_on = (DateTime.now.to_time - 5.hours).to_datetime
+    @announcement.update(posted_on: @posted_on)
 
     respond_to do |format|
       if @announcement.update(announcement_params)
@@ -64,7 +94,7 @@ class AnnouncementsController < ApplicationController
 
   # DELETE /announcements/1 or /announcements/1.json
   def destroy
-    redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_announcements]
+    return redirect_to '/', notice: 'Insufficient permissions.' unless grab_permissions[:create_modify_announcements]
 
     @announcement.destroy
     respond_to do |format|

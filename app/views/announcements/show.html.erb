@@ -1,37 +1,43 @@
-<p id="notice"><%= notice %></p>
+<html>
+  <body>
+    <div class="vertical-center horizontal-center">
+      <div class="wide form">
+        <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @announcement.title %>
-</p>
+        <p>
+          <strong>Title:</strong>
+          <%= @announcement.title %>
+        </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @announcement.description %>
-</p>
+        <p>
+          <strong>Description:</strong>
+        </p>
+        <p style="max-width: 500px;" class="desc"><%= @announcement.description %></p>
 
-<p>
-  <strong>Posted on:</strong>
-  <%= @announcement.posted_on %>
-</p>
+        <p>
+          <strong>Posted On:</strong>
+          <%= @announcement.posted_on.strftime("%I:%M %p") %>
+        </p>
 
-<p>
-  <strong>Created By:</strong>
-	<%= User.where(id: @announcement.user_id).last.email %>
-  </p>
+        <p>
+          <strong>Created By:</strong>
+          <%= User.where(id: @announcement.user_id).last.email %>
+        </p>
 
-<p>
-  <strong>Event:</strong>
-	<% if @announcement.event_id.present? %>
-		<td>
-			<%= Event.where(id: @announcement.event_id).last.title %>
-		</td>
-	<% else %>
-		<td>
-			<%= @announcement.event_id %>
-		</td>
-	<% end %>
-  </p>
-
-<%= link_to 'Edit', edit_announcement_path(@announcement) %> |
-<%= link_to 'View Announcements', announcements_path %>
+        <p>
+          <strong>Event:</strong>
+          <% if @announcement.event_id.present? %>
+            <p><%= Event.where(id: @announcement.event_id).last.title %></p>
+          <% else %>
+            <p>ALL</p>
+          <% end %>
+        </p>
+        
+        <div class="actions">
+          <%= link_to 'Back to Announcements', announcements_path, class:'btn' %>
+          <%= link_to 'Home', root_path, class:'btn' %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

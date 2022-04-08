@@ -17,6 +17,7 @@ AllCops:
     - 'vendor/**/*'
     - '.git/**/*'
     - "**/spec/**/*"
+    - 'app/mailers/*'
 
 Layout/LineLength:
     Max: 176
@@ -29,3 +30,24 @@ Metrics/AbcSize:
 
 Rails/HasManyOrHasOneDependent:
   Enabled: false
+
+Style/GuardClause:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 200
+
+Metric/MethodLength:
+  Max: 200
+
+Layout/LineLength:
+  Max: 275
+
+Metrics/ClassLength:
+  Max: 120

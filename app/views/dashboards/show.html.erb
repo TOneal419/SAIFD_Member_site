@@ -1,30 +1,244 @@
-<p id="notice"><%= notice %></p>
-<h1>Welcome, <%= @user.first_name %>!</h1>
+<style>
+    body {  
+        margin: 0;  
+        padding: 0;  
+        background-color: #23463F; 
+        font-family: 'Arial';  
+    }  
 
-<% if @create_modify_events %>
-    <%= link_to "Make Event", new_event_path %>
-    </br>
-<% end %>
+    #block1 {
+        background-color: #F5F5F5;
+        margin: 10px 20px;
+        padding: 20px;
+        width: 360px;
+        float: left;
+    }
 
-<%= link_to "View Events", events_path %>
-</br>
-<%= link_to "Log Attendance Record", new_attendance_path %>
-</br>
-<%= link_to "View Attendance Records", attendances_path  %>
-</br>
+    #block2 {
+        background-color: #F5F5F5;
+        margin: 10px 20px;
+        padding: 20px;
+        width: 360px;
+        float: right;
+    }
 
-<% if @is_admin %>
-    <%= link_to "Manage User Permissions", users_path %>
-    </br>
-<% end %>
+    .wrapper {
+        width: 90%;
+        max-width: 1000px;
+        margin: 0 auto;
+        overflow: hidden;
+        display: flex;
+    }
 
-<% if @create_modify_announcements %>
-    <%= link_to "Make Announcement", new_announcement_path %>
-    </br>
-<% end %>
+    .column {
+        min-width: 285px;
+        width: 50%;
+        margin: 15px;
+        background: #e0e0e0;
+        min-height: 65vh;
+        max-height: 70vh;
+        overflow: auto;
+    }
 
-<%= link_to "View Announcements", announcements_path %>
-</br>
-</br>
-<%= link_to "Sign Out", destroy_admin_session_path %>
-</br>
+    .panel, .panel-heading, .column {
+        border-radius: 15px 15px 0 0;
+    }
+
+    .panel-title {
+        font-size: 32px;
+    }
+
+    .panel-heading {
+        border-bottom: 10px black solid;
+    }
+
+    .panel-body {
+        border-bottom: 1px black solid;
+    }
+
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+    }
+
+    li {
+        float: left;
+    }
+
+    li a {
+        display: block;
+        color: black;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+
+    li a:hover {
+        background-color: #919191;
+    }
+
+    .active {
+        background-color: #04AA6D;
+    }
+
+
+    a {
+        display: block;
+        padding: 8px;
+        background-color: #dddddd;
+    }
+
+    a:visited {
+        color: inherit;
+    }
+
+    .card-link {
+        background: transparent;
+    }
+
+    .card-link:hover {
+        background: transparent;
+    }
+
+    *::-webkit-scrollbar-thumb {
+        background-color: #919191;    /* color of the scroll thumb */
+        border-radius: 0 20px 0 0;
+    }
+
+    @media only screen and (max-width: 700px) {
+        .wrapper {
+            flex-direction: column;
+        }
+
+        .column {
+            width: 100%;
+            margin-left: 0;
+            margin-right: 0;
+        }
+    }
+</style>
+
+<html>
+    <div>
+        <ul>
+            <li class= "active">
+                <%= link_to "Home", root_path %>
+            </li>
+
+            <li>
+                <%= link_to "Events", events_path %>
+            </li>
+            
+            <li>
+                <%= link_to "Attendance", attendances_path  %>
+            </li>
+
+            <li>
+                <% if @is_admin %>
+                    <%= link_to "Manage Users", users_path %>
+                <% end %>
+            </li>
+
+            <li>
+                <%= link_to "Announcements", announcements_path %>
+            </li>
+
+            <li>
+                <%= link_to "Help Page", '/help' %>
+            </li>
+
+            <% if @is_admin %>
+                <li>
+                    <%= link_to "Download Report", '/download', format: "xlsx" %>
+                </li>
+            <% end %>
+
+            <li style="float:right;">
+                <%= link_to "Sign Out", destroy_admin_session_path %>
+            </li>
+            
+        </ul>
+    </div>
+
+    <div style="display: flex; flex-direction: column">
+        <h1 style="color: white; text-align:center; ">Welcome, <%= @user.first_name %>!</h1>
+        <p id="notice"><%= notice %></p>
+        <div class="wrapper">
+            <div class="column">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h1 class="panel-title">Recent Announcements</h1>
+                    </div>
+                    <% if @announcements.empty? %>
+                        <p style="padding-left: 15px;">No recent announcements.</p>
+                    <% else %>
+                        <% @announcements.last(4).reverse_each do |announcement| %>
+                            <div class="panel-body">
+                                <tbody>
+                                    <tr>
+                                        <% @event_name = "ALL" %>
+                                        <% @event_name = Event.where(id: announcement.event_id).first.title if !announcement.event_id.nil? %>
+                                        <%= link_to announcement_path(announcement.id), class:'card-link' do %>
+                                            <td> <div style="text-align:center; font-size:24px;">[<%= @event_name %>] <%= announcement.title %> </div> </td>
+                                            <td> <div style="text-align:center; font-size:18px;"> <%= User.where(id: announcement.user_id).last.first_name %> <%= User.where(id: announcement.user_id).last.last_name %></div> </td>
+                                            <td> <div style="text-align:center; font-size:16px;"> <%= announcement.posted_on.strftime('%d/%m/%Y, %I:%M %P') %> </div> </td>
+                                            <br>
+                                            <td><p style="font-size:18px;">Description:</p></td>
+                                            <td> 
+                                                <div class="desc" style="font-size:16px;">  
+                                                    <%= announcement.description[0..100] %>
+                                                    <% if announcement.description.length > 100 %>
+                                                        <p style="display: inline">...</p>
+                                                    <% end %>
+                                                </div>
+                                            </td>
+                                            <br>
+                                        <% end %>
+                                    </tr>
+                                    
+                                </tbody>
+                            </div>
+                        <% end %>
+                    <% end %>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h1 class="panel-title">Upcoming Events</h1>
+                    </div>
+                    <% if @events.empty? %>
+                        <p style="padding-left: 15px;">Check the events tab to sign up for upcoming events.</p>
+                    <% else %>
+                        <% @events.last(4).reverse_each do |event| %>
+                            <div class="panel-body">
+                                <tbody>
+                                    <tr>
+                                        <%= link_to event_path(event.id), class:'card-link' do %>
+                                            <td> <div style="text-align:center; font-size:24px;"> <%= event.title %> </div> </td>
+                                            <td> <div style="text-align:center; font-size:18px;"> <%= event.date %> </div> </td>
+                                            <br>
+                                            <td><p style="font-size:18px;">Description:</p></td>
+                                            <div class="desc" style="font-size:16px;">
+                                                <%= event.description[0..100] %>
+                                                <% if event.description.length > 100 %>
+                                                    <p style="display: inline">...</p>
+                                                <% end %>
+                                            </div>
+
+                                            <br>
+                                        <% end %>
+                                    </tr>
+                                </tbody>
+                            </div>
+                        <% end %> 
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </div> 
+</html>

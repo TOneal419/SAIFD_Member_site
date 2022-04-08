@@ -1,0 +1,50 @@
+# frozen_string_literal: true
+
+wb = xlsx_package.workbook
+
+wb.add_worksheet(name: 'Users') do |sheet|
+  sheet.add_row ['Email', 'First Name', 'Last Name', 'Report Rate', 'Class Year']
+  @users.each do |user|
+    sheet.add_row [user.email, user.first_name, user.last_name, user.report_rate, user.class_year]
+  end
+end
+
+wb.add_worksheet(name: 'Events') do |sheet|
+  sheet.add_row ['Title', 'Description', 'Date', 'Event Time Start', 'Event Time End']
+  @events.each do |event|
+    sheet.add_row [event.title, event.description, event.date, event.event_time_start.strftime('%I:%M %p'), event.event_time_end.strftime('%I:%M %p')]
+  end
+end
+
+wb.add_worksheet(name: 'Attendances') do |sheet|
+  sheet.add_row ['Full Name', 'Event', 'Attend Time Start', 'Attend Time End', 'Plans To Attend?']
+  @attendances.each do |attendance|
+    @user = User.where(id: attendance.user_id).first
+    username = 'DELETED USER'
+    username = "#{@user.first_name} #{@user.last_name}" unless @user.nil?
+
+    @event = Event.where(id: attendance.event_id).first
+    event_title = 'UNIDENTIFIED EVENT'
+    event_title = @event.title unless @event.nil?
+
+    time_start = attendance.attend_time_start
+    time_start = time_start.strftime('%I:%M %p') unless time_start.nil?
+    time_end = attendance.attend_time_end
+    time_end = time_end.strftime('%I:%M %p') unless time_end.nil?
+    sheet.add_row [username, event_title, time_start, time_end, attendance.plans_to_attend]
+  end
+end
+
+wb.add_worksheet(name: 'Announcements') do |sheet|
+  sheet.add_row ['Created By', 'Event', 'Title', 'Description', 'Posted On']
+  @announcements.each do |announcement|
+    @user = User.where(id: announcement.user_id).first
+    username = 'DELETED USER'
+    username = "#{@user.first_name} #{@user.last_name}" unless @user.nil?
+
+    @event = Event.where(id: announcement.event_id).first
+    event_title = 'ALL'
+    event_title = @event.title unless @event.nil?
+    sheet.add_row [username, event_title, announcement.title, announcement.description, announcement.posted_on.strftime('%d/%m/%Y, %I:%M %P')]
+  end
+end

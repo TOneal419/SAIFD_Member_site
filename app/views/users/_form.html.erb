@@ -1,39 +1,61 @@
-<%= form_for @user do |form| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+<html>
+  <body>
+    <%= form_for @user do |form| %>
+      <% if @user.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
-      <ul>
-        <% @user.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+          <ul>
+            <% @user.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
 
-  <div class="field">
-    <%= form.label :email %>
-    <%= form.text_field :email, :value => @user.email, :readonly => true %>
-  </div>
-  
-  <div class="field">
-    <%= form.label :first_name %>
-    <%= form.text_field :first_name %>
-  </div>
+      <table class="table-row-spacing">
+        <tr>
+          <td>
+            <%= form.label :email %>
+          </td>
+          <td>
+            <%= form.text_field :email, :value => @user.email, :readonly => true %>
+          </td>
+        </tr>
 
-  <div class="field">
-    <%= form.label :last_name %>
-    <%= form.text_field :last_name %>
-  </div>
+        <tr>
+          <td>
+            <%= form.label :first_name, "First Name" %>
+          </td>
+          <td>
+            <%= form.text_field :first_name, presence: true %>
+          </td>
+        </tr>
 
-  <div class="field">
-    <%= form.label :class_year, :value => "Graduation Year" %>
-    <%= form.number_field :class_year %>
-  </div>
+        <tr>
+          <td>
+            <%= form.label :last_name, "Last Name" %>
+          </td>
+          <td>
+            <%= form.text_field :last_name, presence: true %>
+          </td>
+        </tr>
 
-  <% @user.build_permission if @user.permission.nil? %>
+        <tr>
+          <td>
+            <%= form.label :class_year, "Graduation Year" %>
+          </td>
+          <td>
+            <%= form.number_field :class_year, presence: true %>
+          </td>
+        </tr>
+      </table>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+      <% @user.build_permission if @user.permission.nil? %>
+      <div class="actions">
+        <%= form.submit class:'btn' %>
+        <%= link_to 'Cancel', root_path, class:'btn' %>
+      </div>
+    <% end %>
+  </body>
+</html>

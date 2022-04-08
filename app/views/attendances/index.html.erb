@@ -1,43 +1,63 @@
-<p id="notice"><%= notice %></p>
+<html>
+  <body>
+    <div class="vertical-center horizontal-center" style="background: #23463F">
+      <div class="form wide">
+        <p id="notice"><%= notice %></p>
+        <h1>Attendance Records</h1>
+        <div class="table-overflow">
+          <table class="table-row-spacing">
+            <thead>
+              <tr>
+                <th>Event</th>
+                <th>First</th>
+                <th>Last</th>
+                <th>Attendance Time Start (CST)</th>
+                <th>Attendance Time End (CST)</th>
+                <th>Plans to Attend?</th>
+                <th colspan="6"></th>
+              </tr>
+            </thead>
 
-<h1>Attendance Records</h1>
+            <tbody>
+              <% @attendances.each do |attendance| %>
+              <tr>
+                <td><%= Event.where(id: attendance.event_id).last.title %></td>
+                <td><%= User.where(id: attendance.user_id).last.first_name %> </td>
+                <td><%= User.where(id: attendance.user_id).last.last_name %> </td>
+                <td>
+                  <% if attendance.attend_time_start.nil? %>
+                    <p>-</p>
+                  <% else %>
+                    <%= attendance.attend_time_start.strftime('%I:%M %P') %>
+                  <% end %>
+                </td>
+                <td>
+                  <% if attendance.attend_time_end.nil? %>
+                    <p>-</p>
+                  <% else %>
+                    <%= attendance.attend_time_end.strftime('%I:%M %P') %>
+                  <% end %>
+                </td>
+                <td><%= attendance.plans_to_attend %></td>
+                <% if @perms[:view_all_attendances] || attendance.attend_time_start.nil? || attendance.attend_time_end.nil? %>
+                  <td><%= link_to 'Edit', edit_attendance_path(attendance), class:'btn' %></td>
+                <% end %>
+                <% if @perms[:view_all_attendances] %>
+                  <td><%= link_to 'Destroy', attendance, method: :delete, data: { confirm: 'Are you sure?' }, class:'btn' %></td>
+                <% end %>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
 
-<table cellpadding="10">
-  <thead>
-    <tr>
-      <th>Event</th>
-      <th>First</th>
-      <th>Last</th>
-      <th>Attendance Time Start</th>
-      <th>Attendance Time End</th>
-      <th>Plans to Attend?</th>
-      <th colspan="6"></th>
-    </tr>
-  </thead>
+      <br>
 
-  <tbody>
-    <% @attendances.each do |attendance| %>
-      <tr>
-        <td style="text-align:center"><%= Event.where(id: attendance.event_id).last.title %></td>
-        <td style="text-align:center"><%= User.where(id: attendance.user_id).last.first_name %> </td>
-        <td style="text-align:center"><%= User.where(id: attendance.user_id).last.last_name %> </td>
-        <td style="text-align:center"><%= attendance.attend_time_start.strftime('%I:%M %P')  %></td>
-        <td style="text-align:center"><%= attendance.attend_time_end.strftime('%I:%M %P') %></td>
-        <td style="text-align:center"><%= attendance.plans_to_attend %></td>
-
-        <% if @perms[:view_all_attendances] %>
-          <td><%= link_to 'Edit', edit_attendance_path(attendance) %></td>
-          <td><%= link_to 'Destroy', attendance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<% if @perms[:view_all_attendances] %>
-  <%= link_to 'New Attendance Record', new_attendance_path %>
-  <br>
-<% end %>
-<%= link_to 'Back', root_path %>
+        <div class="actions">
+          <%= link_to 'New Attendance Record', new_attendance_path, class:'btn' %>
+          <%= link_to 'Back', root_path, class:'btn' %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

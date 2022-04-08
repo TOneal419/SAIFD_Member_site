@@ -3,9 +3,9 @@ body {
   color: #333;
   margin: 33px; }
 
-body, p, ol, ul, td {
+body, p, ol, ul {
   font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 13px;
+  font-size: 16px;
   line-height: 18px; }
 
 pre {
@@ -27,14 +27,17 @@ th {
   padding-bottom: 5px; }
 
 td {
-  padding: 0 5px 7px; }
+  padding: 0 5px 7px !important;
+}
 
 div.field,
 div.actions {
   margin-bottom: 10px; }
 
 #notice {
-  color: green; }
+  text-align: center;
+  color: cyan;
+}
 
 .field_with_errors {
   padding: 2px;
