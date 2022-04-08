@@ -69,14 +69,52 @@ Run the app
 
 The application can be seen using a browser and navigating to http://localhost:3000/
 
+## Environmental Variables/Files ##
+
+Google OAuth2 support and emailing functionality requires keys to function as intended
+
+Create a new file called application.yml in the /config folder and add the following lines:
+
+  `GOOGLE_OAUTH_CLIENT_ID: 'YOUR_GOOGLE_OAUTH_CLIENT_ID_HERE'`
+
+  `GOOGLE_OAUTH_CLIENT_SECRET: 'YOUR_GOOGLE_OAUTH_CLIENT_SECRET_HERE'`
+  
+  `MAIL_NAME: 'YOUR_MAIL_NAME_HERE'`
+  
+  `MAIL_PASSWORD: 'YOUR_MAIL_PASSWORD_HERE'`
+
 ## Deployment ##
 
-Pushing to staging should automatically create a MVP.
+Setup a Heroku account: https://signup.heroku.com/
 
+From the heroku dashboard select `New` -> `Create New Pipline`
+
+Name the pipeline, and link the respective git repo to the pipline
+
+Our application does not need any extra options, so select `Enable Review Apps` right away
+
+Click `New app` under review apps, and link your test branch from your repo
+
+Under staging app, select `Create new app` and link your main branch from your repo
+
+--------
+
+To add enviornment variables to enable google oauth2 functionality, head over to the settings tab on the pipeline dashboard
+
+Scroll down until `Reveal config vars`
+
+Add both your client id and your secret id, with fields `GOOGLE_OAUTH_CLIENT_ID` and `GOOGLE_OAUTH_CLIENT_SECRET` respectively
+
+Add both your mail name and mail password, with fields `MAIL_NAME` and `MAIL_PASSWORD` respectively
+
+Now once your pipeline has built the apps, select `Open app` to open the app
+
+With the staging app, if you would like to move the app to production, click the two up and down arrows and select `Move to production`
 
 ## CI/CD ##
 
-For continuous integration/continuous deployment, the development followed a strict structure to ensure that CI/CD was met optimally. After each small feature was developed, tested, and reviewed on Github by a team member, that feature was merged from the respective dev branch onto a staging branch. The branch then performed automatic testing to ensure the quality of the product being merged. When the merge succeeded the tests, an automatic pipeline established on Heroku would automatically deploy the changes onto the website, making the changes visible to everyone.
+For continuous integration/continuous deployment, the development followed a strict structure to ensure that CI/CD was met optimally. After each small
+feature was developed, tested, and reviewed on Github by a team member, that feature was merged from the respective dev branch onto a staging branch. The branch then performed automatic testing to ensure the quality of the product being merged. When the merge succeeded the tests, an automatic pipeline established on Heroku would automatically deploy the changes onto the website, making the changes visible to everyone.
 
 ## Support ##
 
