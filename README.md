@@ -76,7 +76,7 @@ Pushing to staging should automatically create a MVP.
 
 ## CI/CD ##
 
-TBD After Sprint 2 Review
+For continuous integration/continuous deployment, the development followed a strict structure to ensure that CI/CD was met optimally. After each small feature was developed, tested, and reviewed on Github by a team member, that feature was merged from the respective dev branch onto a staging branch. The branch then performed automatic testing to ensure the quality of the product being merged. When the merge succeeded the tests, an automatic pipeline established on Heroku would automatically deploy the changes onto the website, making the changes visible to everyone.
 
 ## Support ##
 
