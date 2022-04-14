@@ -7,7 +7,11 @@
    <body>
       <h1>Howdy, <%= @user.first_name %></h1>
       
-      <p>This is a reminder for: <%= @announcement.title %> event</p>
+      <% if @announcement.id.nil? %>
+         <p>GLOBAL ANNOUNCEMENT: <b><%= @announcement.title %></b></p>
+      <% else %>
+         <p>This is a reminder for: <b><%= @announcement.title %></b></p>
+      <% end %>
 
       <p><%= @announcement.description %></p>
 
