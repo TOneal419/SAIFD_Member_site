@@ -20,6 +20,8 @@ class AnnouncementsController < ApplicationController
         @a = Announcement.where(event_id: vpta.event_id).first
         @announcements.append(@a) unless @a.nil?
       end
+      @add_ons = Announcement.where(event_id: nil)
+      @announcements.concat(@add_ons)
     end
   end
 
