@@ -17,7 +17,7 @@ class AnnouncementsController < ApplicationController
 
       @valid_plans_to_attend = Attendance.where(user_id: @user.id, plans_to_attend: 1)
       @valid_plans_to_attend.each do |vpta|
-        @a = Announcement.where(user_id: @user.id, event_id: vpta.event_id).first
+        @a = Announcement.where(event_id: vpta.event_id).first
         @announcements.append(@a) unless @a.nil?
       end
     end
