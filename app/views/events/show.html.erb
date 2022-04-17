@@ -30,16 +30,20 @@
         </p>
 
         <% if @perms[:create_modify_events] %>
-          <p>
-            <strong>Plans to Attend:</strong>
-            <tbody>
-              <% @username_list.each do |planning| %>
+          <p><strong>Plans to Attend List:</strong></p>
+            <table>
+              <% unless @username_list.empty? %>
+                <% @username_list.each do |planning| %>
+                  <tr>
+                    <td><%= planning.first_name %> <%= planning.last_name %></td>
+                  </tr>
+                <% end %>
+              <% else %>
                 <tr>
-                  <td> <%= planning.first_name %> <%= planning.last_name %>  </td>
+                  <td>-</td>
                 </tr>
               <% end %>
-            </tbody>
-          </p>
+            </table>
         <% end %>
 
         <div class="actions">
