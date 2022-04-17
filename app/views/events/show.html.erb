@@ -28,7 +28,20 @@
           <strong>End Time:</strong>
           <%= @event.event_time_start.strftime("%I:%M %p") %>
         </p>
-        
+
+        <% if @perms[:create_modify_events] %>
+          <p>
+            <strong>Plans to Attend:</strong>
+            <tbody>
+              <% @username_list.each do |planning| %>
+                <tr>
+                  <td> <%= planning.first_name %> <%= planning.last_name %>  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </p>
+        <% end %>
+
         <div class="actions">
           <%= link_to 'Back to Events', events_path, class:'btn' %>
           <%= link_to 'Home', root_path, class:'btn' %>
