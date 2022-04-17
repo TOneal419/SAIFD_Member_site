@@ -43,15 +43,10 @@ class EventsController < ApplicationController
   def show
     @perms = grab_permissions
 
-    @plans_to_attend = []
     @username_list = []
 
     if @perms[:create_modify_events]
-      @valid_plans_to_attend = Attendance.where(plans_to_attend: true)
-
-      @valid_plans_to_attend.each do |vpta|
-        @plans_to_attend.append(Attendance.where(event_id: vpta.event_id).first)
-      end
+      @plans_to_attend = Attendance.where(event_id: params[:id], plans_to_attend: true)
 
       @plans_to_attend.each do |user_param|
         @username_list.append(User.where(id: user_param.user_id).last)
