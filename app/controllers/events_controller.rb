@@ -42,13 +42,13 @@ class EventsController < ApplicationController
   # GET /events/1 or /events/1.json
   def show
     @perms = grab_permissions
-    
+
     @plans_to_attend = []
     @username_list = []
-    
+
     if @perms[:create_modify_events]
       @valid_plans_to_attend = Attendance.where(plans_to_attend: true)
-      
+
       @valid_plans_to_attend.each do |vpta|
         @plans_to_attend.append(Attendance.where(event_id: vpta.event_id).first)
       end
