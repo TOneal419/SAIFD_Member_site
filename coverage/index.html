@@ -14,7 +14,7 @@
       <img src="./assets/0.12.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2022-04-10T16:20:58+00:00">2022-04-10T16:20:58+00:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2022-04-21T15:02:50+00:00">2022-04-21T15:02:50+00:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -23,14 +23,14 @@
     <span class="group_name">All Files</span>
     (<span class="covered_percent">
       <span class="yellow">
-  83.02%
+  82.08%
 </span>
 
      </span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         6.49
+         6.41
        </span>
     </span> hits/line
     )
@@ -43,11 +43,11 @@
   </div>
 
   <div class="t-line-summary">
-    <b>801</b> relevant lines,
-    <span class="green"><b>665</b> lines covered</span> and
-    <span class="red"><b>136</b> lines missed. </span>
+    <b>809</b> relevant lines,
+    <span class="green"><b>664</b> lines covered</span> and
+    <span class="red"><b>145</b> lines missed. </span>
     (<span class="yellow">
-  83.02%
+  82.08%
 </span>
 )
   </div>
@@ -94,12 +94,12 @@
         
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#cf3b6255f69479c74d05ed728a0bd9418c957018" class="src_link" title="app/controllers/announcements_controller.rb">app/controllers/announcements_controller.rb</a></td>
-            <td class="red strong cell--number t-file__coverage">72.58 %</td>
-            <td class="cell--number">117</td>
-            <td class="cell--number">62</td>
+            <td class="red strong cell--number t-file__coverage">69.23 %</td>
+            <td class="cell--number">120</td>
+            <td class="cell--number">65</td>
             <td class="cell--number">45</td>
-            <td class="cell--number">17</td>
-            <td class="cell--number">1.27</td>
+            <td class="cell--number">20</td>
+            <td class="cell--number">1.22</td>
             
           </tr>
         
@@ -138,23 +138,23 @@
         
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#51a68cb0d7e108045c2a8b5fdf591bef8cfbcda0" class="src_link" title="app/controllers/events_controller.rb">app/controllers/events_controller.rb</a></td>
-            <td class="red strong cell--number t-file__coverage">61.43 %</td>
-            <td class="cell--number">132</td>
-            <td class="cell--number">70</td>
+            <td class="red strong cell--number t-file__coverage">56.58 %</td>
+            <td class="cell--number">144</td>
+            <td class="cell--number">76</td>
             <td class="cell--number">43</td>
-            <td class="cell--number">27</td>
-            <td class="cell--number">5.57</td>
+            <td class="cell--number">33</td>
+            <td class="cell--number">5.13</td>
             
           </tr>
         
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#61fd777a7f9c31c5021a4469ea7156e1ade3bef8" class="src_link" title="app/controllers/users_controller.rb">app/controllers/users_controller.rb</a></td>
-            <td class="red strong cell--number t-file__coverage">50.70 %</td>
-            <td class="cell--number">133</td>
-            <td class="cell--number">71</td>
-            <td class="cell--number">36</td>
+            <td class="red strong cell--number t-file__coverage">50.00 %</td>
+            <td class="cell--number">131</td>
+            <td class="cell--number">70</td>
             <td class="cell--number">35</td>
-            <td class="cell--number">4.72</td>
+            <td class="cell--number">35</td>
+            <td class="cell--number">4.61</td>
             
           </tr>
         
@@ -1408,7 +1408,7 @@
     <h3>app/controllers/announcements_controller.rb</h3>
     <h4>
       <span class="red">
-  72.58%
+  69.23%
 </span>
 
       lines covered
@@ -1417,9 +1417,9 @@
     
 
     <div class="t-line-summary">
-      <b>62</b> relevant lines.
+      <b>65</b> relevant lines.
       <span class="green"><b>45</b> lines covered</span> and
-      <span class="red"><b>17</b> lines missed.</span>
+      <span class="red"><b>20</b> lines missed.</span>
     </div>
 
     
@@ -1645,18 +1645,18 @@
 
             
 
-            <code class="ruby">        @announcements.append(Announcement.where(user_id: @user.id, event_id: vpta.event_id).first)</code>
+            <code class="ruby">        @a = Announcement.where(event_id: vpta.event_id).first</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="21">
+          <li class="missed" data-hits="0" data-linenumber="21">
             
             
 
             
 
-            <code class="ruby">      end</code>
+            <code class="ruby">        @announcements.append(@a) unless @a.nil?</code>
           </li>
         </div>
       
@@ -1667,29 +1667,29 @@
 
             
 
-            <code class="ruby">    end</code>
+            <code class="ruby">      end</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="23">
+          <li class="missed" data-hits="0" data-linenumber="23">
             
             
 
             
 
-            <code class="ruby">  end</code>
+            <code class="ruby">      @add_ons = Announcement.where(event_id: nil)</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="24">
+          <li class="missed" data-hits="0" data-linenumber="24">
             
             
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">      @announcements.concat(@add_ons)</code>
           </li>
         </div>
       
@@ -1700,18 +1700,18 @@
 
             
 
-            <code class="ruby">  # GET /announcements/1 or /announcements/1.json</code>
+            <code class="ruby">    end</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="26">
-            <span class="hits">1</span>
+          <li class="never" data-hits="" data-linenumber="26">
+            
             
 
             
 
-            <code class="ruby">  def show; end</code>
+            <code class="ruby">  end</code>
           </li>
         </div>
       
@@ -1733,7 +1733,7 @@
 
             
 
-            <code class="ruby">  # GET /announcements/new</code>
+            <code class="ruby">  # GET /announcements/1 or /announcements/1.json</code>
           </li>
         </div>
       
@@ -1744,23 +1744,12 @@
 
             
 
-            <code class="ruby">  def new</code>
+            <code class="ruby">  def show; end</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="30">
-            <span class="hits">2</span>
-            
-
-            
-
-            <code class="ruby">    return redirect_to &#39;/&#39;, notice: &#39;Insufficient permissions.&#39; unless grab_permissions[:create_modify_announcements]</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="31">
+          <li class="never" data-hits="" data-linenumber="30">
             
             
 
@@ -1771,24 +1760,35 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="32">
+          <li class="never" data-hits="" data-linenumber="31">
+            
+            
+
+            
+
+            <code class="ruby">  # GET /announcements/new</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="32">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def new</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="33">
             <span class="hits">2</span>
             
 
             
 
-            <code class="ruby">    @announcement = Announcement.new</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="33">
-            
-            
-
-            
-
-            <code class="ruby">  end</code>
+            <code class="ruby">    return redirect_to &#39;/&#39;, notice: &#39;Insufficient permissions.&#39; unless grab_permissions[:create_modify_announcements]</code>
           </li>
         </div>
       
@@ -1804,35 +1804,35 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="35">
-            
-            
-
+          <li class="covered" data-hits="2" data-linenumber="35">
+            <span class="hits">2</span>
             
 
-            <code class="ruby">  # GET /announcements/1/edit</code>
+            
+
+            <code class="ruby">    @announcement = Announcement.new</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="36">
-            <span class="hits">1</span>
+          <li class="never" data-hits="" data-linenumber="36">
+            
             
 
             
 
-            <code class="ruby">  def edit</code>
+            <code class="ruby">  end</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="37">
-            <span class="hits">1</span>
+          <li class="never" data-hits="" data-linenumber="37">
+            
             
 
             
 
-            <code class="ruby">    return redirect_to &#39;/&#39;, notice: &#39;Insufficient permissions.&#39; unless grab_permissions[:create_modify_announcements]</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -1843,51 +1843,51 @@
 
             
 
+            <code class="ruby">  # GET /announcements/1/edit</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="39">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def edit</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="40">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    return redirect_to &#39;/&#39;, notice: &#39;Insufficient permissions.&#39; unless grab_permissions[:create_modify_announcements]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="41">
+            
+            
+
+            
+
             <code class="ruby">  end</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="39">
+          <li class="never" data-hits="" data-linenumber="42">
             
             
 
             
 
             <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="40">
-            
-            
-
-            
-
-            <code class="ruby">  # POST /announcements or /announcements.json</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="41">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">  def create</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="2" data-linenumber="42">
-            <span class="hits">2</span>
-            
-
-            
-
-            <code class="ruby">    return redirect_to &#39;/&#39;, notice: &#39;Insufficient permissions.&#39; unless grab_permissions[:create_modify_announcements]</code>
           </li>
         </div>
       
@@ -1898,40 +1898,40 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">  # POST /announcements or /announcements.json</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="44">
+          <li class="covered" data-hits="1" data-linenumber="44">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def create</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="45">
             <span class="hits">2</span>
             
 
             
 
-            <code class="ruby">    @announcement = Announcement.new(announcement_params)</code>
+            <code class="ruby">    return redirect_to &#39;/&#39;, notice: &#39;Insufficient permissions.&#39; unless grab_permissions[:create_modify_announcements]</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="45">
+          <li class="never" data-hits="" data-linenumber="46">
             
             
 
             
 
             <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="2" data-linenumber="46">
-            <span class="hits">2</span>
-            
-
-            
-
-            <code class="ruby">    @posted_on = (DateTime.now.to_time - 5.hours).to_datetime</code>
           </li>
         </div>
       
@@ -1942,18 +1942,18 @@
 
             
 
-            <code class="ruby">    @announcement.update(posted_on: @posted_on)</code>
+            <code class="ruby">    @announcement = Announcement.new(announcement_params)</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="48">
-            <span class="hits">2</span>
+          <li class="never" data-hits="" data-linenumber="48">
+            
             
 
             
 
-            <code class="ruby">    @user = grab_user</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -1964,18 +1964,18 @@
 
             
 
-            <code class="ruby">    return redirect_to &#39;/&#39;, notice: &#39;Invalid user session. Please try logging in again.&#39; if @user.nil?</code>
+            <code class="ruby">    @posted_on = (DateTime.now.to_time - 5.hours).to_datetime</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="50">
-            
-            
-
+          <li class="covered" data-hits="2" data-linenumber="50">
+            <span class="hits">2</span>
             
 
-            <code class="ruby"></code>
+            
+
+            <code class="ruby">    @announcement.update(posted_on: @posted_on)</code>
           </li>
         </div>
       
@@ -1986,29 +1986,29 @@
 
             
 
-            <code class="ruby">    @announcement.update(user_id: @user.id)</code>
+            <code class="ruby">    @user = grab_user</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="52">
+          <li class="covered" data-hits="2" data-linenumber="52">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">    return redirect_to &#39;/&#39;, notice: &#39;Invalid user session. Please try logging in again.&#39; if @user.nil?</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="53">
             
             
 
             
 
             <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="2" data-linenumber="53">
-            <span class="hits">2</span>
-            
-
-            
-
-            <code class="ruby">    respond_to do |format|</code>
           </li>
         </div>
       
@@ -2019,12 +2019,45 @@
 
             
 
+            <code class="ruby">    @announcement.update(user_id: @user.id)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="55">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="56">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">    respond_to do |format|</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="57">
+            <span class="hits">2</span>
+            
+
+            
+
             <code class="ruby">      if @announcement.save</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="55">
+          <li class="covered" data-hits="1" data-linenumber="58">
             <span class="hits">1</span>
             
 
@@ -2035,7 +2068,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="56">
+          <li class="covered" data-hits="1" data-linenumber="59">
             <span class="hits">1</span>
             
 
@@ -2046,7 +2079,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="57">
+          <li class="missed" data-hits="0" data-linenumber="60">
             
             
 
@@ -2057,7 +2090,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="58">
+          <li class="missed" data-hits="0" data-linenumber="61">
             
             
 
@@ -2068,7 +2101,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="59">
+          <li class="missed" data-hits="0" data-linenumber="62">
             
             
 
@@ -2079,7 +2112,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="60">
+          <li class="missed" data-hits="0" data-linenumber="63">
             
             
 
@@ -2090,7 +2123,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="61">
+          <li class="never" data-hits="" data-linenumber="64">
             
             
 
@@ -2101,46 +2134,13 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="62">
+          <li class="never" data-hits="" data-linenumber="65">
             
             
 
             
 
             <code class="ruby">        end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="63">
-            
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="64">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">        @users.each do |user|</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="65">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">          UsermailerMailer.announce_all(user, @announcement).deliver_later</code>
           </li>
         </div>
       
@@ -2151,40 +2151,40 @@
 
             
 
-            <code class="ruby">        end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="67">
-            
-            
-
-            
-
             <code class="ruby"></code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="68">
-            <span class="hits">2</span>
-            
-
-            
-
-            <code class="ruby">        format.html { redirect_to announcements_path, notice: &#39;Announcement was successfully created, and emails have been sent.&#39; }</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="69">
+          <li class="covered" data-hits="1" data-linenumber="67">
             <span class="hits">1</span>
             
 
             
 
-            <code class="ruby">        format.json { render :index, status: :created, location: @announcement }</code>
+            <code class="ruby">        @users.each do |user|</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="68">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">          UsermailerMailer.announce_all(user, @announcement).deliver_later</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="69">
+            
+            
+
+            
+
+            <code class="ruby">        end</code>
           </li>
         </div>
       
@@ -2195,7 +2195,7 @@
 
             
 
-            <code class="ruby">      else</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -2206,7 +2206,7 @@
 
             
 
-            <code class="ruby">        format.html { render :new, status: :unprocessable_entity }</code>
+            <code class="ruby">        format.html { redirect_to announcements_path, notice: &#39;Announcement was successfully created, and emails have been sent.&#39; }</code>
           </li>
         </div>
       
@@ -2217,7 +2217,7 @@
 
             
 
-            <code class="ruby">        format.json { render json: @announcement.errors, status: :unprocessable_entity }</code>
+            <code class="ruby">        format.json { render :index, status: :created, location: @announcement }</code>
           </li>
         </div>
       
@@ -2228,29 +2228,29 @@
 
             
 
-            <code class="ruby">      end</code>
+            <code class="ruby">      else</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="74">
-            
-            
-
+          <li class="covered" data-hits="2" data-linenumber="74">
+            <span class="hits">2</span>
             
 
-            <code class="ruby">    end</code>
+            
+
+            <code class="ruby">        format.html { render :new, status: :unprocessable_entity }</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="75">
-            
-            
-
+          <li class="covered" data-hits="1" data-linenumber="75">
+            <span class="hits">1</span>
             
 
-            <code class="ruby">  end</code>
+            
+
+            <code class="ruby">        format.json { render json: @announcement.errors, status: :unprocessable_entity }</code>
           </li>
         </div>
       
@@ -2261,7 +2261,7 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">      end</code>
           </li>
         </div>
       
@@ -2272,34 +2272,23 @@
 
             
 
-            <code class="ruby">  # PATCH/PUT /announcements/1 or /announcements/1.json</code>
+            <code class="ruby">    end</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="78">
-            <span class="hits">1</span>
+          <li class="never" data-hits="" data-linenumber="78">
+            
             
 
             
 
-            <code class="ruby">  def update</code>
+            <code class="ruby">  end</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="79">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">    return redirect_to &#39;/&#39;, notice: &#39;Insufficient permissions.&#39; unless grab_permissions[:create_modify_announcements]</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="80">
+          <li class="never" data-hits="" data-linenumber="79">
             
             
 
@@ -2310,13 +2299,24 @@
         </div>
       
         <div>
+          <li class="never" data-hits="" data-linenumber="80">
+            
+            
+
+            
+
+            <code class="ruby">  # PATCH/PUT /announcements/1 or /announcements/1.json</code>
+          </li>
+        </div>
+      
+        <div>
           <li class="covered" data-hits="1" data-linenumber="81">
             <span class="hits">1</span>
             
 
             
 
-            <code class="ruby">    @posted_on = (DateTime.now.to_time - 5.hours).to_datetime</code>
+            <code class="ruby">  def update</code>
           </li>
         </div>
       
@@ -2327,7 +2327,7 @@
 
             
 
-            <code class="ruby">    @announcement.update(posted_on: @posted_on)</code>
+            <code class="ruby">    return redirect_to &#39;/&#39;, notice: &#39;Insufficient permissions.&#39; unless grab_permissions[:create_modify_announcements]</code>
           </li>
         </div>
       
@@ -2349,7 +2349,7 @@
 
             
 
-            <code class="ruby">    respond_to do |format|</code>
+            <code class="ruby">    @posted_on = (DateTime.now.to_time - 5.hours).to_datetime</code>
           </li>
         </div>
       
@@ -2360,18 +2360,18 @@
 
             
 
-            <code class="ruby">      if @announcement.update(announcement_params)</code>
+            <code class="ruby">    @announcement.update(posted_on: @posted_on)</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="86">
-            <span class="hits">2</span>
+          <li class="never" data-hits="" data-linenumber="86">
+            
             
 
             
 
-            <code class="ruby">        format.html { redirect_to announcements_path, notice: &#39;Announcement was successfully updated.&#39; }</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -2382,40 +2382,40 @@
 
             
 
+            <code class="ruby">    respond_to do |format|</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="88">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">      if @announcement.update(announcement_params)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="89">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">        format.html { redirect_to announcements_path, notice: &#39;Announcement was successfully updated.&#39; }</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="90">
+            <span class="hits">1</span>
+            
+
+            
+
             <code class="ruby">        format.json { render :index, status: :ok, location: @announcement }</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="88">
-            
-            
-
-            
-
-            <code class="ruby">      else</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="missed" data-hits="0" data-linenumber="89">
-            
-            
-
-            
-
-            <code class="ruby">        format.html { render :edit, status: :unprocessable_entity }</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="missed" data-hits="0" data-linenumber="90">
-            
-            
-
-            
-
-            <code class="ruby">        format.json { render json: @announcement.errors, status: :unprocessable_entity }</code>
           </li>
         </div>
       
@@ -2426,29 +2426,29 @@
 
             
 
-            <code class="ruby">      end</code>
+            <code class="ruby">      else</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="92">
+          <li class="missed" data-hits="0" data-linenumber="92">
             
             
 
             
 
-            <code class="ruby">    end</code>
+            <code class="ruby">        format.html { render :edit, status: :unprocessable_entity }</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="93">
+          <li class="missed" data-hits="0" data-linenumber="93">
             
             
 
             
 
-            <code class="ruby">  end</code>
+            <code class="ruby">        format.json { render json: @announcement.errors, status: :unprocessable_entity }</code>
           </li>
         </div>
       
@@ -2459,7 +2459,7 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">      end</code>
           </li>
         </div>
       
@@ -2470,29 +2470,29 @@
 
             
 
-            <code class="ruby">  # DELETE /announcements/1 or /announcements/1.json</code>
+            <code class="ruby">    end</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="96">
-            <span class="hits">1</span>
+          <li class="never" data-hits="" data-linenumber="96">
+            
             
 
             
 
-            <code class="ruby">  def destroy</code>
+            <code class="ruby">  end</code>
           </li>
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="97">
+          <li class="never" data-hits="" data-linenumber="97">
             
             
 
             
 
-            <code class="ruby">    return redirect_to &#39;/&#39;, notice: &#39;Insufficient permissions.&#39; unless grab_permissions[:create_modify_announcements]</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -2503,18 +2503,18 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">  # DELETE /announcements/1 or /announcements/1.json</code>
           </li>
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="99">
-            
-            
-
+          <li class="covered" data-hits="1" data-linenumber="99">
+            <span class="hits">1</span>
             
 
-            <code class="ruby">    @announcement.destroy</code>
+            
+
+            <code class="ruby">  def destroy</code>
           </li>
         </div>
       
@@ -2525,18 +2525,18 @@
 
             
 
-            <code class="ruby">    respond_to do |format|</code>
+            <code class="ruby">    return redirect_to &#39;/&#39;, notice: &#39;Insufficient permissions.&#39; unless grab_permissions[:create_modify_announcements]</code>
           </li>
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="101">
+          <li class="never" data-hits="" data-linenumber="101">
             
             
 
             
 
-            <code class="ruby">      format.html { redirect_to announcements_url, notice: &#39;Announcement was successfully destroyed.&#39; }</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -2547,12 +2547,45 @@
 
             
 
+            <code class="ruby">    @announcement.destroy</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="103">
+            
+            
+
+            
+
+            <code class="ruby">    respond_to do |format|</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="104">
+            
+            
+
+            
+
+            <code class="ruby">      format.html { redirect_to announcements_url, notice: &#39;Announcement was successfully destroyed.&#39; }</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="105">
+            
+            
+
+            
+
             <code class="ruby">      format.json { head :no_content }</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="103">
+          <li class="never" data-hits="" data-linenumber="106">
             
             
 
@@ -2563,46 +2596,13 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="104">
-            
-            
-
-            
-
-            <code class="ruby">  end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="105">
-            
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="106">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">  private</code>
-          </li>
-        </div>
-      
-        <div>
           <li class="never" data-hits="" data-linenumber="107">
             
             
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">  end</code>
           </li>
         </div>
       
@@ -2613,7 +2613,7 @@
 
             
 
-            <code class="ruby">  # Use callbacks to share common setup or constraints between actions.</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -2624,34 +2624,12 @@
 
             
 
-            <code class="ruby">  def set_announcement</code>
+            <code class="ruby">  private</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="110">
-            <span class="hits">2</span>
-            
-
-            
-
-            <code class="ruby">    @announcement = Announcement.find(params[:id])</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="111">
-            
-            
-
-            
-
-            <code class="ruby">  end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="112">
+          <li class="never" data-hits="" data-linenumber="110">
             
             
 
@@ -2662,40 +2640,40 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="113">
+          <li class="never" data-hits="" data-linenumber="111">
             
             
 
             
 
-            <code class="ruby">  # Only allow a list of trusted parameters through.</code>
+            <code class="ruby">  # Use callbacks to share common setup or constraints between actions.</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="114">
+          <li class="covered" data-hits="1" data-linenumber="112">
             <span class="hits">1</span>
             
 
             
 
-            <code class="ruby">  def announcement_params</code>
+            <code class="ruby">  def set_announcement</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="4" data-linenumber="115">
-            <span class="hits">4</span>
+          <li class="covered" data-hits="2" data-linenumber="113">
+            <span class="hits">2</span>
             
 
             
 
-            <code class="ruby">    params.require(:announcement).permit(:title, :description, :posted_on, :user_id, :event_id)</code>
+            <code class="ruby">    @announcement = Announcement.find(params[:id])</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="116">
+          <li class="never" data-hits="" data-linenumber="114">
             
             
 
@@ -2706,7 +2684,62 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="117">
+          <li class="never" data-hits="" data-linenumber="115">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="116">
+            
+            
+
+            
+
+            <code class="ruby">  # Only allow a list of trusted parameters through.</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="117">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def announcement_params</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="4" data-linenumber="118">
+            <span class="hits">4</span>
+            
+
+            
+
+            <code class="ruby">    params.require(:announcement).permit(:title, :description, :posted_on, :user_id, :event_id)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="119">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="120">
             
             
 
@@ -5602,7 +5635,7 @@
     <h3>app/controllers/events_controller.rb</h3>
     <h4>
       <span class="red">
-  61.43%
+  56.58%
 </span>
 
       lines covered
@@ -5611,9 +5644,9 @@
     
 
     <div class="t-line-summary">
-      <b>70</b> relevant lines.
+      <b>76</b> relevant lines.
       <span class="green"><b>43</b> lines covered</span> and
-      <span class="red"><b>27</b> lines missed.</span>
+      <span class="red"><b>33</b> lines missed.</span>
     </div>
 
     
@@ -6092,18 +6125,18 @@
 
             
 
-            <code class="ruby">  def show; end</code>
+            <code class="ruby">  def show</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="44">
+          <li class="missed" data-hits="0" data-linenumber="44">
             
             
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">    @perms = grab_permissions</code>
           </li>
         </div>
       
@@ -6114,34 +6147,23 @@
 
             
 
-            <code class="ruby">  # GET /events/new</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="46">
-            <span class="hits">1</span>
+          <li class="missed" data-hits="0" data-linenumber="46">
+            
             
 
             
 
-            <code class="ruby">  def new</code>
+            <code class="ruby">    @username_list = []</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="13" data-linenumber="47">
-            <span class="hits">13</span>
-            
-
-            
-
-            <code class="ruby">    return redirect_to &#39;/&#39;, notice: &#39;Insufficient permissions.&#39; unless grab_permissions[:create_modify_events]</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="48">
+          <li class="never" data-hits="" data-linenumber="47">
             
             
 
@@ -6152,13 +6174,24 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="13" data-linenumber="49">
-            <span class="hits">13</span>
+          <li class="missed" data-hits="0" data-linenumber="48">
+            
             
 
             
 
-            <code class="ruby">    @event = Event.new</code>
+            <code class="ruby">    if @perms[:create_modify_events]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="49">
+            
+            
+
+            
+
+            <code class="ruby">      @plans_to_attend = Attendance.where(event_id: params[:id], plans_to_attend: true)</code>
           </li>
         </div>
       
@@ -6169,51 +6202,51 @@
 
             
 
-            <code class="ruby">  end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="51">
-            
-            
-
-            
-
             <code class="ruby"></code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="52">
+          <li class="missed" data-hits="0" data-linenumber="51">
             
             
 
             
 
-            <code class="ruby">  # GET /events/1/edit</code>
+            <code class="ruby">      @plans_to_attend.each do |user_param|</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="53">
-            <span class="hits">1</span>
+          <li class="missed" data-hits="0" data-linenumber="52">
+            
             
 
             
 
-            <code class="ruby">  def edit</code>
+            <code class="ruby">        @username_list.append(User.where(id: user_param.user_id).last)</code>
           </li>
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="54">
+          <li class="never" data-hits="" data-linenumber="53">
             
             
 
             
 
-            <code class="ruby">    return redirect_to &#39;/&#39;, notice: &#39;Insufficient permissions.&#39; unless grab_permissions[:create_modify_events]</code>
+            <code class="ruby">      end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="54">
+            
+            
+
+            
+
+            <code class="ruby">    end</code>
           </li>
         </div>
       
@@ -6246,7 +6279,7 @@
 
             
 
-            <code class="ruby">  # POST /events or /events.json</code>
+            <code class="ruby">  # GET /events/new</code>
           </li>
         </div>
       
@@ -6257,7 +6290,7 @@
 
             
 
-            <code class="ruby">  def create</code>
+            <code class="ruby">  def new</code>
           </li>
         </div>
       
@@ -6290,12 +6323,144 @@
 
             
 
+            <code class="ruby">    @event = Event.new</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="62">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="63">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="64">
+            
+            
+
+            
+
+            <code class="ruby">  # GET /events/1/edit</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="65">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def edit</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="66">
+            
+            
+
+            
+
+            <code class="ruby">    return redirect_to &#39;/&#39;, notice: &#39;Insufficient permissions.&#39; unless grab_permissions[:create_modify_events]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="67">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="68">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="69">
+            
+            
+
+            
+
+            <code class="ruby">  # POST /events or /events.json</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="70">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def create</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="13" data-linenumber="71">
+            <span class="hits">13</span>
+            
+
+            
+
+            <code class="ruby">    return redirect_to &#39;/&#39;, notice: &#39;Insufficient permissions.&#39; unless grab_permissions[:create_modify_events]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="72">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="13" data-linenumber="73">
+            <span class="hits">13</span>
+            
+
+            
+
             <code class="ruby">    @event = Event.new(event_params)</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="13" data-linenumber="62">
+          <li class="covered" data-hits="13" data-linenumber="74">
             <span class="hits">13</span>
             
 
@@ -6306,7 +6471,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="63">
+          <li class="missed" data-hits="0" data-linenumber="75">
             
             
 
@@ -6317,7 +6482,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="64">
+          <li class="missed" data-hits="0" data-linenumber="76">
             
             
 
@@ -6328,145 +6493,13 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="65">
-            
-            
-
-            
-
-            <code class="ruby">    end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="66">
-            
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="13" data-linenumber="67">
-            <span class="hits">13</span>
-            
-
-            
-
-            <code class="ruby">    respond_to do |format|</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="13" data-linenumber="68">
-            <span class="hits">13</span>
-            
-
-            
-
-            <code class="ruby">      if @event.save</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="24" data-linenumber="69">
-            <span class="hits">24</span>
-            
-
-            
-
-            <code class="ruby">        format.html { redirect_to events_path, notice: &#39;Event was successfully created.&#39; }</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="12" data-linenumber="70">
-            <span class="hits">12</span>
-            
-
-            
-
-            <code class="ruby">        format.json { render :index, status: :created, location: @event }</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="71">
-            
-            
-
-            
-
-            <code class="ruby">      else</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="2" data-linenumber="72">
-            <span class="hits">2</span>
-            
-
-            
-
-            <code class="ruby">        format.html { render :new, status: :unprocessable_entity }</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="73">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">        format.json { render json: @event.errors, status: :unprocessable_entity }</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="74">
-            
-            
-
-            
-
-            <code class="ruby">      end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="75">
-            
-            
-
-            
-
-            <code class="ruby">    end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="76">
-            
-            
-
-            
-
-            <code class="ruby">  end</code>
-          </li>
-        </div>
-      
-        <div>
           <li class="never" data-hits="" data-linenumber="77">
             
             
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">    end</code>
           </li>
         </div>
       
@@ -6477,101 +6510,13 @@
 
             
 
-            <code class="ruby">  # PATCH/PUT /events/1 or /events/1.json</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="79">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">  def update</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="missed" data-hits="0" data-linenumber="80">
-            
-            
-
-            
-
-            <code class="ruby">    return redirect_to &#39;/&#39;, notice: &#39;Insufficient permissions.&#39; unless grab_permissions[:create_modify_events]</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="81">
-            
-            
-
-            
-
             <code class="ruby"></code>
           </li>
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="82">
-            
-            
-
-            
-
-            <code class="ruby">    if event_params[:event_time_start] &gt; event_params[:event_time_end]</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="missed" data-hits="0" data-linenumber="83">
-            
-            
-
-            
-
-            <code class="ruby">      flash[:alert] = &#39;Event must start before it ends&#39;</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="missed" data-hits="0" data-linenumber="84">
-            
-            
-
-            
-
-            <code class="ruby">      return render &#39;edit&#39;</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="85">
-            
-            
-
-            
-
-            <code class="ruby">    end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="86">
-            
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="missed" data-hits="0" data-linenumber="87">
-            
+          <li class="covered" data-hits="13" data-linenumber="79">
+            <span class="hits">13</span>
             
 
             
@@ -6581,40 +6526,40 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="88">
-            
-            
-
+          <li class="covered" data-hits="13" data-linenumber="80">
+            <span class="hits">13</span>
             
 
-            <code class="ruby">      if @event.update(event_params)</code>
+            
+
+            <code class="ruby">      if @event.save</code>
           </li>
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="89">
-            
-            
-
+          <li class="covered" data-hits="24" data-linenumber="81">
+            <span class="hits">24</span>
             
 
-            <code class="ruby">        format.html { redirect_to events_path, notice: &#39;Event was successfully updated.&#39; }</code>
+            
+
+            <code class="ruby">        format.html { redirect_to events_path, notice: &#39;Event was successfully created.&#39; }</code>
           </li>
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="90">
-            
-            
-
+          <li class="covered" data-hits="12" data-linenumber="82">
+            <span class="hits">12</span>
             
 
-            <code class="ruby">        format.json { render :index, status: :ok, location: @event }</code>
+            
+
+            <code class="ruby">        format.json { render :index, status: :created, location: @event }</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="91">
+          <li class="never" data-hits="" data-linenumber="83">
             
             
 
@@ -6625,19 +6570,19 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="92">
-            
-            
-
+          <li class="covered" data-hits="2" data-linenumber="84">
+            <span class="hits">2</span>
             
 
-            <code class="ruby">        format.html { render :edit, status: :unprocessable_entity }</code>
+            
+
+            <code class="ruby">        format.html { render :new, status: :unprocessable_entity }</code>
           </li>
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="93">
-            
+          <li class="covered" data-hits="1" data-linenumber="85">
+            <span class="hits">1</span>
             
 
             
@@ -6647,7 +6592,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="94">
+          <li class="never" data-hits="" data-linenumber="86">
             
             
 
@@ -6658,7 +6603,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="95">
+          <li class="never" data-hits="" data-linenumber="87">
             
             
 
@@ -6669,7 +6614,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="96">
+          <li class="never" data-hits="" data-linenumber="88">
             
             
 
@@ -6680,7 +6625,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="97">
+          <li class="never" data-hits="" data-linenumber="89">
             
             
 
@@ -6691,29 +6636,29 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="98">
+          <li class="never" data-hits="" data-linenumber="90">
             
             
 
             
 
-            <code class="ruby">  # DELETE /events/1 or /events/1.json</code>
+            <code class="ruby">  # PATCH/PUT /events/1 or /events/1.json</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="99">
+          <li class="covered" data-hits="1" data-linenumber="91">
             <span class="hits">1</span>
             
 
             
 
-            <code class="ruby">  def destroy</code>
+            <code class="ruby">  def update</code>
           </li>
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="100">
+          <li class="missed" data-hits="0" data-linenumber="92">
             
             
 
@@ -6724,13 +6669,101 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="101">
+          <li class="never" data-hits="" data-linenumber="93">
             
             
 
             
 
             <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="94">
+            
+            
+
+            
+
+            <code class="ruby">    if event_params[:event_time_start] &gt; event_params[:event_time_end]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="95">
+            
+            
+
+            
+
+            <code class="ruby">      flash[:alert] = &#39;Event must start before it ends&#39;</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="96">
+            
+            
+
+            
+
+            <code class="ruby">      return render &#39;edit&#39;</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="97">
+            
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="98">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="99">
+            
+            
+
+            
+
+            <code class="ruby">    respond_to do |format|</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="100">
+            
+            
+
+            
+
+            <code class="ruby">      if @event.update(event_params)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="101">
+            
+            
+
+            
+
+            <code class="ruby">        format.html { redirect_to events_path, notice: &#39;Event was successfully updated.&#39; }</code>
           </li>
         </div>
       
@@ -6741,29 +6774,29 @@
 
             
 
-            <code class="ruby">    @related_announcements = Announcement.where(event_id: @event.id)</code>
+            <code class="ruby">        format.json { render :index, status: :ok, location: @event }</code>
           </li>
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="103">
+          <li class="never" data-hits="" data-linenumber="103">
             
             
 
             
 
-            <code class="ruby">    @related_attendances = Attendance.where(event_id: @event.id)</code>
+            <code class="ruby">      else</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="104">
+          <li class="missed" data-hits="0" data-linenumber="104">
             
             
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">        format.html { render :edit, status: :unprocessable_entity }</code>
           </li>
         </div>
       
@@ -6774,18 +6807,18 @@
 
             
 
-            <code class="ruby">    @related_announcements&amp;.each do |a|</code>
+            <code class="ruby">        format.json { render json: @event.errors, status: :unprocessable_entity }</code>
           </li>
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="106">
+          <li class="never" data-hits="" data-linenumber="106">
             
             
 
             
 
-            <code class="ruby">      a.destroy</code>
+            <code class="ruby">      end</code>
           </li>
         </div>
       
@@ -6807,45 +6840,12 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">  end</code>
           </li>
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="109">
-            
-            
-
-            
-
-            <code class="ruby">    @related_attendances&amp;.each do |a|</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="missed" data-hits="0" data-linenumber="110">
-            
-            
-
-            
-
-            <code class="ruby">      a.destroy</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="111">
-            
-            
-
-            
-
-            <code class="ruby">    end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="112">
+          <li class="never" data-hits="" data-linenumber="109">
             
             
 
@@ -6856,24 +6856,57 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="113">
+          <li class="never" data-hits="" data-linenumber="110">
             
             
 
             
 
-            <code class="ruby">    @event.destroy</code>
+            <code class="ruby">  # DELETE /events/1 or /events/1.json</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="114">
+          <li class="covered" data-hits="1" data-linenumber="111">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def destroy</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="112">
+            
+            
+
+            
+
+            <code class="ruby">    return redirect_to &#39;/&#39;, notice: &#39;Insufficient permissions.&#39; unless grab_permissions[:create_modify_events]</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="113">
             
             
 
             
 
             <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="114">
+            
+            
+
+            
+
+            <code class="ruby">    @related_announcements = Announcement.where(event_id: @event.id)</code>
           </li>
         </div>
       
@@ -6884,18 +6917,18 @@
 
             
 
-            <code class="ruby">    respond_to do |format|</code>
+            <code class="ruby">    @related_attendances = Attendance.where(event_id: @event.id)</code>
           </li>
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="116">
+          <li class="never" data-hits="" data-linenumber="116">
             
             
 
             
 
-            <code class="ruby">      format.html { redirect_to events_url, notice: &#39;Event was successfully destroyed.&#39; }</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -6906,18 +6939,18 @@
 
             
 
-            <code class="ruby">      format.json { head :no_content }</code>
+            <code class="ruby">    @related_announcements&amp;.each do |a|</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="118">
+          <li class="missed" data-hits="0" data-linenumber="118">
             
             
 
             
 
-            <code class="ruby">    end</code>
+            <code class="ruby">      a.destroy</code>
           </li>
         </div>
       
@@ -6928,7 +6961,7 @@
 
             
 
-            <code class="ruby">  end</code>
+            <code class="ruby">    end</code>
           </li>
         </div>
       
@@ -6944,24 +6977,24 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="121">
-            <span class="hits">1</span>
+          <li class="missed" data-hits="0" data-linenumber="121">
+            
             
 
             
 
-            <code class="ruby">  private</code>
+            <code class="ruby">    @related_attendances&amp;.each do |a|</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="122">
+          <li class="missed" data-hits="0" data-linenumber="122">
             
             
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">      a.destroy</code>
           </li>
         </div>
       
@@ -6972,45 +7005,12 @@
 
             
 
-            <code class="ruby">  # Use callbacks to share common setup or constraints between actions.</code>
+            <code class="ruby">    end</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="124">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">  def set_event</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="missed" data-hits="0" data-linenumber="125">
-            
-            
-
-            
-
-            <code class="ruby">    @event = Event.find(params[:id])</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="126">
-            
-            
-
-            
-
-            <code class="ruby">  end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="127">
+          <li class="never" data-hits="" data-linenumber="124">
             
             
 
@@ -7021,35 +7021,68 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="128">
+          <li class="missed" data-hits="0" data-linenumber="125">
             
             
 
             
 
-            <code class="ruby">  # Only allow a list of trusted parameters through.</code>
+            <code class="ruby">    @event.destroy</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="129">
-            <span class="hits">1</span>
+          <li class="never" data-hits="" data-linenumber="126">
+            
             
 
             
 
-            <code class="ruby">  def event_params</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="13" data-linenumber="130">
-            <span class="hits">13</span>
+          <li class="missed" data-hits="0" data-linenumber="127">
+            
             
 
             
 
-            <code class="ruby">    params.require(:event).permit(:user_id, :title, :description, :date, :event_time_start, :event_time_end)</code>
+            <code class="ruby">    respond_to do |format|</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="128">
+            
+            
+
+            
+
+            <code class="ruby">      format.html { redirect_to events_url, notice: &#39;Event was successfully destroyed.&#39; }</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="129">
+            
+            
+
+            
+
+            <code class="ruby">      format.json { head :no_content }</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="130">
+            
+            
+
+            
+
+            <code class="ruby">    end</code>
           </li>
         </div>
       
@@ -7071,6 +7104,138 @@
 
             
 
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="133">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  private</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="134">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="135">
+            
+            
+
+            
+
+            <code class="ruby">  # Use callbacks to share common setup or constraints between actions.</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="136">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def set_event</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="137">
+            
+            
+
+            
+
+            <code class="ruby">    @event = Event.find(params[:id])</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="138">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="139">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="140">
+            
+            
+
+            
+
+            <code class="ruby">  # Only allow a list of trusted parameters through.</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="141">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def event_params</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="13" data-linenumber="142">
+            <span class="hits">13</span>
+            
+
+            
+
+            <code class="ruby">    params.require(:event).permit(:user_id, :title, :description, :date, :event_time_start, :event_time_end)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="143">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="144">
+            
+            
+
+            
+
             <code class="ruby">end</code>
           </li>
         </div>
@@ -7085,7 +7250,7 @@
     <h3>app/controllers/users_controller.rb</h3>
     <h4>
       <span class="red">
-  50.7%
+  50.0%
 </span>
 
       lines covered
@@ -7094,8 +7259,8 @@
     
 
     <div class="t-line-summary">
-      <b>71</b> relevant lines.
-      <span class="green"><b>36</b> lines covered</span> and
+      <b>70</b> relevant lines.
+      <span class="green"><b>35</b> lines covered</span> and
       <span class="red"><b>35</b> lines missed.</span>
     </div>
 
@@ -7641,34 +7806,12 @@
 
             
 
-            <code class="ruby">    if @user.email.casecmp(&#39;wjmckinley@tamu.edu&#39;).zero? || @user.email.casecmp(&#39;bill.mckinley@ag.tamu.edu&#39;).zero? || @user.email.casecmp(&#39;tyler.oneal419@tamu.edu&#39;).zero? || @user.email.casecmp(&#39;isaacy13@tamu.edu&#39;).zero?</code>
+            <code class="ruby">    @user.permission.update(is_admin: true, create_modify_events: true, create_modify_announcements: true, view_all_attendances: true) if @user.email.casecmp(ENV[&#39;webmaster1&#39;]).zero? || @user.email.casecmp(ENV[&#39;webmaster2&#39;]).zero?</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="12" data-linenumber="50">
-            <span class="hits">12</span>
-            
-
-            
-
-            <code class="ruby">      @user.permission.update(is_admin: true, create_modify_events: true, create_modify_announcements: true, view_all_attendances: true)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="51">
-            
-            
-
-            
-
-            <code class="ruby">    end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="17" data-linenumber="52">
+          <li class="covered" data-hits="17" data-linenumber="50">
             <span class="hits">17</span>
             
 
@@ -7679,7 +7822,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="17" data-linenumber="53">
+          <li class="covered" data-hits="17" data-linenumber="51">
             <span class="hits">17</span>
             
 
@@ -7690,7 +7833,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="17" data-linenumber="54">
+          <li class="covered" data-hits="17" data-linenumber="52">
             <span class="hits">17</span>
             
 
@@ -7701,7 +7844,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="55">
+          <li class="never" data-hits="" data-linenumber="53">
             
             
 
@@ -7712,7 +7855,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="17" data-linenumber="56">
+          <li class="covered" data-hits="17" data-linenumber="54">
             <span class="hits">17</span>
             
 
@@ -7723,7 +7866,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="17" data-linenumber="57">
+          <li class="covered" data-hits="17" data-linenumber="55">
             <span class="hits">17</span>
             
 
@@ -7734,7 +7877,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="17" data-linenumber="58">
+          <li class="covered" data-hits="17" data-linenumber="56">
             <span class="hits">17</span>
             
 
@@ -7745,7 +7888,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="17" data-linenumber="59">
+          <li class="covered" data-hits="17" data-linenumber="57">
             <span class="hits">17</span>
             
 
@@ -7756,7 +7899,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="17" data-linenumber="60">
+          <li class="covered" data-hits="17" data-linenumber="58">
             <span class="hits">17</span>
             
 
@@ -7767,7 +7910,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="17" data-linenumber="61">
+          <li class="covered" data-hits="17" data-linenumber="59">
             <span class="hits">17</span>
             
 
@@ -7778,7 +7921,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="62">
+          <li class="never" data-hits="" data-linenumber="60">
             
             
 
@@ -7789,7 +7932,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="17" data-linenumber="63">
+          <li class="covered" data-hits="17" data-linenumber="61">
             <span class="hits">17</span>
             
 
@@ -7800,7 +7943,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="64">
+          <li class="never" data-hits="" data-linenumber="62">
             
             
 
@@ -7811,7 +7954,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="65">
+          <li class="missed" data-hits="0" data-linenumber="63">
             
             
 
@@ -7822,13 +7965,35 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="66">
+          <li class="missed" data-hits="0" data-linenumber="64">
             
             
 
             
 
             <code class="ruby">        format.json { render json: @user.errors, status: :unprocessable_entity }</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="65">
+            
+            
+
+            
+
+            <code class="ruby">      end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="66">
+            
+            
+
+            
+
+            <code class="ruby">    end</code>
           </li>
         </div>
       
@@ -7839,7 +8004,7 @@
 
             
 
-            <code class="ruby">      end</code>
+            <code class="ruby">  end</code>
           </li>
         </div>
       
@@ -7850,7 +8015,7 @@
 
             
 
-            <code class="ruby">    end</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -7861,34 +8026,12 @@
 
             
 
-            <code class="ruby">  end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="70">
-            
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="71">
-            
-            
-
-            
-
             <code class="ruby">  # PATCH/PUT /users/1 or /users/1.json</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="72">
+          <li class="covered" data-hits="1" data-linenumber="70">
             <span class="hits">1</span>
             
 
@@ -7899,7 +8042,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="73">
+          <li class="missed" data-hits="0" data-linenumber="71">
             
             
 
@@ -7910,7 +8053,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="74">
+          <li class="never" data-hits="" data-linenumber="72">
             
             
 
@@ -7921,7 +8064,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="75">
+          <li class="missed" data-hits="0" data-linenumber="73">
             
             
 
@@ -7932,7 +8075,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="76">
+          <li class="missed" data-hits="0" data-linenumber="74">
             
             
 
@@ -7943,7 +8086,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="77">
+          <li class="missed" data-hits="0" data-linenumber="75">
             
             
 
@@ -7954,7 +8097,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="78">
+          <li class="missed" data-hits="0" data-linenumber="76">
             
             
 
@@ -7965,7 +8108,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="79">
+          <li class="missed" data-hits="0" data-linenumber="77">
             
             
 
@@ -7976,7 +8119,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="80">
+          <li class="never" data-hits="" data-linenumber="78">
             
             
 
@@ -7987,7 +8130,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="81">
+          <li class="missed" data-hits="0" data-linenumber="79">
             
             
 
@@ -7998,7 +8141,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="82">
+          <li class="missed" data-hits="0" data-linenumber="80">
             
             
 
@@ -8009,7 +8152,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="83">
+          <li class="never" data-hits="" data-linenumber="81">
             
             
 
@@ -8020,7 +8163,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="84">
+          <li class="never" data-hits="" data-linenumber="82">
             
             
 
@@ -8031,7 +8174,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="85">
+          <li class="never" data-hits="" data-linenumber="83">
             
             
 
@@ -8042,7 +8185,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="86">
+          <li class="never" data-hits="" data-linenumber="84">
             
             
 
@@ -8053,7 +8196,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="87">
+          <li class="never" data-hits="" data-linenumber="85">
             
             
 
@@ -8064,7 +8207,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="88">
+          <li class="covered" data-hits="1" data-linenumber="86">
             <span class="hits">1</span>
             
 
@@ -8075,7 +8218,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="89">
+          <li class="missed" data-hits="0" data-linenumber="87">
             
             
 
@@ -8086,7 +8229,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="90">
+          <li class="missed" data-hits="0" data-linenumber="88">
             
             
 
@@ -8097,7 +8240,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="91">
+          <li class="never" data-hits="" data-linenumber="89">
             
             
 
@@ -8108,7 +8251,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="92">
+          <li class="missed" data-hits="0" data-linenumber="90">
             
             
 
@@ -8119,7 +8262,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="93">
+          <li class="missed" data-hits="0" data-linenumber="91">
             
             
 
@@ -8130,13 +8273,35 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="94">
+          <li class="missed" data-hits="0" data-linenumber="92">
             
             
 
             
 
             <code class="ruby">    return redirect_to &#39;/&#39;, notice: &#39;Cannot destroy self.&#39; if @current_user.email.casecmp(params[:email]).zero?</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="93">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="missed" data-hits="0" data-linenumber="94">
+            
+            
+
+            
+
+            <code class="ruby">    @user = User.find_by(email: params[&#39;email&#39;])</code>
           </li>
         </div>
       
@@ -8158,34 +8323,12 @@
 
             
 
-            <code class="ruby">    @user = User.find_by(email: params[&#39;email&#39;])</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="97">
-            
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="missed" data-hits="0" data-linenumber="98">
-            
-            
-
-            
-
             <code class="ruby">    @related_attendances = Attendance.where(user_id: @user.id)</code>
           </li>
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="99">
+          <li class="missed" data-hits="0" data-linenumber="97">
             
             
 
@@ -8196,7 +8339,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="100">
+          <li class="missed" data-hits="0" data-linenumber="98">
             
             
 
@@ -8207,7 +8350,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="101">
+          <li class="never" data-hits="" data-linenumber="99">
             
             
 
@@ -8218,7 +8361,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="102">
+          <li class="never" data-hits="" data-linenumber="100">
             
             
 
@@ -8229,7 +8372,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="103">
+          <li class="missed" data-hits="0" data-linenumber="101">
             
             
 
@@ -8240,7 +8383,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="104">
+          <li class="missed" data-hits="0" data-linenumber="102">
             
             
 
@@ -8251,7 +8394,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="105">
+          <li class="never" data-hits="" data-linenumber="103">
             
             
 
@@ -8262,7 +8405,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="106">
+          <li class="missed" data-hits="0" data-linenumber="104">
             
             
 
@@ -8273,7 +8416,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="107">
+          <li class="missed" data-hits="0" data-linenumber="105">
             
             
 
@@ -8284,7 +8427,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="108">
+          <li class="never" data-hits="" data-linenumber="106">
             
             
 
@@ -8295,7 +8438,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="109">
+          <li class="missed" data-hits="0" data-linenumber="107">
             
             
 
@@ -8306,7 +8449,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="110">
+          <li class="missed" data-hits="0" data-linenumber="108">
             
             
 
@@ -8317,7 +8460,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="111">
+          <li class="missed" data-hits="0" data-linenumber="109">
             
             
 
@@ -8328,7 +8471,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="112">
+          <li class="never" data-hits="" data-linenumber="110">
             
             
 
@@ -8339,7 +8482,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="113">
+          <li class="never" data-hits="" data-linenumber="111">
             
             
 
@@ -8350,7 +8493,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="114">
+          <li class="missed" data-hits="0" data-linenumber="112">
             
             
 
@@ -8361,7 +8504,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="115">
+          <li class="missed" data-hits="0" data-linenumber="113">
             
             
 
@@ -8372,7 +8515,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="116">
+          <li class="missed" data-hits="0" data-linenumber="114">
             
             
 
@@ -8383,7 +8526,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="117">
+          <li class="missed" data-hits="0" data-linenumber="115">
             
             
 
@@ -8394,7 +8537,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="118">
+          <li class="never" data-hits="" data-linenumber="116">
             
             
 
@@ -8405,13 +8548,35 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="119">
+          <li class="never" data-hits="" data-linenumber="117">
             
             
 
             
 
             <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="118">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="119">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  private</code>
           </li>
         </div>
       
@@ -8427,29 +8592,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="121">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">  private</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="122">
-            
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="123">
+          <li class="never" data-hits="" data-linenumber="121">
             
             
 
@@ -8460,7 +8603,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="124">
+          <li class="covered" data-hits="1" data-linenumber="122">
             <span class="hits">1</span>
             
 
@@ -8471,7 +8614,7 @@
         </div>
       
         <div>
-          <li class="missed" data-hits="0" data-linenumber="125">
+          <li class="missed" data-hits="0" data-linenumber="123">
             
             
 
@@ -8482,7 +8625,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="126">
+          <li class="never" data-hits="" data-linenumber="124">
             
             
 
@@ -8493,7 +8636,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="127">
+          <li class="never" data-hits="" data-linenumber="125">
             
             
 
@@ -8504,7 +8647,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="128">
+          <li class="never" data-hits="" data-linenumber="126">
             
             
 
@@ -8515,7 +8658,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="129">
+          <li class="covered" data-hits="1" data-linenumber="127">
             <span class="hits">1</span>
             
 
@@ -8526,7 +8669,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="17" data-linenumber="130">
+          <li class="covered" data-hits="17" data-linenumber="128">
             <span class="hits">17</span>
             
 
@@ -8537,7 +8680,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="131">
+          <li class="never" data-hits="" data-linenumber="129">
             
             
 
@@ -8548,7 +8691,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="132">
+          <li class="never" data-hits="" data-linenumber="130">
             
             
 
@@ -8559,7 +8702,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="133">
+          <li class="never" data-hits="" data-linenumber="131">
             
             
 
@@ -17448,7 +17591,7 @@
 
             
 
-            <code class="ruby">    mock_auth_hash(&quot;Isaac Yeang&quot;, &quot;isaacy13@tamu.edu&quot;)</code>
+            <code class="ruby">    mock_auth_hash(&quot;Isaac Yeang&quot;, &quot;wjmckinley@tamu.edu&quot;)</code>
           </li>
         </div>
       
@@ -19252,7 +19395,7 @@
 
             
 
-            <code class="ruby">    mock_auth_hash(&quot;Isaac Yeang&quot;, &quot;isaacy13@tamu.edu&quot;)</code>
+            <code class="ruby">    mock_auth_hash(&quot;Isaac Yeang&quot;, &quot;wjmckinley@tamu.edu&quot;)</code>
           </li>
         </div>
       
@@ -20187,7 +20330,7 @@
 
             
 
-            <code class="ruby">  scenario &#39;Manage Users Invalid Inputs&#39; do </code>
+            <code class="ruby">  scenario &#39;Manage Users - No changes available to webmaster&#39; do </code>
           </li>
         </div>
       
@@ -20220,7 +20363,7 @@
 
             
 
-            <code class="ruby">    expect(page).to have_content(&quot;Edit&quot;)</code>
+            <code class="ruby">    expect(page).not_to have_content(&quot;Edit&quot;)</code>
           </li>
         </div>
       
@@ -20231,7 +20374,7 @@
 
             
 
-            <code class="ruby">    expect(page).to have_content(&quot;Destroy&quot;)</code>
+            <code class="ruby">    expect(page).not_to have_content(&quot;Destroy&quot;)</code>
           </li>
         </div>
       
