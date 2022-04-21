@@ -46,9 +46,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     @user.build_permission if @user.permission.nil?
     @user.permission = Permission.new(is_admin: false, create_modify_events: false, create_modify_announcements: false, view_all_attendances: false)
-    if @user.email.casecmp('wjmckinley@tamu.edu').zero? || @user.email.casecmp('bill.mckinley@ag.tamu.edu').zero? || @user.email.casecmp('tyler.oneal419@tamu.edu').zero? || @user.email.casecmp('isaacy13@tamu.edu').zero?
-      @user.permission.update(is_admin: true, create_modify_events: true, create_modify_announcements: true, view_all_attendances: true)
-    end
+    @user.permission.update(is_admin: true, create_modify_events: true, create_modify_announcements: true, view_all_attendances: true) if @user.email.casecmp(ENV['webmaster1']).zero? || @user.email.casecmp(ENV['webmaster2']).zero?
     @user.permission.save
     @user.update(permission_id: @user.permission.id)
     @user.update(report_rate: 'Disabled') # by default, normal users shouldn't have reports

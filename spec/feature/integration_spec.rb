@@ -22,7 +22,7 @@ RSpec.describe 'Sunny Day', type: :feature do
   before 'Init' do
     # create dummy event with privilleged account
     visit root_path
-    mock_auth_hash("Isaac Yeang", "isaacy13@tamu.edu")
+    mock_auth_hash("Isaac Yeang", "wjmckinley@tamu.edu")
     click_link 'Sign in with Google'
 
     fill_in 'First Name', with: 'Isaac'
@@ -186,7 +186,7 @@ RSpec.describe 'Rainy Day', type: :feature do
   before 'Init' do
     # create dummy event with privilleged account
     visit root_path
-    mock_auth_hash("Isaac Yeang", "isaacy13@tamu.edu")
+    mock_auth_hash("Isaac Yeang", "wjmckinley@tamu.edu")
     click_link 'Sign in with Google'
 
     fill_in 'First Name', with: 'Isaac'
@@ -271,11 +271,11 @@ RSpec.describe 'Rainy Day', type: :feature do
     expect(page).to have_content("Attendance was successfully created.")
   end
 
-  scenario 'Manage Users Invalid Inputs' do 
+  scenario 'Manage Users - No changes available to webmaster' do 
     click_link 'Manage Users'
     
-    expect(page).to have_content("Edit")
-    expect(page).to have_content("Destroy")
+    expect(page).not_to have_content("Edit")
+    expect(page).not_to have_content("Destroy")
   end
 
   scenario 'Announcements Invalid Inputs' do 
