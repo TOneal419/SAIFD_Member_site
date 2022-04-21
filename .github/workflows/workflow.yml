@@ -13,6 +13,7 @@ jobs:
   rspec-test:
     name: RSpec
     runs-on: ubuntu-latest
+    environment: saifd-tamu
     services:
       postgres:
         image: postgres:12
